@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Dal</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link rel='stylesheet' href='css/custom.css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <header>
+      <img class='logo' src='logo.png' alt='Dal' width="40px" height="40px">
+      <span class='logo-text'>DALHOUSIE<br/><span class='logo-text-small'>Schedule Builder</span></span>
+      <nav>
+        <span class='nav-item selected'><a href=''>Build</a></span>
+        <span class='nav-item'><a href=''>Contact</a></span>
+      </nav>
+    </header>
+    <div class="container">
+      <div class="semester_selector">
+        <a class="sem-item selected">FALL</a>
+        <a class="sem-item">WINTER</a>
+      </div>
+      <div class="schedule_container">
+            &nbsp;
+      </div>
+      <div class="course_container">
+        <div class="course_table_header">
+          <span class="course_table_title">SELECT YOUR COURSES</span>
+        </div>
+          <select id="course_list">
+            <option value = "1">Computer Science</option>
+            <option value = "2">Science</option>
+            <option value = "3">Religions</option>
+            <option value = "4">Physics</option>
+          </select>
+          <input type="text" name="search" id="search" placeholder="Search for classes...">
+
+        <div class="course_table_container">
+          <table class="course_table">
+            <tr class="course_header">
+              <td colspan="3">
+                  <span class="course_code">CSCI 1000</span>
+                  <span class="course_title">Computer Science 1</span>
+                  <img id="course_dropdown_icon" src="down.png">
+              </td>
+            </tr>
+            <div class="hidden_courses">
+              <tr class="sub_courses">
+                <td colspan="3">
+                    <span class="course_type">Lecture 01 (<b class="fill_low">33%</b>)</span>
+                    <img id="course_add_btn" src="add_outline.png">
+                    <span class="course_days">MON, WED, FRI</span>
+                    <span class="course_times">08:35am - 09:25am</span>
+                </td>
+              </tr>
+              <tr class="sub_courses">
+                <td colspan="3">
+                    <span class="course_type">Lecture 02 (<b class="fill_med">66%</b>)</span>
+                    <img id="course_add_btn" src="add_outline.png">
+                    <span class="course_days">MON, WED, FRI</span>
+                    <span class="course_times">08:35am - 09:25am</span>
+                </td>
+              </tr>
+              <tr class="sub_courses">
+                <td colspan="3">
+                    <span class="course_type">Lecture 03 (<b class="fill_high">FULL</b>)</span>
+                    <img id="course_add_btn" src="add_disabled.png">
+                    <span class="course_days disable">MON, WED, FRI</span>
+                    <span class="course_times disable">08:35am - 09:25am</span>
+                </td>
+              </tr>
+            </div>
+            <tr class="course_header">
+              <td colspan="3">
+                  <span class="course_code">CSCI 1010</span>
+                  <span class="course_title">Computer Science 2</span>
+                  <img id="course_dropdown_icon" src="down.png">
+              </td>
+            </tr>
+            <tr><td colspan="3"><p>&nbsp;</p>
+            </td></tr>
+
+            <tr class="course_header">
+              <td colspan="3">
+                  <span class="course_code">CSCI 1010</span>
+                  <span class="course_title">Computer Science 2</span>
+                  <img id="course_dropdown_icon" src="down.png">
+              </td>
+            </tr>
+            <tr><td colspan="3"><p>&nbsp;</p>
+            </td></tr>
+
+            <tr class="course_header">
+              <td colspan="3">
+                  <span class="course_code">CSCI 1010</span>
+                  <span class="course_title">Computer Science 2</span>
+                  <img id="course_dropdown_icon" src="down.png">
+              </td>
+            </tr>
+            <tr><td colspan="3"><p>&nbsp;</p>
+            </td></tr>
+
+            <tr class="course_header">
+              <td colspan="3">
+                  <span class="course_code">CSCI 1010</span>
+                  <span class="course_title">Computer Science 2</span>
+                  <img id="course_dropdown_icon" src="down.png">
+              </td>
+            </tr>
+            <tr><td colspan="3"><p>&nbsp;</p>
+            </td></tr>
+
+            <tr class="course_header">
+              <td colspan="3">
+                  <span class="course_code">CSCI 1110</span>
+                  <span class="course_title">Computer Science 1 and 2</span>
+                  <img id="course_dropdown_icon" src="down.png">
+              </td>
+            </tr>
+            <tr><td colspan="3"><p>&nbsp;</p>
+            </td></tr>
+          </table>​
+        </div>
+      </div>
+      <div class="course_crns">
+        <div class="course_table_header">
+          <span class="course_table_title">CURRENT SELECTED CRN’S</span>
+        </div>
+      </div>
+      <div class="footer">
+        <p>Mackenzie Boudreau &#64; 2017</p>
+      </div>
+    </div>
+  </body>
+
+</html>
