@@ -18,11 +18,11 @@
       </nav>
     </header>
     <div class="container">
-      <div class="semester_selector">
+      <div class="semester-selector">
         <a class="sem-item selected">FALL</a>
         <a class="sem-item">WINTER</a>
       </div>
-      <div class="schedule_container">
+      <div class="schedule-container">
         <div class="timeline">
           <ul>
             <li><span>08:25</span></li>
@@ -58,12 +58,66 @@
             <li><span>11:25</span></li>
           </ul>
         </div>
-      </div>
-      <div class="course_container">
-        <div class="course_table_header">
-          <span class="course_table_title">SELECT YOUR COURSES</span>
+        <div class="courses-full">
+          <ul>
+            <li class="courses-group">
+            <div class="day-header"><span>Monday</span></div>
+
+      				<ul>
+      					<li class="class-m" data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1">
+      						<a href="#0">
+      							<em class="class-name"> &nbsp;</em>
+      						</a>
+      					</li>
+                <li class="class-m" data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1">
+                  <a href="#0">
+                    <em class="class-name"> &nbsp;</em>
+                  </a>
+                </li>
+                <li class="class-m" data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1">
+                  <a href="#0">
+                    <em class="class-name"> &nbsp;</em>
+                  </a>
+                </li>
+                <li class="class-m" data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1">
+      						<a href="#0">
+      							<em class="class-name"> &nbsp;</em>
+      						</a>
+      					</li>
+                <li class="class-m" data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1">
+      						<a href="#0">
+      							<em class="class-name"> &nbsp;</em>
+      						</a>
+      					</li>
+              </ul>
+            </li>
+
+            <li class="courses-group">
+            <div class="day-header"><span>Tuesday</span></div>
+
+      				<ul>
+      					<li class="class-m" data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1">
+      						<a href="#0">
+      							<em class="class-name">Computer Science</em>
+      						</a>
+      					</li>
+                <li class="class-m" data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1">
+      						<a href="#0">
+      							<em class="class-name">Computer Science</em>
+      						</a>
+      					</li>
+              </ul>
+            </li>
+
+          </ul>
         </div>
-          <select id="course_list">
+
+      </div>
+      <div class="course-container">
+        <div class="course-table-header">
+          <span class="course-table-title">SELECT YOUR COURSES</span>
+        </div>
+          <select id="course-list">
             <option value = "1">Computer Science</option>
             <option value = "2">Science</option>
             <option value = "3">Religions</option>
@@ -71,88 +125,88 @@
           </select>
           <input type="text" name="search" id="search" placeholder="Search for classes...">
 
-        <div id="course_table_container">
-          <div class="course_header">
-            <span class="course_code">CSCI 1010</span>
-            <span class="course_title">Computer Science 2</span>
-            <img id="course_dropdown_icon" src="img/down.png">
+        <div id="course-table-container">
+          <div class="course-header">
+            <span class="course-code">CSCI 1010</span>
+            <span class="course-title">Computer Science 2</span>
+            <img id="course-dropdown-icon" src="img/down.png">
           </div>
-          <div class="course_data">
-            <span class="course_type">Lecture 01 (<b class="fill_low">33%</b>)</span>
-            <img id="course_add_btn" src="img/add_outline.png">
-            <span class="course_days">MON, WED, FRI</span>
-            <span class="course_times">08:35am - 09:25am</span>
+          <div class="course-data">
+            <span class="course-type">Lecture 01 (<b class="fill-low">33%</b>)</span>
+            <img id="course-add-btn" src="img/add_outline.png">
+            <span class="course-days">MON, WED, FRI</span>
+            <span class="course-times">08:35am - 09:25am</span>
           </div>
-          <div class="course_data">
-            <span class="course_type">Lecture 02 (<b class="fill_med">66%</b>)</span>
-            <img id="course_add_btn" src="img/add_outline.png">
-            <span class="course_days">MON, WED, FRI</span>
-            <span class="course_times">08:35am - 09:25am</span>
+          <div class="course-data">
+            <span class="course-type">Lecture 02 (<b class="fill-med">66%</b>)</span>
+            <img id="course-add-btn" src="img/add_outline.png">
+            <span class="course-days">MON, WED, FRI</span>
+            <span class="course-times">08:35am - 09:25am</span>
           </div>
-          <div class="course_data">
-            <span class="course_type">Lecture 03 (<b class="fill_high">FULL</b>)</span>
-            <img id="course_add_btn" src="img/add_disabled.png">
-            <span class="course_days disable">MON, WED, FRI</span>
-            <span class="course_times disable">08:35am - 09:25am</span>
+          <div class="course-data">
+            <span class="course-type">Lecture 03 (<b class="fill-high">FULL</b>)</span>
+            <img id="course-add-btn" src="img/add_disabled.png">
+            <span class="course-days disable">MON, WED, FRI</span>
+            <span class="course-times disable">08:35am - 09:25am</span>
           </div>
-          <div class="course_header">
-            <span class="course_code">CSCI 1010</span>
-            <span class="course_title">Computer Science 2</span>
-            <img id="course_dropdown_icon" src="img/down.png">
+          <div class="course-header">
+            <span class="course-code">CSCI 1010</span>
+            <span class="course-title">Computer Science 2</span>
+            <img id="course-dropdown-icon" src="img/down.png">
           </div>
-          <div class="course_data">
-            <span class="course_type">Lecture 01 (<b class="fill_low">33%</b>)</span>
-            <img id="course_add_btn" src="img/add_outline.png">
-            <span class="course_days">MON, WED, FRI</span>
-            <span class="course_times">08:35am - 09:25am</span>
+          <div class="course-data">
+            <span class="course-type">Lecture 01 (<b class="fill-low">33%</b>)</span>
+            <img id="course-add-btn" src="img/add_outline.png">
+            <span class="course-days">MON, WED, FRI</span>
+            <span class="course-times">08:35am - 09:25am</span>
           </div>
-          <div class="course_data">
-            <span class="course_type">Lecture 02 (<b class="fill_med">66%</b>)</span>
-            <img id="course_add_btn" src="img/add_outline.png">
-            <span class="course_days">MON, WED, FRI</span>
-            <span class="course_times">08:35am - 09:25am</span>
+          <div class="course-data">
+            <span class="course-type">Lecture 02 (<b class="fill-med">66%</b>)</span>
+            <img id="course-add-btn" src="img/add_outline.png">
+            <span class="course-days">MON, WED, FRI</span>
+            <span class="course-times">08:35am - 09:25am</span>
           </div>
-          <div class="course_data">
-            <span class="course_type">Lecture 03 (<b class="fill_high">FULL</b>)</span>
-            <img id="course_add_btn" src="img/add_disabled.png">
-            <span class="course_days disable">MON, WED, FRI</span>
-            <span class="course_times disable">08:35am - 09:25am</span>
+          <div class="course-data">
+            <span class="course-type">Lecture 03 (<b class="fill-high">FULL</b>)</span>
+            <img id="course-add-btn" src="img/add_disabled.png">
+            <span class="course-days disable">MON, WED, FRI</span>
+            <span class="course-times disable">08:35am - 09:25am</span>
           </div>
-          <div class="course_header">
-            <span class="course_code">CSCI 1010</span>
-            <span class="course_title">Computer Science 2</span>
-            <img id="course_dropdown_icon" src="img/down.png">
+          <div class="course-header">
+            <span class="course-code">CSCI 1010</span>
+            <span class="course-title">Computer Science 2</span>
+            <img id="course-dropdown-icon" src="img/down.png">
           </div>
-          <div class="course_data">
-            <span class="course_type">Lecture 01 (<b class="fill_low">33%</b>)</span>
-            <img id="course_add_btn" src="img/add_outline.png">
-            <span class="course_days">MON, WED, FRI</span>
-            <span class="course_times">08:35am - 09:25am</span>
+          <div class="course-data">
+            <span class="course-type">Lecture 01 (<b class="fill-low">33%</b>)</span>
+            <img id="course-add-btn" src="img/add_outline.png">
+            <span class="course-days">MON, WED, FRI</span>
+            <span class="course-times">08:35am - 09:25am</span>
           </div>
 
-          <div class="course_header">
-            <span class="course_code">CSCI 1010</span>
-            <span class="course_title">Computer Science 2</span>
-            <img id="course_dropdown_icon" src="img/down.png">
+          <div class="course-header">
+            <span class="course-code">CSCI 1010</span>
+            <span class="course-title">Computer Science 2</span>
+            <img id="course-dropdown-icon" src="img/down.png">
           </div>
-          <div class="course_data">
-            <span class="course_type">Lecture 01 (<b class="fill_low">33%</b>)</span>
-            <img id="course_add_btn" src="img/add_outline.png">
-            <span class="course_days">MON, WED, FRI</span>
-            <span class="course_times">08:35am - 09:25am</span>
+          <div class="course-data">
+            <span class="course-type">Lecture 01 (<b class="fill-low">33%</b>)</span>
+            <img id="course-add-btn" src="img/add_outline.png">
+            <span class="course-days">MON, WED, FRI</span>
+            <span class="course-times">08:35am - 09:25am</span>
           </div>
-          <div class="course_data">
-            <span class="course_type">Lecture 02 (<b class="fill_med">66%</b>)</span>
-            <img id="course_add_btn" src="img/add_outline.png">
-            <span class="course_days">MON, WED, FRI</span>
-            <span class="course_times">08:35am - 09:25am</span>
+          <div class="course-data">
+            <span class="course-type">Lecture 02 (<b class="fill-med">66%</b>)</span>
+            <img id="course-add-btn" src="img/add_outline.png">
+            <span class="course-days">MON, WED, FRI</span>
+            <span class="course-times">08:35am - 09:25am</span>
           </div>
 
         </div>
       </div>
-      <div class="course_crns">
-        <div class="course_table_header">
-          <span class="course_table_title">CURRENT SELECTED CRN’S</span>
+      <div class="course-crns">
+        <div class="course-table-header">
+          <span class="course-table-title">CURRENT SELECTED CRN’S</span>
         </div>
       </div>
       <div class="footer">

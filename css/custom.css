@@ -68,12 +68,12 @@ nav {
 }
 
 /* MARK: - SEMESTER SELECTOR */
-.semester_selector {
+.semester-selector {
   width: 100%;
   height: 50px;
 }
 
-.semester_selector a {
+.semester-selector a {
   cursor: pointer;
   font-size: 14px;
   text-decoration: none;
@@ -85,14 +85,15 @@ nav {
   -webkit-transition:color .1s ease-out;
 }
 
-.semester_selector a.selected, .semester_selector a:hover {
+.semester-selector a.selected, .semester-selector a:hover {
   color: #464646;
   font-weight: 700;
 }
 
 /* MARK: - SCHEDULE CONTAINER */
-.schedule_container {
+.schedule-container {
   background-color: white;
+  position: relative;
   height: 513px;
   width: 73%;
   min-width: 700px;
@@ -104,6 +105,7 @@ nav {
 
 .timeline {
   display: block;
+  position: absolute;
   top: 0;
   left: 0;
   height: 100%;
@@ -147,9 +149,32 @@ nav {
   display: none;
 }
 
+/* schedule header css */
+.courses-full {
+  margin-left: 70px;
+  width: 100%;
+}
+
+.courses-full li {
+  list-style-type: none;
+}
+
+.courses-group {
+  display: inline-block;
+  background-color: red;
+  width: 20%;
+}
+.day-header {
+  background-color: blue;
+  text-align: center;
+
+}
+.day-header > span {
+
+}
 
 /* MARK: - COURSE TABLE CONTAINER */
-.course_container #course_list {
+.course-container #course-list {
   margin: auto;
   margin-top: 13px;
   height: 30px;
@@ -165,7 +190,7 @@ nav {
   -webkit-appearance: none;
   -webkit-border-radius: 0px;*/
 }
-.course_container #search {
+.course-container #search {
   background-color: #fff;
   border: 1px solid #EFEFEF;
   outline: none;
@@ -179,7 +204,7 @@ nav {
 }
 
 
-.course_container {
+.course-container {
   min-width: 275px;
   text-align:center;
   background-color: white;
@@ -192,7 +217,7 @@ nav {
   border-radius: 5px;
 }
 
-.course_table_header {
+.course-table-header {
   text-align:left;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -201,7 +226,7 @@ nav {
   background-color: #F8F9FA;
 }
 
-.course_table_header span.course_table_title {
+.course-table-header span.course-table-title {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   margin-left: 14px;
   line-height: 30px;
@@ -212,7 +237,7 @@ nav {
 
 /* course table */
 
-#course_table_container {
+#course-table-container {
 
   margin: auto;
   border: 1px solid #EFEFEF;
@@ -222,19 +247,19 @@ nav {
   overflow-y: scroll;
 }
 
-.course_table {
+.course-table {
   display: table;
   width:100%;
   border-spacing: 0px;
 }
 
-.course_header {
+.course-header {
   height: 50px;
   width: 100%;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, .1);
 }
 
-.course_code {
+.course-code {
   display: block;
   font-size: 10px;
   color: #646464;
@@ -243,12 +268,12 @@ nav {
   text-align: left;
 }
 
-#course_dropdown_icon {
+#course-dropdown-icon {
   float: right;
   margin-right: 13px;
 }
 
-.course_title {
+.course-title {
   text-align: left;
   float: left;
   color: #646464;
@@ -260,7 +285,7 @@ nav {
 
 /* table courses detail */
 
-.course_data {
+.course-data {
   background-color: #EFEFF1;
   height: 44px;
   display: none;
@@ -269,7 +294,7 @@ nav {
   margin-top: 1px;
 }
 
-.course_type {
+.course-type {
   float: left;
   color: #828282;
   margin-left: 5px;
@@ -277,14 +302,14 @@ nav {
 
 }
 
-#course_add_btn {
+#course-add-btn {
   margin-top: 12px;
   cursor: pointer;
   margin-right: 15px;
   float: right;
 }
 
-.course_days {
+.course-days {
   float: right;
   text-align: right;
   color: #5F5F5F;
@@ -293,7 +318,7 @@ nav {
   font-size: 10px;
   font-weight: 600;
 }
-.course_times {
+.course-times {
   float: right;
   color: #5F5F5F;
   text-align: right;
@@ -304,18 +329,18 @@ nav {
   opacity: 0.4;
 }
 
-.fill_low {
+.fill-low {
   color: #4ABA46;
 }
-.fill_med {
+.fill-med {
   color: #EB8E49;
 }
-.fill_high {
+.fill-high {
   color: #BA4646;
 }
 
 /* MARK: - COURSE CRNS CONTAINER */
-.course_crns {
+.course-crns {
   background-color: white;
   border: 1px solid #DEDEDE;
   height: 165px;

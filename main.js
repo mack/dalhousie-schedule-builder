@@ -25,23 +25,23 @@ $(document).ready(function(){
 
     // table drop down
     var currentSelectedRow = null;
-    $('.course_header').click(function(){
+    $('.course-header').click(function(){
       if (!currentSelectedRow) {
         // no row selected
         currentSelectedRow = this;
-        $(currentSelectedRow).nextUntil('.course_header').slideToggle(300);
-        $(currentSelectedRow).find('#course_dropdown_icon').attr('src', 'img/up.png');
+        $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
+        $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/up.png');
       } else {
         if (currentSelectedRow === this) {
-          $(currentSelectedRow).nextUntil('.course_header').slideToggle(300);
-          $(currentSelectedRow).find('#course_dropdown_icon').attr('src', 'img/down.png');
+          $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
+          $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/down.png');
           currentSelectedRow = null;
         } else {
-          $(currentSelectedRow).nextUntil('.course_header').slideToggle(300);
-          $(currentSelectedRow).find('#course_dropdown_icon').attr('src', 'img/down.png');
+          $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
+          $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/down.png');
           currentSelectedRow = this;
-          $(currentSelectedRow).nextUntil('.course_header').slideToggle(300);
-          $(currentSelectedRow).find('#course_dropdown_icon').attr('src', 'img/up.png');
+          $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
+          $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/up.png');
         }
       }
     });
