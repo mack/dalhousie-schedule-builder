@@ -24,14 +24,25 @@ $(document).ready(function(){
     });
 
     // table drop down
-
+    var currentSelectedRow = null;
     $('.course_header').click(function(){
-      //$(this).nextUntil('.clicker')
-      $('.sub_courses').animate({
-        opacity: 0.25,
-        height: "toggle"
-      }, 500, function() {
-    // Animation complete.
-      });
+      if (!currentSelectedRow) {
+        // no row selected
+        currentSelectedRow = this;
+        $(currentSelectedRow).nextUntil('.course_header').slideToggle(300);
+        $(currentSelectedRow).find('#course_dropdown_icon').attr('src', 'img/up.png');
+      } else {
+        if (currentSelectedRow === this) {
+          $(currentSelectedRow).nextUntil('.course_header').slideToggle(300);
+          $(currentSelectedRow).find('#course_dropdown_icon').attr('src', 'img/down.png');
+          currentSelectedRow = null;
+        } else {
+          $(currentSelectedRow).nextUntil('.course_header').slideToggle(300);
+          $(currentSelectedRow).find('#course_dropdown_icon').attr('src', 'img/down.png');
+          currentSelectedRow = this;
+          $(currentSelectedRow).nextUntil('.course_header').slideToggle(300);
+          $(currentSelectedRow).find('#course_dropdown_icon').attr('src', 'img/up.png');
+        }
+      }
     });
 });
