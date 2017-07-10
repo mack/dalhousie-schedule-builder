@@ -120,9 +120,9 @@ nav {
 
 .timeline li {
   list-style-type: none;
-  margin: 0px 20px;
+  margin: 0px 22.5px;
   position: relative;
-  height: 30px;
+  height: 25px;
   font-size: 13px;
   color: #5F5F5F;
 }
@@ -143,6 +143,7 @@ nav {
   background: #EAEAEA;
   width: calc(100% - 90px);
   left: 60px;
+  top: 15px;
 }
 
 .timeline li:nth-of-type(2n) span {
@@ -175,8 +176,12 @@ nav {
 .class-m {
   position: absolute;
   width: 100%;
-  height: 40px;
-  top: 20px;
+  background-color: #D96B6B;
+  border-radius: 6px;
+  box-shadow: 0 3px #A23333;
+  /* Should be on individule cell */
+  top: 42px;
+  height: 122px;
 }
 
 .day-header {
