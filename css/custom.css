@@ -373,16 +373,59 @@ nav {
   border-radius: 5px;
 }
 
+#CRN-fall-head {
+  color: #C3C3C3;
+  font-size: 13px;
+  margin-left: 10px;
+  display: block;
+  margin-top: 9px;
+  margin-bottom: 3px;
+}
+#CRN-winter-head {
+  margin-bottom: 3px;
+  color: #C3C3C3;
+  font-size: 13px;
+  margin-left: 10px;
+  display: block;
+  margin-top: 10px;
+}
+
+#winter, #fall {
+  height: 15px;
+  outline: none;
+  font-size: 13px;
+  color: #4F4F4F;
+  font-weight: 600;
+  margin-left: 10px;
+  padding: 5px;
+  width: 97%;
+}
+
 /* MARK: - FOOTER */
 .footer {
   height: 50px;
 }
-.footer p {
+.footer p, .footer a {
   font-size: 12px;
   color: rgba(0, 0, 0, .20);
   line-height: 50px;
   text-align: right;
+  float: right;
 
+}
+
+.footer a {
+  float: left;
+  fill: rgba(0, 0, 0, .40);
+  text-decoration: none;
+  font-weight: 600;
+  vertical-align: middle;
+  color: rgba(0, 0, 0, .40);
+}
+.footer svg {
+  float: left;
+  margin-top: 16px;
+  margin-right: 4px;
 }
 
 

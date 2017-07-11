@@ -1,0 +1,5 @@
+class Course {
+
+  // crn
+  constructor()
+}

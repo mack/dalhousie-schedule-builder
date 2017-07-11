@@ -129,6 +129,5 @@ def main():
     data = parseUrl(url)
     print(data[0].classes[1])
 
-
 if __name__ == "__main__":
   main()
