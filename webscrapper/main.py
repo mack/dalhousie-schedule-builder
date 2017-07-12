@@ -45,9 +45,15 @@ def parseCourse(course_data):
             course['location'] = courseInfo[12].string
             # avalibility
             course['max'] = courseInfo[13].p.string
+            if (course['max'] == None):
+                open_ = courseInfo[13].p.br.previous_sibling
+                disp = courseInfo[13].p.br.next_sibling
+                course['max'] = open_.replace(" ", "") + " " + disp.replace(" ", "")
             course['current'] = courseInfo[14].p.string
             try:
                 course['waitlist'] = courseInfo[16].p.string
+                if course['waitlist'] == None:
+                    course['waitlist'] = 0
             except:
                 course['waitlist'] = 'NA'
             course['prof'] = courseInfo[20].string.strip(' \t\n\r')
