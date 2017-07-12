@@ -1,20 +1,25 @@
-import MySQLdb as mysql
+import pymysql as mysql
 
-class Database {
+class Database:
 
-        host = 'localhost'
+        host = '127.0.0.1'
         user = 'root'
         password = 'temp_pass'
         db = 'dal'
 
         def __init__(self):
             # create database connection
-            self.connection = mysql.connect(self.host, self.user, self.password, self.db)
+
+            self.connection = mysql.connect(host=self.host, unix_socket='/tmp/mysql.sock', user=self.user, passwd=self.password, db=self.db)
             self.cursor = self.connection.cursor()
 
         def __del__(self):
-            self.connection.close()'
+            self.connection.close()
 
-        def saveCourse():
-            # set up tables in db first 
-}
+        def saveCourse(self):
+            try:
+                self.cursor.execute("INSERT INTO courses(title) VALUES ('{0}')".format("testingmacktesting"))
+                self.connection.commit()
+            except Exception as e:
+                print(e)
+                self.connection.rollback()

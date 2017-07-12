@@ -1,9 +1,9 @@
 # class scrapper
 from bs4 import BeautifulSoup
 import requests
+import db
 
 class Course:
-
     def __init__(self, title, classes):
         self.title = title
         self.classes = classes
@@ -50,6 +50,10 @@ def parseCourse(course_data):
                 disp = courseInfo[13].p.br.next_sibling
                 course['max'] = open_.replace(" ", "") + " " + disp.replace(" ", "")
             course['current'] = courseInfo[14].p.string
+            if (course['current'] == None):
+                open_curr = courseInfo[14].p.br.previous_sibling
+                disp_curr = courseInfo[14].p.br.next_sibling
+                course['current'] = "FIRST("+ open_curr.replace(" ", "") + ") SEC("+ disp_curr.replace(" ", "") + ")"
             try:
                 course['waitlist'] = courseInfo[16].p.string
                 if course['waitlist'] == None:
@@ -124,8 +128,11 @@ def main():
     "fall":"201810",
     "fall/winter":"201810%\2C201820"
     }
-    subject = "CHEM"
+    subject = "CSCI"
     district = "100"
+
+    database = db.Database()
+    database.saveCourse()
 
     # for subject in subjects:
     url = "https://dalonline.dal.ca/PROD/fysktime.P_DisplaySchedule?s_term="+ terms["fall"] + "&s_subj="+ subject + "&s_district=" + district
@@ -133,7 +140,7 @@ def main():
             # THIS IS THE FINAL ARRAY WITH ALL INFORMATION IN IT
             # use as data[courseindex] .title or .classes[classindex] for full info
     data = parseUrl(url)
-    print(data[0].classes[1])
+    print(data[8].classes[0])
 
 if __name__ == "__main__":
   main()
