@@ -8,5 +8,7 @@ I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_Displ
 * Create DB
 * Populate DB
 * Format incorrectly formated data in DB
+* db.py file to save db
+* finish webscrapper
 * REST-API (php, go, or node)
 * Add javascript to connect schedule & course table
