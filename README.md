@@ -5,9 +5,6 @@ Dal Schedule Builder is a web app built for Dalhousie students registering for c
 I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_DisplaySchedule) for the information. I'll have my web scrapper run aprox. once per day to check for changes.
 
 ## TODO
-* Populate DB
 * Format incorrectly formated data in DB
-* db.py file to save db
-* finish webscrapper
 * REST-API (php, go, or node)
 * Add javascript to connect schedule & course table

@@ -20,9 +20,25 @@ def parseDate(times):
     for time in times:
         if time.p.string == " ":
             days.append(0)
+        elif time.p.string == None:
+            days.append(parseDoubleDate(time))
         else:
             days.append(1)
     return days
+
+def parseDoubleDate(time):
+    prevTime = time.p.br.previous_sibling
+    nextTime = time.p.br.next_sibling
+    if (prevTime == u"\u00A0" and nextTime != u"\u00A0"):
+        return 2;
+    elif (nextTime == u"\u00A0" and prevTime != u"\u00A0"):
+        return 1;
+    elif (nextTime != u"\u00A0" and prevTime != u"\u00A0"):
+        return 3;
+    else:
+        return 0;
+
+
 
 def parseCourse(course_data):
 
@@ -37,30 +53,47 @@ def parseCourse(course_data):
             course['crn'] = courseInfo[1].find('b').string
             course['section'] = courseInfo[2].string
             course['type'] = courseInfo[3].string
-
             course['credithours'] = courseInfo[4].string
             course['days'] = parseDate(courseInfo[6:11])
 
             course['times'] = courseInfo[11].string
+            if (course['times'] == None):
+                time_one = courseInfo[11].br.previous_sibling
+                time_two = courseInfo[11].br.next_sibling
+                course['times'] = "ONE(" + time_one + ") TWO(" + time_two + ")"
+
             course['location'] = courseInfo[12].string
-            # avalibility
+            if (course['location'] == None):
+                loc_one = courseInfo[12].br.previous_sibling
+                loc_two = courseInfo[12].br.next_sibling
+                course['location'] = "ONE(" + loc_one + ") TWO(" + loc_two + ")"
+
             course['max'] = courseInfo[13].p.string
             if (course['max'] == None):
                 open_ = courseInfo[13].p.br.previous_sibling
                 disp = courseInfo[13].p.br.next_sibling
                 course['max'] = open_.replace(" ", "") + " " + disp.replace(" ", "")
+
             course['current'] = courseInfo[14].p.string
             if (course['current'] == None):
                 open_curr = courseInfo[14].p.br.previous_sibling
                 disp_curr = courseInfo[14].p.br.next_sibling
                 course['current'] = "FIRST("+ open_curr.replace(" ", "") + ") SEC("+ disp_curr.replace(" ", "") + ")"
+
             try:
                 course['waitlist'] = courseInfo[16].p.string
                 if course['waitlist'] == None:
                     course['waitlist'] = 0
             except:
                 course['waitlist'] = 'NA'
-            course['prof'] = courseInfo[20].string.strip(' \t\n\r')
+
+            if courseInfo[20].string != None:
+                course['prof'] = courseInfo[20].string.strip(' \t\n\r')
+            else:
+                first_prof = courseInfo[20].br.previous_sibling
+                sec_prof = courseInfo[20].br.next_sibling
+                course['prof'] = "ONE("+first_prof.strip(' \t\n\r') + ") TWO(" + sec_prof.strip(' \t\n\r') + ")"
+
             courses.append(course)
         except Exception as e:
             pass
@@ -128,20 +161,18 @@ def main():
     "fall":"201810",
     "fall/winter":"201810%\2C201820"
     }
-    subject = "CSCI"
     district = "100"
 
-
-
-    # for subject in subjects:
-    url = "https://dalonline.dal.ca/PROD/fysktime.P_DisplaySchedule?s_term="+ terms["fall"] + "&s_subj="+ subject + "&s_district=" + district
-
-            # THIS IS THE FINAL ARRAY WITH ALL INFORMATION IN IT
-            # use as data[courseindex] .title or .classes[classindex] for full info
-    data = parseUrl(url)
-    
     database = db.Database()
-    database.saveCourses(data)
+
+    for subject in subjects:
+
+        url = "https://dalonline.dal.ca/PROD/fysktime.P_DisplaySchedule?s_term="+ terms["fall"] + "&s_subj="+ subject + "&s_district=" + district
+
+                # THIS IS THE FINAL ARRAY WITH ALL INFORMATION IN IT
+                # use as data[courseindex] .title or .classes[classindex] for full info
+        data = parseUrl(url)
+        database.saveCourses(data)
 
 if __name__ == "__main__":
   main()
