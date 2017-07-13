@@ -131,8 +131,7 @@ def main():
     subject = "CSCI"
     district = "100"
 
-    database = db.Database()
-    database.saveCourse()
+
 
     # for subject in subjects:
     url = "https://dalonline.dal.ca/PROD/fysktime.P_DisplaySchedule?s_term="+ terms["fall"] + "&s_subj="+ subject + "&s_district=" + district
@@ -140,7 +139,9 @@ def main():
             # THIS IS THE FINAL ARRAY WITH ALL INFORMATION IN IT
             # use as data[courseindex] .title or .classes[classindex] for full info
     data = parseUrl(url)
-    print(data[8].classes[0])
+    
+    database = db.Database()
+    database.saveCourses(data)
 
 if __name__ == "__main__":
   main()
