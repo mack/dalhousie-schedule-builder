@@ -7,4 +7,5 @@ I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_Displ
 ## TODO
 * Format incorrectly formated data in DB
 * REST-API (php, go, or node)
-* Add javascript to connect schedule & course table
+* Course table to API
+* Schedule to API
