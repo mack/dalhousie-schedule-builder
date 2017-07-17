@@ -48,7 +48,7 @@ $(document).ready(function(){
 
     // writting table course here just as a convience, will put in new file after
     $( "#course-list" ).change(function() {
-      var conceptName = $('#course-list').find(":selected").text();
+      var conceptName = $('#course-list').find(":selected").attr('value');
       alert( conceptName );
     });
 
