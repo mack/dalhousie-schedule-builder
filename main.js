@@ -52,7 +52,7 @@ $(document).ready(function(){
       var conceptName = $('#course-list').find(":selected").attr('value');
       $('#course-table-container').empty();
 
-      $.get( "http://localhost:8080/api", function( res ) {
+      $.get( "http://localhost:8080/api/courses?s=" + conceptName, function( res ) {
         for (i = 0; i < res['data'].length; i++) {
           var courses = res['data'];
 
