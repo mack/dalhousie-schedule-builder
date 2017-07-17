@@ -48,12 +48,12 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #9eb4f1;
+  background-color: #e44a4a;
   color: #fff;
 }
 
 nav span.selected a {
-  background-color: #9eb4f1;
+  background-color: #e44a4a;
   color: #fff;
 }
 

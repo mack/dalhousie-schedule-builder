@@ -25,7 +25,8 @@ $(document).ready(function(){
 
     // table drop down
     var currentSelectedRow = null;
-    $('.course-header').click(function(){
+    $('#course-table-container').on('click', '.course-header', function() {
+      console.log('did click');
       if (!currentSelectedRow) {
         // no row selected
         currentSelectedRow = this;
