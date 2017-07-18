@@ -6,17 +6,23 @@ $(document).ready(function(){
   $('#search').keyup(function() {
     search_string = $('#search').val();
     var category = $('#course-list').find(":selected").attr('value');
-    handler.search_stored_courses(category, search_string, function(courses) {
-      update_courses(courses);
-    });
+    if (category != "") {
+      handler.search_stored_courses(category, search_string, function(courses) {
+        update_courses(courses);
+      });
+    }
   });
 
   $( "#course-list" ).change(function() {
     var category = $('#course-list').find(":selected").attr('value');
-
-    handler.get_course(category, function(courses) {
-      update_courses(courses);
-    });
+    if (category == "") {
+      $('#course-table-container').empty();
+      $('#course-table-container').append("<span id=\"no-selected\">No subject selected</span>");
+    } else {
+      handler.get_course(category, function(courses) {
+        update_courses(courses);
+      });
+    }
   });
 
 });

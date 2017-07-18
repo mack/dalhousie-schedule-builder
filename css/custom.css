@@ -24,7 +24,6 @@ body {
 }
 
 .logo-text-small {
-
   font-weight: 300;
   font-size: 0.739em;
 }
@@ -48,12 +47,12 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #e44a4a;
+  background-color: #9b59b6;
   color: #fff;
 }
 
 nav span.selected a {
-  background-color: #e44a4a;
+  background-color: #9b59b6;
   color: #fff;
 }
 
@@ -209,9 +208,11 @@ nav {
   margin-top: 13px;
   height: 30px;
   width: 90%;
+  background: transparent url("../img/select-dropdown.png") no-repeat 97% center;
   background-color: #F5F5F5;
   border: 1px solid #DEDEDE;
-  border-radius: 0px;
+  -webkit-appearance: none;
+  -webkit-border-radius: 2px;
   outline: none;
   padding-left: 10px;
   padding-right: 10px;
