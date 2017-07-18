@@ -1,5 +1,26 @@
 $(document).ready(function(){
-  // Navigation item hover animation
+  setup_ui()
+
+  var handler = new APIHandler();
+
+  $( "#course-list" ).change(function() {
+    var category = $('#course-list').find(":selected").attr('value');
+    $('#course-table-container').empty();
+    handler.get_course(category, function(courses) {
+      for (i = 0; i < courses.length; i++) {
+        $('#course-table-container').append("<div class=\"course-header\"> <span class=\"course-code\">" + courses[i]['category'] + " " + courses[i]['code'] + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
+        if (courses[i]['classes'] != null) { // handle case where theres no classes
+          for (j = 0; j < courses[i]['classes'].length; j++) {
+            $('#course-table-container').append("<div class=\"course-data\"> <span class=\"course-type\">"+ courses[i]['classes'][j]['type'] +" (<b class=\"fill-low\">" + courses[i]['classes'][j]['current'] + "</b>)</span> <img id=\"course-add-btn\" src=\"img/add_outline.png\"> <div class=\"time-info\"> <span class=\"course-days\">" + courses[i]['classes'][j]['days'] + "</span> <span class=\"course-times\">" + courses[i]['classes'][j]['times'] + "</span> </div> </div>");
+          }
+        }
+      }
+    });
+  });
+
+});
+
+function setup_ui() {
   var selected_navigation = $(".nav-item.selected")
   $(".nav-item").hover(
     function() {
@@ -46,26 +67,4 @@ $(document).ready(function(){
         }
       }
     });
-
-    // writting table course here just as a convience, will put in new file after
-    $( "#course-list" ).change(function() {
-      var conceptName = $('#course-list').find(":selected").attr('value');
-      $('#course-table-container').empty();
-
-      $.get( "http://localhost:8080/api/courses?s=" + conceptName, function( res ) {
-        for (i = 0; i < res['data'].length; i++) {
-          var courses = res['data'];
-
-          $('#course-table-container').append("<div class=\"course-header\"> <span class=\"course-code\">" + courses[i]['category'] + " " + courses[i]['code'] + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
-          for (j = 0; j < courses[i]['classes'].length; j++) {
-
-            $('#course-table-container').append("<div class=\"course-data\"> <span class=\"course-type\">"+ courses[i]['classes'][j]['type'] +" (<b class=\"fill-low\">" + courses[i]['classes'][j]['current'] + "</b>)</span> <img id=\"course-add-btn\" src=\"img/add_outline.png\"> <div class=\"time-info\"> <span class=\"course-days\">" + courses[i]['classes'][j]['days'] + "</span> <span class=\"course-times\">" + courses[i]['classes'][j]['times'] + "</span> </div> </div>");
-          }
-
-        }
-      });
-    });
-
-
-
-});
+}

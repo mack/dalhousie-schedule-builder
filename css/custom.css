@@ -247,6 +247,12 @@ nav {
   border-radius: 5px;
 }
 
+#no-selected {
+  line-height: 53vh;
+  font-size: 14px;
+  color: rgb(175, 175, 175);
+}
+
 .course-table-header {
   text-align:left;
   border-top-left-radius: 5px;
