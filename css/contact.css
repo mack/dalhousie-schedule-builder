@@ -1,10 +1,66 @@
+label {
+  float: left;
+  margin-left: 4.1%;
+  clear: both;
+}
 
+h1 {
+  margin-bottom: 10px;
+  float: left;
+  font-weight: 600;
+  font-size: 20px;
+  margin-left: 4.1%;
+  color: #969696;
+}
+.send {
+  background-color: #2ecc71;
+  margin-top: 8px;
+  outline: none;
+  width: 91.2%;
+  height: 40px;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+
+}
 
 .message-container {
+  border: 1px solid #DEDEDE;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, .14);
+  text-align: center;
   background-color: white;
   width: 50%;
-  height: 550px;
+  height: 620px;
   min-width: 380px;
   margin: 15px auto;
+  font-size: 11px;
+  color: #cbcbcb;
+  padding: 20px 0px;
+}
+
+.mail-body {
+  margin-top: 5px;
+  width: 90%;
+  height: 380px;
+  line-height: normal;
+  padding: 4px;
+  border: 1px solid #DEDEDE;
+  outline: none;
+  resize: none;
+  font-size: 13px;
+}
+
+
+.mail-field {
+  margin-top: 5px;
+  font-size: 13px;
+  margin-bottom: 10px;
+  outline: none;
+  border: 1px solid #DEDEDE;
+  padding: 5px;
+  width: 90%;
+  height: 20px;
+  line-height: 20px;
 
 }
