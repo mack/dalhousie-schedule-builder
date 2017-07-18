@@ -3,22 +3,35 @@ $(document).ready(function(){
 
   var handler = new APIHandler();
 
+  $('#search').keyup(function() {
+    search_string = $('#search').val();
+    var category = $('#course-list').find(":selected").attr('value');
+    handler.search_stored_courses(category, search_string, function(courses) {
+      update_courses(courses);
+    });
+  });
+
   $( "#course-list" ).change(function() {
     var category = $('#course-list').find(":selected").attr('value');
-    $('#course-table-container').empty();
+
     handler.get_course(category, function(courses) {
-      for (i = 0; i < courses.length; i++) {
-        $('#course-table-container').append("<div class=\"course-header\"> <span class=\"course-code\">" + courses[i]['category'] + " " + courses[i]['code'] + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
-        if (courses[i]['classes'] != null) { // handle case where theres no classes
-          for (j = 0; j < courses[i]['classes'].length; j++) {
-            $('#course-table-container').append("<div class=\"course-data\"> <span class=\"course-type\">"+ courses[i]['classes'][j]['type'] +" (<b class=\"fill-low\">" + courses[i]['classes'][j]['current'] + "</b>)</span> <img id=\"course-add-btn\" src=\"img/add_outline.png\"> <div class=\"time-info\"> <span class=\"course-days\">" + courses[i]['classes'][j]['days'] + "</span> <span class=\"course-times\">" + courses[i]['classes'][j]['times'] + "</span> </div> </div>");
-          }
-        }
-      }
+      update_courses(courses);
     });
   });
 
 });
+
+function update_courses(courses) {
+  $('#course-table-container').empty();
+  for (i = 0; i < courses.length; i++) {
+    $('#course-table-container').append("<div class=\"course-header\"> <span class=\"course-code\">" + courses[i]['category'] + " " + courses[i]['code'] + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
+    if (courses[i]['classes'] != null) { // handle case where theres no classes
+      for (j = 0; j < courses[i]['classes'].length; j++) {
+        $('#course-table-container').append("<div class=\"course-data\"> <span class=\"course-type\">"+ courses[i]['classes'][j]['type'] +" (<b class=\"fill-low\">" + courses[i]['classes'][j]['current'] + "</b>)</span> <img id=\"course-add-btn\" src=\"img/add_outline.png\"> <div class=\"time-info\"> <span class=\"course-days\">" + courses[i]['classes'][j]['days'] + "</span> <span class=\"course-times\">" + courses[i]['classes'][j]['times'] + "</span> </div> </div>");
+      }
+    }
+  }
+}
 
 function setup_ui() {
   var selected_navigation = $(".nav-item.selected")
