@@ -1,5 +1,0 @@
-class Course {
-
-  // crn
-  constructor()
-}
