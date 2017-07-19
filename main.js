@@ -19,8 +19,13 @@ $(document).ready(function(){
       $('#course-table-container').empty();
       $('#course-table-container').append("<span id=\"no-selected\">No subject selected</span>");
     } else {
-      handler.get_course(category, function(courses) {
-        update_courses(courses);
+      handler.get_course(category, function(courses, err) {
+        if (err == -1) {
+          $('#course-table-container').empty();
+          $('#course-table-container').append("<span id=\"no-selected\">Opps! There was an error.<br>Try again in a few minutes.</span>");
+        } else {
+          update_courses(courses);
+        }
       });
     }
   });

@@ -2,14 +2,16 @@ function APIHandler() {
   this.stored_courses = {};
 }
 
-APIHandler.prototype.get_course = function(category, callback) {
+APIHandler.prototype.get_course = function(category, callback, err) {
   var self = this;
   if (self.stored_courses[category] == null) {
-    $.get( "http://localhost:8080/api/courses?s=" + category, function( res ) {
-      var courses = res['data'];
-      add_to_handler(self, courses, category);
-      callback(courses);
-    });
+      $.get( "http://localhost:8080/api/courses?s=" + category, function( res ) {
+        var courses = res['data'];
+        add_to_handler(self, courses, category);
+        callback(courses, 200);
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+        callback(null, -1);
+      });
   } else {
     callback(self.stored_courses[category]);
   }

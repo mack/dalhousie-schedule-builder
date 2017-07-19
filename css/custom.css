@@ -249,7 +249,8 @@ nav {
 }
 
 #no-selected {
-  line-height: 53vh;
+  vertical-align: middle;
+  display: table-cell;
   font-size: 14px;
   color: rgb(175, 175, 175);
 }
@@ -281,6 +282,7 @@ nav {
   background-color: #F9F9F9;
   height: 53vh;
   overflow-y: scroll;
+  display: table;
 }
 
 .course-table {
