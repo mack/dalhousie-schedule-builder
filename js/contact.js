@@ -25,5 +25,5 @@ function setup_ui() {
     });
     $(".send").click(function(){
       // send email here
-    })
+    });
 }

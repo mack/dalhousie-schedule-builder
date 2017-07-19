@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #F5F6FA;
+  background-color: #f2f3fa; /* previously #F5F6FA */
 }
 
 .logo {
@@ -170,9 +170,9 @@ nav {
 
 .courses-group {
   float: left;
-  width: 18.15%;
+  width: 17.45%;
   margin-top: 20px;
-  margin-left: 4px;
+  margin-right: 10px;
   font-weight: 400;
   font-size: 13px;
   color: rgba(95, 95, 95, .39)
@@ -189,16 +189,26 @@ nav {
   /* CHANGE THIS!! THE TILES WERE JUST DISTRACTING WHILE DEVELOPING! */
   /* CHANGE THIS!! THE TILES WERE JUST DISTRACTING WHILE DEVELOPING! */
   /* CHANGE THIS!! THE TILES WERE JUST DISTRACTING WHILE DEVELOPING! */
-  display: none; /* CHANGE THIS!! THE TILES WERE JUST DISTRACTING WHILE DEVELOPING! */
+  /*display: none; /* CHANGE THIS!! THE TILES WERE JUST DISTRACTING WHILE DEVELOPING! */
   position: absolute;
   width: 100%;
   background-color: #D96B6B;
+  border: 1px solid #F99696;
   border-radius: 6px;
-  box-shadow: 0 3px #A23333;
+  box-shadow: 0 3px #A23333,
+              0 0 0 1px #D96B6B;
   /* Should be on individule cell */
   top: 42px;
   height: 122px;
 }
+
+.class-m > a {
+  color: white;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+}
+
 
 .day-header {
   display: table;
