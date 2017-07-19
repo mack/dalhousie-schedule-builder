@@ -7,7 +7,8 @@
     <link rel='stylesheet' href='css/custom.css'>
     <link rel='stylesheet' href='css/contact.css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="main.js"></script>
+    <!-- <script src="main.js"></script>  switched to contact.js to avoid errors in console -->
+    <script src="js/contact.js"></script>
   </head>
   <body>
     <header>
@@ -19,11 +20,12 @@
       </nav>
     </header>
     <div class="message-container">
-      <h1>CONTACT ME</h1>
+      <h1>Contact Form</h1>
       <label>Enter your name:</label><input type='text' placeholder='John Doe' class='mail-field'><br>
       <label>Enter your email:</label><input type='text' placeholder='example@domain.com' class='mail-field'><br>
       <label>Enter your message:</label><br><textarea class='mail-body'></textarea><br>
-      <input type='submit' class='send' value='SEND EMAIL'>
+      <button class='send'><img src='img/mail.png' id='mail-icon'><span>SEND EMAIL</span></button>
+
     </div>
   </body>
 </html>

@@ -13,16 +13,32 @@ h1 {
   color: #969696;
 }
 .send {
-  background-color: #2ecc71;
   margin-top: 8px;
   outline: none;
   width: 91.2%;
   height: 40px;
+  line-height: 40px;
   border: none;
   color: white;
   font-weight: 700;
   font-size: 14px;
+  background-color: #2ecc71;
+  cursor: pointer;
+  position: relative;
+  border-bottom: 3px solid #27ad60;
+}
 
+.send > img {
+  margin-left: -27px;
+  top: 11.5px;
+  position: absolute;
+  -webkit-transition: -webkit-transform .3s ease-in-out;
+  transition: transform .3s ease-in-out;
+
+}
+
+.send:active {
+  background-color: #26b161;
 }
 
 .message-container {
@@ -33,7 +49,7 @@ h1 {
   width: 50%;
   height: 620px;
   min-width: 380px;
-  margin: 15px auto;
+  margin: 10px auto;
   font-size: 11px;
   color: #cbcbcb;
   padding: 20px 0px;
@@ -55,7 +71,7 @@ h1 {
 .mail-field {
   margin-top: 5px;
   font-size: 13px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   outline: none;
   border: 1px solid #DEDEDE;
   padding: 5px;

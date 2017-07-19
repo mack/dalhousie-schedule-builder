@@ -1,0 +1,26 @@
+$(document).ready(function(){
+  // javascript for contact page
+  setup_ui()
+});
+
+function setup_ui() {
+  var selected_navigation = $(".nav-item.selected")
+  $(".nav-item").hover(
+    function() {
+      selected_navigation.removeClass("selected");
+    }, function() {
+      selected_navigation.addClass("selected");
+    })
+    $(".send").hover(
+      function() {
+        $( "#mail-icon" ).css({
+          "-webkit-transform": "rotate(-12deg) scale(1.05)",
+          "transform": "rotate(-12deg) scale(1.05)" /* For modern browsers(CSS3)  */
+        });
+    }, function() {
+      $( "#mail-icon" ).css({
+        "-webkit-transform": "rotate(0deg)",
+        "transform": "rotate(0deg)" /* For modern browsers(CSS3)  */
+      });
+    })
+}
