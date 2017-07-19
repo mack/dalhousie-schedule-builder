@@ -26,6 +26,7 @@ APIHandler.prototype.search_stored_courses = function(category, search_string, c
       filtered_courses.push(this.stored_courses[category][i]);
     }
   }
+
   if (search_string == "") {
     callback(this.stored_courses[category]);
   } else {

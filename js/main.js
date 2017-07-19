@@ -1,5 +1,6 @@
 $(document).ready(function(){
-  setup_ui()
+  setup_ui();
+  fill_random_crns(); // just for demo purposes
 
   var handler = new APIHandler();
 
@@ -16,13 +17,13 @@ $(document).ready(function(){
   $( "#course-list" ).change(function() {
     var category = $('#course-list').find(":selected").attr('value');
     if (category == "") {
-      $('#course-table-container').empty();
-      $('#course-table-container').append("<span id=\"no-selected\">No subject selected</span>");
+      $('#course-table').empty();
+      $('#course-table').append("<span id=\"no-selected\">No subject selected</span>");
     } else {
       handler.get_course(category, function(courses, err) {
         if (err == -1) {
-          $('#course-table-container').empty();
-          $('#course-table-container').append("<span id=\"no-selected\">Opps! There was an error.<br>Try again in a few minutes.</span>");
+          $('#course-table').empty();
+          $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");
         } else {
           update_courses(courses);
         }
@@ -33,18 +34,24 @@ $(document).ready(function(){
 });
 
 function update_courses(courses) {
-  $('#course-table-container').empty();
+  $('#course-table').empty();
   for (i = 0; i < courses.length; i++) {
-    $('#course-table-container').append("<div class=\"course-header\"> <span class=\"course-code\">" + courses[i]['category'] + " " + courses[i]['code'] + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
+    $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + courses[i]['category'] + " " + courses[i]['code'] + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
     if (courses[i]['classes'] != null) { // handle case where theres no classes
       for (j = 0; j < courses[i]['classes'].length; j++) {
-        $('#course-table-container').append("<div class=\"course-data\"> <span class=\"course-type\">"+ courses[i]['classes'][j]['type'] +" (<b class=\"fill-low\">" + courses[i]['classes'][j]['current'] + "</b>)</span> <img id=\"course-add-btn\" src=\"img/add_outline.png\"> <div class=\"time-info\"> <span class=\"course-days\">" + courses[i]['classes'][j]['days'] + "</span> <span class=\"course-times\">" + courses[i]['classes'][j]['times'] + "</span> </div> </div>");
+        $('#course-table').append("<div class=\"course-data\"> <span class=\"course-type\">"+ courses[i]['classes'][j]['type'] +" (<b class=\"fill-low\">" + courses[i]['classes'][j]['current'] + "</b>)</span> <img id=\"course-add-btn\" src=\"img/add_outline.png\"> <div class=\"time-info\"> <span class=\"course-days\">" + courses[i]['classes'][j]['days'] + "</span> <span class=\"course-times\">" + courses[i]['classes'][j]['times'] + "</span> </div> </div>");
       }
     }
   }
 }
 
 function setup_ui() {
+  $(".timeline ul li").hover(function() {
+    $(this).addClass('focus');
+  }, function() {
+    $(this).removeClass('focus');
+  })
+
   var selected_navigation = $(".nav-item.selected")
   $(".nav-item").hover(
     function() {
@@ -70,7 +77,7 @@ function setup_ui() {
 
     // table drop down
     var currentSelectedRow = null;
-    $('#course-table-container').on('click', '.course-header', function() {
+    $('#course-table').on('click', '.course-header', function() {
       console.log('did click');
       if (!currentSelectedRow) {
         // no row selected
@@ -91,4 +98,34 @@ function setup_ui() {
         }
       }
     });
+}
+
+function fill_random_crns() {
+  var wcrns = [];
+  var fcrns = [];
+  // fill fake CRN's
+  for (i = 0; i < 6; i++) {
+    var new_crn_w = Math.floor(Math.random() * (30000 - 20000 + 1)) + 20000;
+    wcrns.push(new_crn_w);
+    var new_crn_f = Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000;
+    fcrns.push(new_crn_f);
+  }
+
+  // populate fall crns
+  for (i=0; i < fcrns.length; i++) {
+    if (i == fcrns.length - 1) {
+      $("#fall").val($('#fall').val() + fcrns[i]);
+    } else {
+      $("#fall").val($('#fall').val() + fcrns[i] + ", ");
+    }
+  }
+
+  // populate winter crns
+  for (i=0; i < wcrns.length; i++) {
+    if (i == wcrns.length - 1) {
+      $("#winter").val($('#winter').val() + wcrns[i]);
+    } else {
+      $("#winter").val($('#winter').val() + wcrns[i] + ", ");
+    }
+  }
 }

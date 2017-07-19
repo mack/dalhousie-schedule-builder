@@ -22,5 +22,8 @@ function setup_ui() {
         "-webkit-transform": "rotate(0deg)",
         "transform": "rotate(0deg)" /* For modern browsers(CSS3)  */
       });
+    });
+    $(".send").click(function(){
+      // send email here
     })
 }
