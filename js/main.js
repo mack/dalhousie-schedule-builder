@@ -1,6 +1,7 @@
 $(document).ready(function(){
   setup_ui();
   fill_random_crns(); // just for demo purposes
+  setup_schedule();
 
   var handler = new APIHandler();
 

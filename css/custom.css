@@ -194,9 +194,9 @@ nav {
   text-align: center;
   display: table;
   width: 100%;
+  border-radius: 6px;
   background-color: #D96B6B;
   border: 1px solid #F99696;
-  border-radius: 6px;
   box-shadow: 0 3px #A23333,
               0 0 0 1px #D96B6B;
   /* Should be on individule cell */
