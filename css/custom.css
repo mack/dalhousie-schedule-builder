@@ -191,6 +191,8 @@ nav {
   /* CHANGE THIS!! THE TILES WERE JUST DISTRACTING WHILE DEVELOPING! */
   /*display: none; /* CHANGE THIS!! THE TILES WERE JUST DISTRACTING WHILE DEVELOPING! */
   position: absolute;
+  text-align: center;
+  display: table;
   width: 100%;
   background-color: #D96B6B;
   border: 1px solid #F99696;
@@ -198,17 +200,41 @@ nav {
   box-shadow: 0 3px #A23333,
               0 0 0 1px #D96B6B;
   /* Should be on individule cell */
-  top: 42px;
-  height: 122px;
+  top: 29px; /* start at 4 then +25px for each halfhour (54px = hour from start)*/
+  height: 44px; /* start at 44 then +25px for each halfhour (94px = hour&half, 119px=twohour)*/
+  box-sizing: border-box;
+  overflow-y: scroll;
 }
 
-.class-m > a {
+.class-m .class-m-info {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.class-m .class-name {
+  font-weight: 600;
+  font-size: 15px;
   color: white;
+  width: 100%;
   text-decoration: none;
   font-style: normal;
   font-variant: normal;
 }
 
+.class-m .class-time {
+  color: white;
+  display: block;
+  width: 100%;
+}
+
+.class-m > img {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
 
 .day-header {
   display: table;
