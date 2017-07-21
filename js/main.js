@@ -75,18 +75,32 @@ function setup_ui() {
       selected_semester = $(this);
       selected_semester.addClass("selected");
     });
+
+    // mobile menu item
+    $(".menu").click(function() {
+      $("#nav-container").slideToggle(300);
+
+
+
+    });
+
     // table image hover
-    $(".course-data > img").on({ mouseenter: function() {
+    $("#course-table").on("mouseenter", '.course-data #course-add-btn', function() {
         if ($(this).attr('src') == 'img/add_outline.png') {
           $(this).attr('src', "img/add_fill.png");
-        } else if ($(this).attr('src') == 'img/add_disabled.png') {
-          $(this).effect("shake", { times:1, distance: 2 }, 100);
-          $(this).css("opacity", "0.8");
         }
-    }, mouseleave: function() {
+    });
+    $("#course-table").on("mouseleave", '.course-data #course-add-btn', function() {
         if ($(this).attr('src') == "img/add_fill.png") {
           $(this).attr('src', "img/add_outline.png");
         }
+    });
+
+    $("#course-table").on("click", '.course-data #course-add-btn', function() {
+      console.log('test');
+      if ($(this).attr('src') == 'img/add_disabled.png') {
+        $(this).effect("shake", { times:1, distance: 3 }, 100);
+        $(this).css("opacity", "0.85");
       }
     });
 

@@ -9,6 +9,11 @@ body {
   background-color: #f2f3fa; /* previously #F5F6FA */
 }
 
+.menu {
+  display: none;
+  cursor: pointer;
+}
+
 .logo {
   float: left;
   margin-left: 30px;
@@ -120,7 +125,7 @@ nav {
   position: relative;
   height: 78vh;
   width: 73%;
-  min-width: 700px;
+  min-width: 870px;
   float: left;
   overflow-y: scroll;
   border: 1px solid #DEDEDE;
@@ -543,4 +548,97 @@ nav {
 :-moz-placeholder { /* Firefox 4 - 18 */
   color: #B4B4B4;
   opacity: 1;
+}
+
+
+/* RESPONSIVE FOR MOBILE */
+
+/* schedule container */
+@media screen and (max-width: 1235px) {
+
+  .course-container {
+    margin: 10px auto;
+    width: 20%;
+    float: right;
+  }
+  .course-crns {
+    margin-right: 268px;
+    margin-left: 0px;
+  }
+  .schedule-container {
+    width: 100%;
+    overflow: scroll;
+  }
+}
+
+/* nav */
+@media screen and (min-width: 531px) {
+  #nav-container {
+    display: block !important;
+  }
+}
+@media screen and (max-width: 530px) {
+    .course-container {
+      width: 100%;
+    }
+    nav {
+      background-color: white;
+      z-index: 10;
+      position: absolute;
+      display: block;
+      margin: 0px;
+      padding-top: 0px;
+      left: 0;
+      right: 0;
+      top: 60px;
+      box-shadow: 0 2px #EAEAEA;
+
+    }
+    #nav-container {
+      display: none;
+      float: left;
+      clear: both;
+      width: 100%;
+      margin-top: 10px;
+    }
+    nav a:hover {
+      background-color: white;
+      color: inherit;
+    }
+
+    nav span.selected a, nav a {
+      color: #4F4F4F;
+      float: left;
+      clear: both;
+      background-color: white;
+      box-shadow: 0 -1px #EAEAEA,
+                  0 1px #EAEAEA;
+    }
+
+    nav span.selected a, nav a:hover {
+      color: #9b59b6;
+    }
+    .menu {
+      display: block;
+      margin-top: 25px;
+      float: right;
+      margin-right: 25px;
+      top: 0px;
+    }
+    header {
+      width: 100%;
+
+    }
+    nav a {
+      margin-top: 1px;
+      float: left;
+      clear: both;
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+      background-color: white;
+      box-shadow: 0 -1px #EAEAEA,
+                  0 1px #EAEAEA;
+    }
+
 }

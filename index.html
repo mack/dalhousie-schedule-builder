@@ -10,15 +10,17 @@
     <script src="js/main.js"></script>
     <script src="js/apihandler.js"></script>
     <script src="js/schedule.js"></script>
-
   </head>
   <body>
     <header>
       <img class='logo' src='img/logo.png' alt='Dal' width="40px" height="40px">
       <span class='logo-text'>DALHOUSIE<br/><span class='logo-text-small'>Schedule Builder</span></span>
+      <img class='menu' src='img/menu.png' alt='open'>
       <nav>
-        <span class='nav-item selected'><a href='index.html'>Build</a></span>
-        <span class='nav-item'><a href='contact.html'>Contact</a></span>
+        <div id='nav-container'>
+          <span class='nav-item selected'><a href='index.html'>Build</a></span>
+          <span class='nav-item'><a href='contact.html'>Contact</a></span>
+        </div>
       </nav>
     </header>
     <div class="container">
@@ -298,46 +300,46 @@
           <!-- <span id="no-selected">No subject selected</span> -->
           <div id="course-table">
             <div class="course-header">
-            <span class="course-code">CSCI 1010</span>
-            <span class="course-title">Computer Science 2</span>
-            <img id="course-dropdown-icon" src="img/down.png">
-          </div>
-          <div class="course-data">
-            <span class="course-type">Lec 01 (<b class="fill-low">33%</b>)</span>
-            <img id="course-add-btn" src="img/add_outline.png">
-            <div class="time-info-container">
+                <span class="course-code">CSCI 1010</span>
+                <span class="course-title">Computer Science 2</span>
+                <img id="course-dropdown-icon" src="img/down.png">
+            </div>
+            <div class="course-data">
+              <span class="course-type">Lec 01 (<b class="fill-low">33%</b>)</span>
+              <img id="course-add-btn" src="img/add_outline.png">
+              <div class="time-info-container">
+                <div class="time-info-container">
+                  <div class="time-info">
+                    <span class="course-days">MON, WED</span>
+                    <span class="course-times">08:35-09:25</span>
+                  </div>
+                  <div class="time-info">
+                    <span class="course-days">MON</span>
+                    <span class="course-times">08:35-09:25</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="course-data">
+              <span class="course-type">Lec 01 (<b class="fill-med">66%</b>)</span>
+              <img id="course-add-btn" src="img/add_outline.png">
               <div class="time-info-container">
                 <div class="time-info">
-                  <span class="course-days">MON, WED</span>
-                  <span class="course-times">08:35-09:25</span>
+                  <span class="course-days">MON, WED, FRI</span>
+                  <span class="course-times">08:35am - 09:25am</span>
                 </div>
+              </div>
+            </div>
+            <div class="course-data">
+              <span class="course-type">Lec 03 (<b class="fill-high">FULL</b>)</span>
+              <img id="course-add-btn" src="img/add_disabled.png">
+              <div class="time-info-container">
                 <div class="time-info">
-                  <span class="course-days">MON</span>
-                  <span class="course-times">08:35-09:25</span>
+                  <span class="course-days">MON, WED, FRI</span>
+                  <span class="course-times">08:35am - 09:25am</span>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="course-data">
-            <span class="course-type">Lec 01 (<b class="fill-med">66%</b>)</span>
-            <img id="course-add-btn" src="img/add_outline.png">
-            <div class="time-info-container">
-              <div class="time-info">
-                <span class="course-days">MON, WED, FRI</span>
-                <span class="course-times">08:35am - 09:25am</span>
-              </div>
-            </div>
-          </div>
-          <div class="course-data">
-            <span class="course-type">Lec 03 (<b class="fill-high">FULL</b>)</span>
-            <img id="course-add-btn" src="img/add_disabled.png">
-            <div class="time-info-container">
-              <div class="time-info">
-                <span class="course-days">MON, WED, FRI</span>
-                <span class="course-times">08:35am - 09:25am</span>
-              </div>
-            </div>
-          </div>
           </div>
         </div>
       </div>
