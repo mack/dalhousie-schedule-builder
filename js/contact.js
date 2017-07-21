@@ -4,6 +4,11 @@ $(document).ready(function(){
 });
 
 function setup_ui() {
+
+  $(".menu").click(function() {
+    $("#nav-container").slideToggle(300);
+  });
+  
   var selected_navigation = $(".nav-item.selected")
   $(".nav-item").hover(
     function() {

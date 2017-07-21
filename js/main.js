@@ -79,9 +79,6 @@ function setup_ui() {
     // mobile menu item
     $(".menu").click(function() {
       $("#nav-container").slideToggle(300);
-
-
-
     });
 
     // table image hover
