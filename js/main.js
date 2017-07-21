@@ -40,7 +40,7 @@ function update_courses(courses) {
     $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + courses[i]['category'] + " " + courses[i]['code'] + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
     if (courses[i]['classes'] != null) { // handle case where theres no classes
       for (j = 0; j < courses[i]['classes'].length; j++) {
-        $('#course-table').append("<div class=\"course-data\"> <span class=\"course-type\">"+ courses[i]['classes'][j]['type'] +" (<b class=\"fill-low\">" + courses[i]['classes'][j]['current'] + "</b>)</span> <img id=\"course-add-btn\" src=\"img/add_outline.png\"> <div class=\"time-info\"> <span class=\"course-days\">" + courses[i]['classes'][j]['days'] + "</span> <span class=\"course-times\">" + courses[i]['classes'][j]['times'] + "</span> </div> </div>");
+        $('#course-table').append("<div class=\"course-data\"><span class=\"course-type\">Lec 02 (<b class=\"fill-med\">66%</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info\"><span class=\"course-days\">MON, WED, FRI</span><span class=\"course-times\">08:35am - 09:25am</span></div></div></div>");
       }
     }
   }
@@ -75,11 +75,24 @@ function setup_ui() {
       selected_semester = $(this);
       selected_semester.addClass("selected");
     });
+    // table image hover
+    $(".course-data > img").on({ mouseenter: function() {
+        if ($(this).attr('src') == 'img/add_outline.png') {
+          $(this).attr('src', "img/add_fill.png");
+        } else if ($(this).attr('src') == 'img/add_disabled.png') {
+          $(this).effect("shake", { times:1, distance: 2 }, 100);
+          $(this).css("opacity", "0.8");
+        }
+    }, mouseleave: function() {
+        if ($(this).attr('src') == "img/add_fill.png") {
+          $(this).attr('src', "img/add_outline.png");
+        }
+      }
+    });
 
     // table drop down
     var currentSelectedRow = null;
     $('#course-table').on('click', '.course-header', function() {
-      console.log('did click');
       if (!currentSelectedRow) {
         // no row selected
         currentSelectedRow = this;

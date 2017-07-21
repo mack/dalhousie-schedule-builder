@@ -66,6 +66,31 @@ nav {
   margin: 5px 25px
 }
 
+/* MARK: - NOTIFICATION */
+.notif {
+  background-color: #57C86D;
+  position: fixed;
+  right: 20px;
+  z-index: 20;
+  top: 20px;
+  width: 300px;
+  text-align: center;
+  opacity: 0.9;
+  border-radius: 5px;
+  display: table;
+  height: 50px;
+}
+
+.notif > span {
+  display: table-cell;
+  vertical-align: middle;
+  color: white;
+  font-weight: 600;
+}
+
+
+
+
 /* MARK: - SEMESTER SELECTOR */
 .semester-selector {
   width: 100%;
@@ -377,6 +402,7 @@ nav {
   margin-top: 1px;
 }
 
+
 .course-type {
   float: left;
   color: #828282;
@@ -392,22 +418,32 @@ nav {
   float: right;
 }
 
+.time-info-container {
+  display: table;
+  height: 100%;
+  float: right;
+}
+
 .time-info {
-  float:right;
+  display: table-cell;
+  vertical-align: middle;
   text-align: right;
+  padding-right: 12px;
 }
 
 .course-days {
   display: block;
   color: #5F5F5F;
-  margin-right: 15px;
-  margin-top: 6px;
-  font-size: 10px;
+  /*margin-right: 15px;
+  margin-top: 6px;*/
+  font-size: 9px;
+  margin-bottom: -4px;
   font-weight: 600;
 }
 .course-times {
   color: #5F5F5F;
-  margin-right: 15px;
+  font-size: 10px;
+  /*margin-right: 15px;*/
 }
 
 .disable {
