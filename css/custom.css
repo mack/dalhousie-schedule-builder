@@ -41,26 +41,26 @@ header {
   box-shadow: 0 2px rgba(0, 0, 0, .08);
 }
 
-
 nav a {
-  color: #2f2e2e;
-  font-weight: 600;
+  color: #828282;
+  font-weight: 400;
   font-size: 0.9em;
   text-decoration: none;
-  padding: 21px 40px;
+  padding: 19px 40px;
   display: inline-block;
 }
 
 nav a:hover {
-  background-color: #9b59b6;
-  color: #fff;
+  color: #9b59b6;
+  font-weight: 600;
+  border-bottom: 4px solid #9b59b6;
 }
 
 nav span.selected a {
-  background-color: #9b59b6;
-  color: #fff;
+  color: #9b59b6;
+  font-weight: 600;
+  border-bottom: 4px solid #9b59b6;
 }
-
 
 nav {
   float: right;
@@ -654,12 +654,14 @@ nav {
       float: left;
       clear: both;
       background-color: white;
+      border-bottom: 0;
       box-shadow: 0 -1px #EAEAEA,
                   0 1px #EAEAEA;
     }
 
     nav span.selected a, nav a:hover {
       color: #9b59b6;
+      border-bottom: 0;
     }
     .menu {
       display: block;
@@ -670,7 +672,6 @@ nav {
     }
     header {
       width: 100%;
-
     }
     nav a {
       margin-top: 1px;
@@ -679,6 +680,7 @@ nav {
       width: 100%;
       text-align: center;
       padding: 10px 0;
+      border-bottom: 0;
       background-color: white;
       box-shadow: 0 -1px #EAEAEA,
                   0 1px #EAEAEA;
