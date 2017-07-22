@@ -56,6 +56,10 @@ h1 {
 }
 
 .mail-body {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
   margin-top: 5px;
   width: 90%;
   height: 380px;
@@ -69,6 +73,10 @@ h1 {
 
 
 .mail-field {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
   margin-top: 5px;
   font-size: 13px;
   margin-bottom: 5px;
