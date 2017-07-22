@@ -46,10 +46,10 @@ h1 {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, .14);
   text-align: center;
   background-color: white;
-  width: 50%;
+  width: 550px;
   height: 620px;
-  min-width: 380px;
-  margin: 10px auto;
+  margin: 15px auto;
+  margin-bottom: 2px;
   font-size: 11px;
   color: #cbcbcb;
   padding: 20px 0px;
@@ -78,5 +78,21 @@ h1 {
   width: 90%;
   height: 20px;
   line-height: 20px;
+}
+
+.footer {
+  width: 550px;
+  position: relative;
+  margin: auto;
+  margin-bottom: 5px;
+}
+
+@media screen and (max-width: 570px) {
+  .footer {
+    width: 90%;
+  }
+  .message-container {
+    width: 90%;
+  }
 
 }
