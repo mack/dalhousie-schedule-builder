@@ -68,7 +68,7 @@ nav {
 }
 
 .container {
-  margin: 5px 25px
+  margin: 5px 25px;
 }
 
 /* MARK: - NOTIFICATION */
@@ -472,9 +472,11 @@ nav {
   height: 165px;
   width: 100%;
   margin-top: 13px;
-  display:inline-block;
+  display:block;
+  position: relative;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, .14);
   border-radius: 5px;
+  overflow: hidden;
 }
 
 #CRN-fall-head {
@@ -495,14 +497,24 @@ nav {
 }
 
 #winter, #fall {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   height: 15px;
   outline: none;
   font-size: 13px;
   color: #4F4F4F;
   font-weight: 600;
-  margin-left: 10px;
-  padding: 5px;
-  width: 97%;
+  padding: 12px;
+  width: 100%;
+
+}
+
+.CRN-input {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  padding: 0 10px;
 }
 
 /* MARK: - FOOTER */
