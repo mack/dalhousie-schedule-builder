@@ -9,7 +9,7 @@ $(document).ready(function(){
     search_string = $('#search').val();
     var category = $('#course-list').find(":selected").attr('value');
     if (category != "") {
-      handler.search_stored_courses(category, search_string, function(courses) {
+      handler.search_stored_courses(search_string, function(courses) {
         update_courses(courses);
       });
     }
@@ -17,11 +17,12 @@ $(document).ready(function(){
 
   $( "#course-list" ).change(function() {
     var category = $('#course-list').find(":selected").attr('value');
+    handler.update_category(category);
     if (category == "") {
       $('#course-table').empty();
       $('#course-table').append("<span id=\"no-selected\">No subject selected</span>");
     } else {
-      handler.get_course(category, function(courses, err) {
+      handler.get_course(function(courses, err) {
         if (err == -1) {
           $('#course-table').empty();
           $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");

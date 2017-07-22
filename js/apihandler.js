@@ -1,35 +1,41 @@
 function APIHandler() {
+  this.current_category = "";
   this.stored_courses = {};
 }
 
-APIHandler.prototype.get_course = function(category, callback, err) {
+APIHandler.prototype.update_category = function(category) {
+  this.current_category = category;
+  console.log(this.current_category)
+}
+
+APIHandler.prototype.get_course = function(callback, err) {
   var self = this;
-  if (self.stored_courses[category] == null) {
-      $.get( "http://localhost:8080/api/courses?s=" + category, function( res ) {
+  if (self.stored_courses[self.current_category] == null) {
+      $.get( "http://localhost:8080/api/courses?s=" + self.current_category, function( res ) {
         var courses = res['data'];
         format_classes(courses);
-        add_to_handler(self, courses, category);
+        add_to_handler(self, courses, self.current_category);
         callback(courses, 200);
       }).fail(function(jqXHR, textStatus, errorThrown) {
         callback(null, -1);
       });
   } else {
-    callback(self.stored_courses[category]);
+    callback(self.stored_courses[this.current_category]);
   }
 }
 
-APIHandler.prototype.search_stored_courses = function(category, search_string, callback) {
+APIHandler.prototype.search_stored_courses = function(search_string, callback) {
   var filtered_courses = [];
-  for (i = 0; i < this.stored_courses[category].length; i++) {
-    var code = (category + " " + this.stored_courses[category][i].code).toLowerCase();
-    var title = this.stored_courses[category][i].title.toLowerCase();
+  for (i = 0; i < this.stored_courses[this.current_category].length; i++) {
+    var code = (this.current_category + " " + this.stored_courses[this.current_category][i].code).toLowerCase();
+    var title = this.stored_courses[this.current_category][i].title.toLowerCase();
     if (code.search(search_string.toLowerCase()) != -1 || title.search(search_string.toLowerCase()) != -1) {
-      filtered_courses.push(this.stored_courses[category][i]);
+      filtered_courses.push(this.stored_courses[this.current_category][i]);
     }
   }
 
   if (search_string == "") {
-    callback(this.stored_courses[category]);
+    callback(this.stored_courses[this.current_category]);
   } else {
     callback(filtered_courses);
   }
