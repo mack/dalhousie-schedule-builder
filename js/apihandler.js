@@ -42,15 +42,21 @@ function format_classes(courses) {
       if (courses[i]["classes"] != undefined) {
         for (var j = 0; j < courses[i]["classes"].length; j++) {
           var s_class = courses[i]["classes"][j];
-          var one = s_class["days"].match(/ONE\((.*?)\)/)
-          var two = s_class["days"].match(/TWO\((.*?)\)/)
-          if (one != null && two != null) {
-            s_class["days"] = [one[1], two[1]];
+          var d_one = s_class["days"].match(/ONE\((.*?)\)/)
+          var d_two = s_class["days"].match(/TWO\((.*?)\)/)
+          if (d_one != null && d_two != null) {
+            var t_one = s_class["times"].match(/ONE\((.*?)\)/)
+            var t_two = s_class["times"].match(/TWO\((.*?)\)/)
+            s_class["days"] = [d_one[1], d_two[1]];
+            s_class["times"] = [t_one[1], t_two[1]];
+            console.log(s_class)
           } else {
             s_class["days"] = [s_class["days"]];
+            s_class["times"] = [s_class["times"]];
           }
+    
 
-          console.log(s_class["days"]);
+
         }
       }
     }
