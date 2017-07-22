@@ -48,19 +48,24 @@ function format_classes(courses) {
             var t_one = s_class["times"].match(/ONE\((.*?)\)/)
             var t_two = s_class["times"].match(/TWO\((.*?)\)/)
             s_class["days"] = [d_one[1], d_two[1]];
-            s_class["times"] = [t_one[1], t_two[1]];
+            s_class["times"] = [format_time(t_one[1]), format_time(t_two[1])];
             console.log(s_class)
           } else {
             s_class["days"] = [s_class["days"]];
-            s_class["times"] = [s_class["times"]];
+            s_class["times"] = [format_time(s_class["times"])];
           }
-    
-
-
         }
       }
     }
   }
+}
+
+function format_time(time) {
+  var time_formatted = time;
+  if (time != 'C/D') {
+    time_formatted = time.slice(0, 2) + ":" + time.slice(2,7) + ":" + time.slice(7);
+  }
+  return time_formatted;
 }
 
 function add_to_handler(self, courses, category) {

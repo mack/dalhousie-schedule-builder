@@ -24,6 +24,12 @@ var tile_colors = {
   }
 }
 
+function add_class_to_schedule(class_id) {
+  console.log("adding class:" + class_id);
+  var schedule_day = 0; // 0 = MON, 1 = TUE, 2 = WED, 3 = THU, 4 = FRI
+  console.log($(".courses-full > ul").find("ul").eq(schedule_day))
+}
+
 function place_classes() {
   var ele = $(".courses-group");
 

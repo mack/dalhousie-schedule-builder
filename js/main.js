@@ -41,9 +41,7 @@ function update_courses(courses) {
       $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + courses[i]['category'] + " " + courses[i]['code'] + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
       if (courses[i]['classes'] != null) { // handle case where theres no classes
         for (j = 0; j < courses[i]['classes'].length; j++) {
-          var course_element = "<div class=\"course-data\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info-container\">"
-          //$('#course-table').append("<div class=\"course-data\"><span class=\"course-type\">Lec 02 (<b class=\"fill-med\">66%</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info\"><span class=\"course-days\">MON, WED, FRI</span><span class=\"course-times\">08:35am - 09:25am</span></div></div></div>");
-          //$('#course-table').append("<div class=\"course-data\"><span class=\"course-type\">" + courses[i]['classes']["type"] + " " + courses[i]['classes']["section"] + " (<b class=\"fill-low\">" + courses[i]['classes']["current"] + " </b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info-container\">");
+          var course_element = "<div class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info-container\">"
           for (k = 0; k < courses[i]['classes'][j]['days'].length; k++) {
             course_element += "<div class=\"time-info\"><span class=\"course-days\">" + courses[i]['classes'][j]['days'][k] + "</span><span class=\"course-times\">" + courses[i]['classes'][j]['times'][k] + "</span></div>"
           }
@@ -104,7 +102,8 @@ function setup_ui() {
     });
 
     $("#course-table").on("click", '.course-data #course-add-btn', function() {
-      console.log('test');
+      add_class_to_schedule($(this).parent().attr('class-id'));
+      // need to reload table to disable other classes of same type if success
       if ($(this).attr('src') == 'img/add_disabled.png') {
         $(this).effect("shake", { times:1, distance: 3 }, 100);
         $(this).css("opacity", "0.85");
