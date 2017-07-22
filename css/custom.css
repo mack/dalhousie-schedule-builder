@@ -600,7 +600,7 @@ nav {
     display: block !important;
   }
 }
-@media screen and (max-height: 530px) {
+@media screen and (max-height: 530px) and (max-width: 1100px) {
   .course-container {
     overflow-y: hidden;
     width: 100%;

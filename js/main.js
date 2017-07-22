@@ -36,11 +36,13 @@ $(document).ready(function(){
 
 function update_courses(courses) {
   $('#course-table').empty();
-  for (i = 0; i < courses.length; i++) {
-    $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + courses[i]['category'] + " " + courses[i]['code'] + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
-    if (courses[i]['classes'] != null) { // handle case where theres no classes
-      for (j = 0; j < courses[i]['classes'].length; j++) {
-        $('#course-table').append("<div class=\"course-data\"><span class=\"course-type\">Lec 02 (<b class=\"fill-med\">66%</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info\"><span class=\"course-days\">MON, WED, FRI</span><span class=\"course-times\">08:35am - 09:25am</span></div></div></div>");
+  if (courses != undefined) {
+    for (i = 0; i < courses.length; i++) {
+      $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + courses[i]['category'] + " " + courses[i]['code'] + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
+      if (courses[i]['classes'] != null) { // handle case where theres no classes
+        for (j = 0; j < courses[i]['classes'].length; j++) {
+          $('#course-table').append("<div class=\"course-data\"><span class=\"course-type\">Lec 02 (<b class=\"fill-med\">66%</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info\"><span class=\"course-days\">MON, WED, FRI</span><span class=\"course-times\">08:35am - 09:25am</span></div></div></div>");
+        }
       }
     }
   }
