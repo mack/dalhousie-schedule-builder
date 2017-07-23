@@ -23,7 +23,9 @@ APIHandler.prototype.get_course = function(callback, err) {
   }
 }
 
-APIHandler.prototype.get_class_with_id = function(id, callback) {
+// get_class_with_id();
+// returns: {cat_code: s_class}
+APIHandler.prototype.get_class_with_id = function(id) {
   if (this.stored_courses[this.current_category] != undefined) {
     for (i = 0; i < this.stored_courses[this.current_category].length; i++) {
       if (this.stored_courses[this.current_category][i]['classes'] != undefined) {
@@ -31,7 +33,9 @@ APIHandler.prototype.get_class_with_id = function(id, callback) {
         for (j = 0; j < n_classes; j++) {
           if (this.stored_courses[this.current_category][i]['classes'][j] != undefined && this.stored_courses[this.current_category][i]['classes'][j]['id'] == id) {
             var cat_code = this.current_category + " " + this.stored_courses[this.current_category][i]['code'];
-            callback(cat_code, this.stored_courses[this.current_category][i]['classes'][j]);
+            var return_obj = {}
+            return_obj[cat_code] = this.stored_courses[this.current_category][i]['classes'][j];
+            return return_obj;
           }
         }
       }
@@ -39,6 +43,7 @@ APIHandler.prototype.get_class_with_id = function(id, callback) {
   }
 }
 
+// callback function returns array of courses
 APIHandler.prototype.search_stored_courses = function(search_string, callback) {
   var filtered_courses = [];
   for (i = 0; i < this.stored_courses[this.current_category].length; i++) {
@@ -70,7 +75,6 @@ function format_classes(courses) {
             var t_two = s_class["times"].match(/TWO\((.*?)\)/)
             s_class["days"] = [d_one[1], d_two[1]];
             s_class["times"] = [format_time(t_one[1]), format_time(t_two[1])];
-            console.log(s_class)
           } else {
             s_class["days"] = [s_class["days"]];
             s_class["times"] = [format_time(s_class["times"])];

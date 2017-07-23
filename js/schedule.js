@@ -7,32 +7,63 @@ ScheduleHandler.prototype.printSched = function() {
 }
 
 ScheduleHandler.prototype.add_class_to_schedule = function(class_id) {
-  console.log("adding class:" + class_id);
-  var schedule_day = 0; // 0 = MON, 1 = TUE, 2 = WED, 3 = THU, 4 = FRI
-  //console.log($(".courses-full > ul").find("ul").eq(schedule_day))
-  var self = this;
-  handler.get_class_with_id(class_id, function(cat_code, s_class){
-    if (self.selected_courses[cat_code] == undefined) {
-      self.selected_courses[cat_code] = [s_class];
-    } else {
-      var type_detected = false;
-      for (i = 0; i < self.selected_courses[cat_code].length; i++) {
-          if (self.selected_courses[cat_code][i]['type'] == s_class['type']) {
-            type_detected = true;
-          }
-      }
-      if (!type_detected)
-        self.selected_courses[cat_code].push(s_class);
-      else
-        console.log('already have one of type: ' + s_class['type'])
+  // STEPS ----------
+  // 1. add to storage object
+  // 2. add html
+  // 3. reload table
+  // 4. reload CRN's
+  // ----------------
+
+  var new_class = handler.get_class_with_id(class_id);
+  var cat_code = Object.keys(new_class)[0];
+  this.add_to_selected(cat_code, new_class[cat_code]); // adds to this.object's variable selected_courses
+  this.add_to_html(cat_code, new_class[cat_code]); // adds to html
+}
+
+ScheduleHandler.prototype.add_to_html = function(cat_code, s_class) {
+  for (i = 0; i < s_class['days'].length; i++) {
+    if (s_class['days'][i].includes("MON")) {
+        add_class_to_day(0, cat_code, s_class);
     }
-  });
+    if (s_class['days'][i].includes("TUE")) {
+      add_class_to_day(1, cat_code, s_class);
+    }
+    if (s_class['days'][i].includes("WED")) {
+      add_class_to_day(2, cat_code, s_class);
+    }
+    if (s_class['days'][i].includes("THU")) {
+      add_class_to_day(3, cat_code, s_class);
+    }
+    if (s_class['days'][i].includes("FRI")) {
+      add_class_to_day(4, cat_code, s_class);
+    }
+  }
+  place_classes();
+}
+
+function add_class_to_day(day, cat_code, s_class) {
+  $(".courses-full > ul").find("ul").eq(day).append("<li class=\"class-m\" data-start=\"09:35\" data-end=\"10:25\" data-content=\"event-abs-circuit\" data-event=\"event-1\"><img src=\"img/close.png\" alt=\"Remove\"><div class=\"class-m-info\"><span class=\"class-name\">CSCI 1210: LEC</span><span class=\"class-time\">09:25 - 10:25</span></div></li>");
+}
+// add's to storage object
+ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
+  if (this.selected_courses[cat_code] == undefined) {
+    this.selected_courses[cat_code] = [s_class];
+  } else {
+    var type_detected = false;
+    for (i = 0; i < this.selected_courses[cat_code].length; i++) {
+        if (this.selected_courses[cat_code][i]['type'] == s_class['type']) {
+          type_detected = true;
+        }
+    }
+    if (!type_detected)
+      this.selected_courses[cat_code].push(s_class);
+    else
+      console.log('already have one of type: ' + s_class['type'])
+  }
 }
 
 function setup_schedule() {
   $(".class-m > img").click(function() {
-    // delete all those classes
-    // then reload datatable
     place_classes();
   });
 }
@@ -65,7 +96,8 @@ function place_classes() {
       var start = timestamp(s_class.attr("data-start"));
       var end = timestamp(s_class.attr("data-end"));
       var schedule_start = timestamp($(".timeline ul li").eq(0).find("span").text());
-
+      // top = 13px is start
+      console.log(schedule_start);
       start = start - schedule_start;
       end = end - schedule_start;
       var duration = (end - start);
