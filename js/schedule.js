@@ -1,3 +1,34 @@
+function ScheduleHandler() {
+  this.selected_courses = {};
+}
+
+ScheduleHandler.prototype.printSched = function() {
+  console.log(this.selected_courses);
+}
+
+ScheduleHandler.prototype.add_class_to_schedule = function(class_id) {
+  console.log("adding class:" + class_id);
+  var schedule_day = 0; // 0 = MON, 1 = TUE, 2 = WED, 3 = THU, 4 = FRI
+  //console.log($(".courses-full > ul").find("ul").eq(schedule_day))
+  var self = this;
+  handler.get_class_with_id(class_id, function(cat_code, s_class){
+    if (self.selected_courses[cat_code] == undefined) {
+      self.selected_courses[cat_code] = [s_class];
+    } else {
+      var type_detected = false;
+      for (i = 0; i < self.selected_courses[cat_code].length; i++) {
+          if (self.selected_courses[cat_code][i]['type'] == s_class['type']) {
+            type_detected = true;
+          }
+      }
+      if (!type_detected)
+        self.selected_courses[cat_code].push(s_class);
+      else
+        console.log('already have one of type: ' + s_class['type'])
+    }
+  });
+}
+
 function setup_schedule() {
   $(".class-m > img").click(function() {
     // delete all those classes
@@ -22,12 +53,6 @@ var tile_colors = {
     "border": "1px solid #6BE583",
     "box-shadow": "0 3px #23A338, 0 0 0 1px #57C86D"
   }
-}
-
-function add_class_to_schedule(class_id) {
-  console.log("adding class:" + class_id);
-  var schedule_day = 0; // 0 = MON, 1 = TUE, 2 = WED, 3 = THU, 4 = FRI
-  console.log($(".courses-full > ul").find("ul").eq(schedule_day))
 }
 
 function place_classes() {

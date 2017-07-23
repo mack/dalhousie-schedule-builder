@@ -5,7 +5,6 @@ function APIHandler() {
 
 APIHandler.prototype.update_category = function(category) {
   this.current_category = category;
-  console.log(this.current_category)
 }
 
 APIHandler.prototype.get_course = function(callback, err) {
@@ -21,6 +20,22 @@ APIHandler.prototype.get_course = function(callback, err) {
       });
   } else {
     callback(self.stored_courses[this.current_category]);
+  }
+}
+
+APIHandler.prototype.get_class_with_id = function(id, callback) {
+  if (this.stored_courses[this.current_category] != undefined) {
+    for (i = 0; i < this.stored_courses[this.current_category].length; i++) {
+      if (this.stored_courses[this.current_category][i]['classes'] != undefined) {
+        var n_classes = this.stored_courses[this.current_category][i]['classes'].length;
+        for (j = 0; j < n_classes; j++) {
+          if (this.stored_courses[this.current_category][i]['classes'][j] != undefined && this.stored_courses[this.current_category][i]['classes'][j]['id'] == id) {
+            var cat_code = this.current_category + " " + this.stored_courses[this.current_category][i]['code'];
+            callback(cat_code, this.stored_courses[this.current_category][i]['classes'][j]);
+          }
+        }
+      }
+    }
   }
 }
 

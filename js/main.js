@@ -1,9 +1,10 @@
+var handler = new APIHandler(); // global handler for API access
+var scheduleHandler = new ScheduleHandler() // global handler for schedule access
+
 $(document).ready(function(){
   setup_ui();
   fill_random_crns(); // just for demo purposes
   setup_schedule();
-
-  var handler = new APIHandler();
 
   $('#search').keyup(function() {
     search_string = $('#search').val();
@@ -32,7 +33,6 @@ $(document).ready(function(){
       });
     }
   });
-
 });
 
 function update_courses(courses) {
@@ -47,7 +47,6 @@ function update_courses(courses) {
             course_element += "<div class=\"time-info\"><span class=\"course-days\">" + courses[i]['classes'][j]['days'][k] + "</span><span class=\"course-times\">" + courses[i]['classes'][j]['times'][k] + "</span></div>"
           }
           course_element += "</div></div>"
-
           $('#course-table').append(course_element);
         }
       }
@@ -103,7 +102,8 @@ function setup_ui() {
     });
 
     $("#course-table").on("click", '.course-data #course-add-btn', function() {
-      add_class_to_schedule($(this).parent().attr('class-id'));
+      var selected_class = $(this).parent().attr('class-id');
+      scheduleHandler.add_class_to_schedule(selected_class);
       // need to reload table to disable other classes of same type if success
       if ($(this).attr('src') == 'img/add_disabled.png') {
         $(this).effect("shake", { times:1, distance: 3 }, 100);
