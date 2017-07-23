@@ -1,5 +1,6 @@
 function ScheduleHandler() {
   this.selected_courses = {};
+  this.selected_colors = {};
 }
 
 ScheduleHandler.prototype.printSched = function() {
@@ -8,7 +9,7 @@ ScheduleHandler.prototype.printSched = function() {
 
 ScheduleHandler.prototype.add_class_to_schedule = function(class_id) {
   // STEPS ----------
-  // 1. add to storage object
+  // 1. add to storage object 
   // 2. add html
   // 3. reload table
   // 4. reload CRN's
@@ -16,34 +17,40 @@ ScheduleHandler.prototype.add_class_to_schedule = function(class_id) {
 
   var new_class = handler.get_class_with_id(class_id);
   var cat_code = Object.keys(new_class)[0];
-  this.add_to_selected(cat_code, new_class[cat_code]); // adds to this.object's variable selected_courses
-  this.add_to_html(cat_code, new_class[cat_code]); // adds to html
+  var err = this.add_to_selected(cat_code, new_class[cat_code]); // adds to this.object's variable selected_courses
+  if (err != -1) {
+    this.add_to_html(cat_code, new_class[cat_code]); // adds to html
+  }
 }
 
 ScheduleHandler.prototype.add_to_html = function(cat_code, s_class) {
   for (i = 0; i < s_class['days'].length; i++) {
     if (s_class['days'][i].includes("MON")) {
-        add_class_to_day(0, cat_code, s_class);
+        add_class_to_day(0, cat_code, s_class, i);
     }
     if (s_class['days'][i].includes("TUE")) {
-      add_class_to_day(1, cat_code, s_class);
+      add_class_to_day(1, cat_code, s_class, i);
     }
     if (s_class['days'][i].includes("WED")) {
-      add_class_to_day(2, cat_code, s_class);
+      add_class_to_day(2, cat_code, s_class, i);
     }
     if (s_class['days'][i].includes("THU")) {
-      add_class_to_day(3, cat_code, s_class);
+      add_class_to_day(3, cat_code, s_class, i);
     }
     if (s_class['days'][i].includes("FRI")) {
-      add_class_to_day(4, cat_code, s_class);
+      add_class_to_day(4, cat_code, s_class, i);
     }
   }
   place_classes();
 }
 
-function add_class_to_day(day, cat_code, s_class) {
-  $(".courses-full > ul").find("ul").eq(day).append("<li class=\"class-m\" data-start=\"09:35\" data-end=\"10:25\" data-content=\"event-abs-circuit\" data-event=\"event-1\"><img src=\"img/close.png\" alt=\"Remove\"><div class=\"class-m-info\"><span class=\"class-name\">CSCI 1210: LEC</span><span class=\"class-time\">09:25 - 10:25</span></div></li>");
+function add_class_to_day(day, cat_code, s_class, i) {
+  var start = s_class['times'][i].split("-")[0];
+  var end = s_class['times'][i].split("-")[1];
+
+  $(".courses-full > ul").find("ul").eq(day).append("<li class=\"class-m\" data-start=\"" + start + "\" data-end=\"" + end + "\" course=\"" + cat_code + "\" class_id=\"" + s_class['id'] + "\"><img src=\"img/close.png\" alt=\"Remove\"><div class=\"class-m-info\"><span class=\"class-name\">" + cat_code + ": " + s_class['type'] + "</span><span class=\"class-time\">" + s_class['times'][i] + "</span></div></li>");
 }
+
 // add's to storage object
 ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
   if (this.selected_courses[cat_code] == undefined) {
@@ -55,10 +62,12 @@ ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
           type_detected = true;
         }
     }
-    if (!type_detected)
+    if (!type_detected) {
       this.selected_courses[cat_code].push(s_class);
-    else
-      console.log('already have one of type: ' + s_class['type'])
+      return 0;
+    } else {
+      return -1;
+    }
   }
 }
 
