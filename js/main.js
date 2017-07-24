@@ -38,14 +38,13 @@ $(document).ready(function(){
 });
 
 function update_courses(courses) {
-
+  $('#course-table').css("display", "none")
   $('#course-table').empty();
   if (courses != undefined) {
     for (i = 0; i < courses.length; i++) {
 
       var cat_code = courses[i]['category'] + " " + courses[i]['code'];
       if ($(currentSelectedRow).find('.course-code').text() == cat_code) {
-        console.log(i + " is index a")
         // a little bit of a 'hack' to replace the currentselectedrow variable
         var s = "<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/up.png\"> </div>"
         var d = document.createElement('div');
@@ -63,14 +62,23 @@ function update_courses(courses) {
 
           // determine if it's under a selected header (for table reload)
           if ($(currentSelectedRow).find('.course-code').text() == cat_code) {
-            course_element = "<div style=\"display:block;\" "
+            course_element = "<div style=\"display:block; "
           } else {
-            course_element = "<div "
+            course_element = "<div style=\""
           }
 
           // determine if it or its siblings are selected and handle accordingly
-          scheduleHandler.is_class_selected(cat_code, courses[i]['classes'][j]['id'], courses[i]['classes'][j]['type']);
-          course_element += "class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info-container\">"
+          var selected_code = scheduleHandler.is_class_selected(cat_code, courses[i]['classes'][j]['id'], courses[i]['classes'][j]['type']);
+          if (selected_code == -2) {
+            // course element is already selected
+            course_element += " background-color: #E7E7E9;\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_checked.png\"><div class=\"time-info-container\">"
+          } else if (selected_code == -1) {
+            // course type is already selected
+            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_disabled.png\"><div class=\"time-info-container disable\">"
+          } else {
+            // nothing
+            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\">"
+          }
 
           // handle multiple dates
           for (k = 0; k < courses[i]['classes'][j]['days'].length; k++) {
@@ -84,6 +92,18 @@ function update_courses(courses) {
       }
     }
   }
+  $('#course-table').css("display", "table")
+}
+
+function reload_table() {
+  handler.get_course(function(courses, err) {
+    if (err == -1) {
+      $('#course-table').empty();
+      $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");
+    } else {
+      update_courses(courses);
+    }
+  });
 }
 
 function setup_ui() {
@@ -136,15 +156,7 @@ function setup_ui() {
       var selected_class = $(this).parent().attr('class-id');
       var err = scheduleHandler.add_class_to_schedule(selected_class);
       if (err != -1) {
-        handler.get_course(function(courses, err) {
-          if (err == -1) {
-            $('#course-table').empty();
-            $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");
-          } else {
-            update_courses(courses);
-
-          }
-        });
+        reload_table();
       }
       // need to reload table to disable other classes of same type if success
       if ($(this).attr('src') == 'img/add_disabled.png') {
