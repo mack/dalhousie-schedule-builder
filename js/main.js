@@ -38,11 +38,15 @@ $(document).ready(function(){
 });
 
 function update_courses(courses) {
+
   $('#course-table').empty();
   if (courses != undefined) {
     for (i = 0; i < courses.length; i++) {
+
       var cat_code = courses[i]['category'] + " " + courses[i]['code'];
       if ($(currentSelectedRow).find('.course-code').text() == cat_code) {
+        console.log(i + " is index a")
+        // a little bit of a 'hack' to replace the currentselectedrow variable
         var s = "<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/up.png\"> </div>"
         var d = document.createElement('div');
         d.innerHTML = s;
@@ -52,19 +56,20 @@ function update_courses(courses) {
       } else {
         $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
       }
+
       if (courses[i]['classes'] != null) { // handle case where theres no classes
         for (j = 0; j < courses[i]['classes'].length; j++) {
           var course_element = "";
 
           // determine if it's under a selected header (for table reload)
           if ($(currentSelectedRow).find('.course-code').text() == cat_code) {
-            course_element += "<div style=\"display:block;\" "
+            course_element = "<div style=\"display:block;\" "
           } else {
-            course_element += "<div "
+            course_element = "<div "
           }
 
           // determine if it or its siblings are selected and handle accordingly
-          scheduleHandler.is_class_selected(cat_code, courses[i]['classes'][j]['id'], courses[i]['classes'][j]['type'])
+          scheduleHandler.is_class_selected(cat_code, courses[i]['classes'][j]['id'], courses[i]['classes'][j]['type']);
           course_element += "class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info-container\">"
 
           // handle multiple dates
@@ -137,6 +142,7 @@ function setup_ui() {
             $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");
           } else {
             update_courses(courses);
+
           }
         });
       }

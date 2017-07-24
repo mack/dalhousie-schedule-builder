@@ -48,6 +48,14 @@ ScheduleHandler.prototype.is_class_selected = function(cat_code, id, type) {
   // 0 = none
   // -1 = type selected
   // -2 = type & ID selected
+  if (this.selected_courses[cat_code] != undefined) {
+    var selected_code = 0;
+    for (k = 0; k < this.selected_courses[cat_code].length; k++) { // must be variable k because i interfers with main.js somehow (variable scope is confusing me in this project)
+        if (this.selected_courses[cat_code][k]['id'] == id.toString()) {
+          console.log(this.selected_courses[cat_code][k])
+        }
+    }
+  }
   // if (this.selected_courses[cat_code] != undefined) {
   //   var selected_code = 0;
   //   for (i = 0; i < this.selected_courses[cat_code].length; i++) {
