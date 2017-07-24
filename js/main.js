@@ -43,23 +43,37 @@ function update_courses(courses) {
     for (i = 0; i < courses.length; i++) {
       var cat_code = courses[i]['category'] + " " + courses[i]['code'];
       if ($(currentSelectedRow).find('.course-code').text() == cat_code) {
-        $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/up.png\"> </div>");
+        var s = "<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/up.png\"> </div>"
+        var d = document.createElement('div');
+        d.innerHTML = s;
+        var header = d.firstChild;
+        $('#course-table').append(header);
+        currentSelectedRow = header;
       } else {
         $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
       }
       if (courses[i]['classes'] != null) { // handle case where theres no classes
         for (j = 0; j < courses[i]['classes'].length; j++) {
           var course_element = "";
+
+          // determine if it's under a selected header (for table reload)
           if ($(currentSelectedRow).find('.course-code').text() == cat_code) {
-            course_element = "<div style=\"display:block;\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info-container\">"
+            course_element += "<div style=\"display:block;\" "
           } else {
-            course_element = "<div class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info-container\">"
+            course_element += "<div "
           }
 
+          // determine if it or its siblings are selected and handle accordingly
+          scheduleHandler.is_class_selected(cat_code, courses[i]['classes'][j]['id'], courses[i]['classes'][j]['type'])
+          course_element += "class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info-container\">"
+
+          // handle multiple dates
           for (k = 0; k < courses[i]['classes'][j]['days'].length; k++) {
             course_element += "<div class=\"time-info\"><span class=\"course-days\">" + courses[i]['classes'][j]['days'][k] + "</span><span class=\"course-times\">" + courses[i]['classes'][j]['times'][k] + "</span></div>"
           }
+
           course_element += "</div></div>"
+
           $('#course-table').append(course_element);
         }
       }
@@ -136,16 +150,19 @@ function setup_ui() {
     // table drop down
     $('#course-table').on('click', '.course-header', function() {
       if (!currentSelectedRow) {
+        console.log('1')
         // no row selected
         currentSelectedRow = this;
         $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
         $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/up.png');
       } else {
         if ($(currentSelectedRow).find('.course-code').text() === $(this).find('.course-code').text()) {
-          $(this).nextUntil('.course-header').slideToggle(300);
-          $(this).find('#course-dropdown-icon').attr('src', 'img/down.png');
+
+          $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
+          $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/down.png');
           currentSelectedRow = null;
         } else {
+          console.log('3')
           $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
           $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/down.png');
           currentSelectedRow = this;
