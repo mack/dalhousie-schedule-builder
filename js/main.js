@@ -1,5 +1,6 @@
 var handler = new APIHandler(); // global handler for API access
 var scheduleHandler = new ScheduleHandler() // global handler for schedule access
+var currentSelectedRow = null;
 
 $(document).ready(function(){
   setup_ui();
@@ -17,6 +18,7 @@ $(document).ready(function(){
   });
 
   $( "#course-list" ).change(function() {
+    currentSelectedRow = null;
     var category = $('#course-list').find(":selected").attr('value');
     handler.update_category(category);
     if (category == "") {
@@ -39,10 +41,21 @@ function update_courses(courses) {
   $('#course-table').empty();
   if (courses != undefined) {
     for (i = 0; i < courses.length; i++) {
-      $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + courses[i]['category'] + " " + courses[i]['code'] + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
+      var cat_code = courses[i]['category'] + " " + courses[i]['code'];
+      if ($(currentSelectedRow).find('.course-code').text() == cat_code) {
+        $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/up.png\"> </div>");
+      } else {
+        $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
+      }
       if (courses[i]['classes'] != null) { // handle case where theres no classes
         for (j = 0; j < courses[i]['classes'].length; j++) {
-          var course_element = "<div class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info-container\">"
+          var course_element = "";
+          if ($(currentSelectedRow).find('.course-code').text() == cat_code) {
+            course_element = "<div style=\"display:block;\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info-container\">"
+          } else {
+            course_element = "<div class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\"><div class=\"time-info-container\">"
+          }
+
           for (k = 0; k < courses[i]['classes'][j]['days'].length; k++) {
             course_element += "<div class=\"time-info\"><span class=\"course-days\">" + courses[i]['classes'][j]['days'][k] + "</span><span class=\"course-times\">" + courses[i]['classes'][j]['times'][k] + "</span></div>"
           }
@@ -102,7 +115,17 @@ function setup_ui() {
     });
     $("#course-table").on("click", '.course-data #course-add-btn', function() {
       var selected_class = $(this).parent().attr('class-id');
-      scheduleHandler.add_class_to_schedule(selected_class);
+      var err = scheduleHandler.add_class_to_schedule(selected_class);
+      if (err != -1) {
+        handler.get_course(function(courses, err) {
+          if (err == -1) {
+            $('#course-table').empty();
+            $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");
+          } else {
+            update_courses(courses);
+          }
+        });
+      }
       // need to reload table to disable other classes of same type if success
       if ($(this).attr('src') == 'img/add_disabled.png') {
         $(this).effect("shake", { times:1, distance: 3 }, 100);
@@ -111,7 +134,6 @@ function setup_ui() {
     });
 
     // table drop down
-    var currentSelectedRow = null;
     $('#course-table').on('click', '.course-header', function() {
       if (!currentSelectedRow) {
         // no row selected
@@ -119,9 +141,9 @@ function setup_ui() {
         $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
         $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/up.png');
       } else {
-        if (currentSelectedRow === this) {
-          $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
-          $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/down.png');
+        if ($(currentSelectedRow).find('.course-code').text() === $(this).find('.course-code').text()) {
+          $(this).nextUntil('.course-header').slideToggle(300);
+          $(this).find('#course-dropdown-icon').attr('src', 'img/down.png');
           currentSelectedRow = null;
         } else {
           $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);

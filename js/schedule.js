@@ -18,8 +18,9 @@ ScheduleHandler.prototype.add_class_to_schedule = function(class_id) {
   var err = this.add_to_selected(cat_code, new_class[cat_code]); // adds to this.object's variable selected_courses
   if (err != -1) {
     this.add_to_html(cat_code, new_class[cat_code]); // adds to html
+    return 0;
   } else {
-    console.log("Error adding class.");
+    return -1;
   }
 }
 
@@ -43,7 +44,19 @@ ScheduleHandler.prototype.add_to_html = function(cat_code, s_class) {
   }
   this.place_classes();
 }
-
+ScheduleHandler.prototype.is_class_selected = function(cat_code, id) {
+  // 0 = none
+  // -1 = type selected
+  // -2 = type & ID selected
+  if (this.selected_courses[cat_code] != undefined) {
+    for (i = 0; i < this.selected_courses[cat_code].length; i++) {
+      console.log(this.selected_courses[cat_code][i])
+        // if (this.selected_courses[cat_code][i]['type'] == s_class['type']) {
+        //   type_detected = true;
+        // }
+    }
+  }
+}
 // add's to storage object
 ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
   if (Object.keys(this.selected_courses).length >= 6) {
