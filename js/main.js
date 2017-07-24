@@ -100,7 +100,6 @@ function setup_ui() {
           $(this).attr('src', "img/add_outline.png");
         }
     });
-
     $("#course-table").on("click", '.course-data #course-add-btn', function() {
       var selected_class = $(this).parent().attr('class-id');
       scheduleHandler.add_class_to_schedule(selected_class);
