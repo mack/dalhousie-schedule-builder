@@ -5,7 +5,6 @@ Dal Schedule Builder is a web app built for Dalhousie students registering for c
 I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_DisplaySchedule) for the information. I'll have my web scrapper run aprox. once per day to check for changes.
 
 ## TODO
-* Give same classes same color
 * Functional remove classes button
 * Disable same-type classes in course-table
 * Change add-class-btn when class selected in course-table
