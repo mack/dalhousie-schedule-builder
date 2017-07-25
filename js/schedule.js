@@ -135,7 +135,7 @@ var tile_colors = {
 
 ScheduleHandler.prototype.choose_rand_color = function() {
   var rand = Math.floor((Math.random() * (this.colors.length - 1)) + 0);
-  var selected_color = tile_colors[this.colors[rand]];
+  var selected_color = this.colors[rand];
   this.colors.splice(rand, 1);
   return selected_color;
 }
@@ -147,10 +147,19 @@ function add_class_to_day_html(day, cat_code, s_class, i) {
   $(".courses-full > ul").find("ul").eq(day).append("<li class=\"class-m\" data-start=\"" + start + "\" data-end=\"" + end + "\" course=\"" + cat_code + "\" class_id=\"" + s_class['id'] + "\"><img src=\"img/close.png\" id=\"remove-class\" alt=\"Remove\"><div class=\"class-m-info\"><span class=\"class-name\">" + cat_code + ": " + s_class['type'] + "</span><span class=\"class-time\">" + s_class['times'][i] + "</span></div></li>");
 }
 
-function setup_schedule() {
-  $(".courses-full > ul").on('click', '.class-m > #remove-class', function() {
-    $(this).parent().remove(); // keep this in for now
-  });
+ScheduleHandler.prototype.remove_class_with_id = function(cat_code, id) {
+  for (i = 0; i < this.selected_courses[cat_code].length; i++) {
+    if (this.selected_courses[cat_code][i]['id'].toString() == id) {
+      this.selected_courses[cat_code].splice(i, 1);
+      if (this.selected_courses[cat_code].length == 0) {
+        this.colors.push(this.course_colors[cat_code]);
+        delete this.course_colors[cat_code];
+        delete this.selected_courses[cat_code];
+      }
+      return 0;
+    }
+  }
+  return -1;
 }
 
 ScheduleHandler.prototype.place_classes = function() {
@@ -169,7 +178,7 @@ ScheduleHandler.prototype.place_classes = function() {
       var duration = (end - start);
 
       var course_color = this.course_colors[s_class.attr("course")]
-      s_class.css(course_color)
+      s_class.css(tile_colors[course_color])
 
       var top = 29 + ((start / 30) * 25);
       var height = 44 + (((duration/30) - 2)* 26);

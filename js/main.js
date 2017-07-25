@@ -71,13 +71,14 @@ function update_courses(courses) {
           var selected_code = scheduleHandler.is_class_selected(cat_code, courses[i]['classes'][j]['id'], courses[i]['classes'][j]['type']);
           if (selected_code == -2) {
             // course element is already selected
-            course_element += " background-color: #E7E7E9;\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_checked.png\"><div class=\"time-info-container\">"
+            course_element += " background-color: #E7E7E9;\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_checked.png\"><div class=\"time-info-container\">"
           } else if (selected_code == -1) {
             // course type is already selected
-            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_disabled.png\"><div class=\"time-info-container disable\">"
+
+            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_disabled.png\"><div class=\"time-info-container disable\">"
           } else {
             // nothing
-            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\">"
+            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\">"
           }
 
           // handle multiple dates
@@ -102,6 +103,18 @@ function reload_table() {
       $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");
     } else {
       update_courses(courses);
+    }
+  });
+}
+
+function setup_schedule() {
+  $(".courses-full > ul").on('click', '.class-m > #remove-class', function() {
+    var cat_code = $(this).parent().attr('course');
+    var id = $(this).parent().attr('class_id');
+    var err = scheduleHandler.remove_class_with_id(cat_code, id);
+    if (err != -1) {
+      $(".class-m[class_id=\"" + id + "\"]").remove();
+      reload_table()
     }
   });
 }
@@ -153,15 +166,24 @@ function setup_ui() {
         }
     });
     $("#course-table").on("click", '.course-data #course-add-btn', function() {
-      var selected_class = $(this).parent().attr('class-id');
-      var err = scheduleHandler.add_class_to_schedule(selected_class);
-      if (err != -1) {
-        reload_table();
-      }
       // need to reload table to disable other classes of same type if success
-      if ($(this).attr('src') == 'img/add_disabled.png') {
+      if ($(this).attr('src') == 'img/add_checked.png') {
+        var cat_code = $(this).parent().attr('course');
+        var id = $(this).parent().attr('class-id');
+        var err = scheduleHandler.remove_class_with_id(cat_code, id);
+        if (err != -1) {
+          $(".class-m[class_id=\"" + id + "\"]").remove();
+          reload_table()
+        }
+      } else if ($(this).attr('src') == 'img/add_disabled.png') {
         $(this).effect("shake", { times:1, distance: 3 }, 100);
         $(this).css("opacity", "0.85");
+      } else {
+        var selected_class = $(this).parent().attr('class-id');
+        var err = scheduleHandler.add_class_to_schedule(selected_class);
+        if (err != -1) {
+          reload_table();
+        }
       }
     });
 
