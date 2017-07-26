@@ -6,7 +6,6 @@ I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_Displ
 
 ## Preview
 ![Web](http://i.imgur.com/0yBTvOn.png "Website Preview")
-![Mobile](http://i.imgur.com/qTEmPP2.png "Mobile Preview")
 
 ## TODO
 * Add CRNs to CRN element
