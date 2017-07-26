@@ -17,10 +17,19 @@ ScheduleHandler.prototype.add_class_to_schedule = function(class_id) {
   var cat_code = Object.keys(new_class)[0];
   var err = this.add_to_selected(cat_code, new_class[cat_code]); // adds to this.object's variable selected_courses
   if (err != -1) {
+    this.add_crn_to_html(new_class[cat_code])
     this.add_to_html(cat_code, new_class[cat_code]); // adds to html
     return 0;
   } else {
     return -1;
+  }
+}
+
+ScheduleHandler.prototype.add_crn_to_html = function(s_class) {
+  if ($('#fall').val() == "") {
+    $('#fall').val(s_class['crn'].toString());
+  } else {
+    $('#fall').val($('#fall').val() +  ", " + s_class['crn'].toString());
   }
 }
 
@@ -150,12 +159,14 @@ function add_class_to_day_html(day, cat_code, s_class, i) {
 ScheduleHandler.prototype.remove_class_with_id = function(cat_code, id) {
   for (i = 0; i < this.selected_courses[cat_code].length; i++) {
     if (this.selected_courses[cat_code][i]['id'].toString() == id) {
+      //$('#fall').val($('fall').val().replace('1', 'p')); SHOULD REPLACE CRN HERE
       this.selected_courses[cat_code].splice(i, 1);
       if (this.selected_courses[cat_code].length == 0) {
         this.colors.push(this.course_colors[cat_code]);
         delete this.course_colors[cat_code];
         delete this.selected_courses[cat_code];
       }
+
       return 0;
     }
   }

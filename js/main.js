@@ -4,7 +4,7 @@ var currentSelectedRow = null;
 
 $(document).ready(function(){
   setup_ui();
-  fill_random_crns(); // just for demo purposes
+  // fill_random_crns(); // just for demo purposes
   setup_schedule();
 
   $('#search').keyup(function() {
