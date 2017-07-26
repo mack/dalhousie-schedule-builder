@@ -53,6 +53,17 @@ ScheduleHandler.prototype.add_to_html = function(cat_code, s_class) {
   }
   this.place_classes();
 }
+
+ScheduleHandler.prototype.load_selected_courses_into_html = function() {
+  var keys = Object.keys(this.selected_courses)
+  for (var i = 0; i < keys.length; i++) {
+    var cat_code = keys[i];
+    for (var j = 0; j < this.selected_courses[cat_code].length; j++) {
+      this.add_to_html(cat_code, this.selected_courses[cat_code][j]);
+    }
+  }
+}
+
 ScheduleHandler.prototype.is_class_selected = function(cat_code, id, type) {
   // 0 = none
   // -1 = type selected
@@ -159,7 +170,7 @@ function add_class_to_day_html(day, cat_code, s_class, i) {
 ScheduleHandler.prototype.remove_class_with_id = function(cat_code, id) {
   for (i = 0; i < this.selected_courses[cat_code].length; i++) {
     if (this.selected_courses[cat_code][i]['id'].toString() == id) {
-      //$('#fall').val($('fall').val().replace('1', 'p')); SHOULD REPLACE CRN HERE
+      //$('#fall').val($('fall').val().replace('1', 'p'));
       this.selected_courses[cat_code].splice(i, 1);
       if (this.selected_courses[cat_code].length == 0) {
         this.colors.push(this.course_colors[cat_code]);
@@ -199,6 +210,21 @@ ScheduleHandler.prototype.place_classes = function() {
       });
     }
   }
+}
+
+function setup_schedule() {
+
+  scheduleHandler.load_selected_courses_into_html();
+
+  $(".courses-full > ul").on('click', '.class-m > #remove-class', function() {
+    var cat_code = $(this).parent().attr('course');
+    var id = $(this).parent().attr('class_id');
+    var err = scheduleHandler.remove_class_with_id(cat_code, id);
+    if (err != -1) {
+      $(".class-m[class_id=\"" + id + "\"]").remove();
+      reload_table()
+    }
+  });
 }
 
 function timestamp(time) {

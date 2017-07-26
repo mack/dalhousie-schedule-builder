@@ -2,9 +2,50 @@ var handler = new APIHandler(); // global handler for API access
 var scheduleHandler = new ScheduleHandler() // global handler for schedule access
 var currentSelectedRow = null;
 
+$(window).bind('beforeunload', function() {
+   save_selected_to_storage()
+});
+
+function load_selected_courses() {
+  var selected_courses_temp = localStorage.getItem("selected_courses");
+  var course_colors_temp = localStorage.getItem("course_colors");
+  var colors_temp = localStorage.getItem("colors");
+
+  selected_courses_temp = JSON.parse(selected_courses_temp);
+  course_colors_temp = JSON.parse(course_colors_temp);
+  colors_temp = JSON.parse(colors_temp);
+
+  scheduleHandler.selected_courses = selected_courses_temp;
+  scheduleHandler.course_colors = course_colors_temp;
+  scheduleHandler.colors = colors_temp;
+}
+
+function save_selected_to_storage() {
+  // add's to storage object
+  var selected_courses_temp = scheduleHandler.selected_courses;
+  var course_colors_temp = scheduleHandler.course_colors;
+  var colors_temp = scheduleHandler.colors;
+
+  selected_courses_temp = JSON.stringify(selected_courses_temp);
+  course_colors_temp = JSON.stringify(course_colors_temp);
+  colors_temp = JSON.stringify(colors_temp);
+
+  localStorage.setItem("selected_courses", selected_courses_temp);
+  localStorage.setItem("course_colors", course_colors_temp);
+  localStorage.setItem("colors", colors_temp);
+}
+
+function clear_storage() {
+  localStorage.clear();
+  scheduleHandler.selected_courses = {};
+  scheduleHandler.course_colors = {};
+  scheduleHandler.colors = ["blue", "red", "green", "purple", "yellow", "grey"];
+}
+
 $(document).ready(function(){
   setup_ui();
   // fill_random_crns(); // just for demo purposes
+  load_selected_courses();
   setup_schedule();
 
   $('#search').keyup(function() {
@@ -103,18 +144,6 @@ function reload_table() {
       $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");
     } else {
       update_courses(courses);
-    }
-  });
-}
-
-function setup_schedule() {
-  $(".courses-full > ul").on('click', '.class-m > #remove-class', function() {
-    var cat_code = $(this).parent().attr('course');
-    var id = $(this).parent().attr('class_id');
-    var err = scheduleHandler.remove_class_with_id(cat_code, id);
-    if (err != -1) {
-      $(".class-m[class_id=\"" + id + "\"]").remove();
-      reload_table()
     }
   });
 }
