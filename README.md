@@ -4,6 +4,10 @@ Dal Schedule Builder is a web app built for Dalhousie students registering for c
 ## How do I keep classes up-to-date?
 I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_DisplaySchedule) for the information. I'll have my web scrapper run aprox. once per day to check for changes.
 
+## Preview
+![Web](http://i.imgur.com/0yBTvOn.png "Website Preview")
+![Mobile](http://i.imgur.com/qTEmPP2.png "Mobile Preview")
+
 ## TODO
 * Add CRNs to CRN element
 * Add refresh CRN's button
