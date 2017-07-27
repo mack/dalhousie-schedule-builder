@@ -207,6 +207,8 @@ function setup_ui() {
       } else if ($(this).attr('src') == 'img/add_disabled.png') {
         $(this).effect("shake", { times:1, distance: 3 }, 100);
         $(this).css("opacity", "0.85");
+        var selected_class = $(this).parent().attr('class-id');
+        scheduleHandler.add_class_to_schedule(selected_class); // just to trigger notification
       } else {
         var selected_class = $(this).parent().attr('class-id');
         var err = scheduleHandler.add_class_to_schedule(selected_class);
@@ -219,19 +221,16 @@ function setup_ui() {
     // table drop down
     $('#course-table').on('click', '.course-header', function() {
       if (!currentSelectedRow) {
-        console.log('1')
         // no row selected
         currentSelectedRow = this;
         $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
         $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/up.png');
       } else {
         if ($(currentSelectedRow).find('.course-code').text() === $(this).find('.course-code').text()) {
-
           $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
           $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/down.png');
           currentSelectedRow = null;
         } else {
-          console.log('3')
           $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
           $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/down.png');
           currentSelectedRow = this;

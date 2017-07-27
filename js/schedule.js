@@ -99,11 +99,13 @@ ScheduleHandler.prototype.is_class_selected = function(cat_code, id, type) {
 // add's to storage object
 ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
   if (Object.keys(this.selected_courses).length >= 6) {
+    display_notification('You\'ve reached the limit of courses (6)', "neutral");
     return -1;
   }
   if (this.selected_courses[cat_code] == undefined) {
     this.course_colors[cat_code] = this.choose_rand_color()
     this.selected_courses[cat_code] = [s_class];
+    display_notification('Added <em>'+cat_code + " " + s_class['type']+"</em>", "pos");
   } else {
     var type_detected = false;
     for (i = 0; i < this.selected_courses[cat_code].length; i++) {
@@ -113,8 +115,10 @@ ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
     }
     if (!type_detected) {
       this.selected_courses[cat_code].push(s_class);
+      display_notification('Added <em>'+cat_code + " " + s_class['type']+"</em>", "pos");
       return 0;
     } else {
+      display_notification('You already have a class of type: ' + s_class['type'], "neutral");
       return -1;
     }
   }
@@ -170,7 +174,7 @@ function add_class_to_day_html(day, cat_code, s_class, i) {
 ScheduleHandler.prototype.remove_class_with_id = function(cat_code, id) {
   for (i = 0; i < this.selected_courses[cat_code].length; i++) {
     if (this.selected_courses[cat_code][i]['id'].toString() == id) {
-      //$('#fall').val($('fall').val().replace('1', 'p'));
+      display_notification('Removed <em>'+cat_code + " " + this.selected_courses[cat_code][i]['type']+"</em>", "neg");
       this.selected_courses[cat_code].splice(i, 1);
       if (this.selected_courses[cat_code].length == 0) {
         this.colors.push(this.course_colors[cat_code]);
@@ -213,7 +217,6 @@ ScheduleHandler.prototype.place_classes = function() {
 }
 
 function setup_schedule() {
-
   scheduleHandler.load_selected_courses_into_html();
 
   $(".courses-full > ul").on('click', '.class-m > #remove-class', function() {
@@ -225,6 +228,25 @@ function setup_schedule() {
       reload_table()
     }
   });
+}
+
+function check_for_conflicting_times() {
+
+}
+
+function display_notification(text, type) {
+  if (type == 'neg') {
+    $('.schedule-notif').removeClass().addClass('schedule-notif negative');
+    $('.schedule-notif > img').attr("src","img/delete.png");
+  } else if (type == 'pos') {
+    $('.schedule-notif').removeClass().addClass('schedule-notif positive');
+    $('.schedule-notif > img').attr("src","img/add_notification.png");
+  } else if (type == 'neutral') {
+    $('.schedule-notif').removeClass().addClass('schedule-notif neutral');
+    $('.schedule-notif > img').attr("src","img/block.png");
+  }
+  $('.schedule-notif > span').html(text);
+  $('.schedule-notif').fadeIn(350).delay(1500).fadeOut(350);
 }
 
 function timestamp(time) {
