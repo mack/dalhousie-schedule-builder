@@ -55,11 +55,13 @@ ScheduleHandler.prototype.add_to_html = function(cat_code, s_class) {
 }
 
 ScheduleHandler.prototype.load_selected_courses_into_html = function() {
-  var keys = Object.keys(this.selected_courses)
-  for (var i = 0; i < keys.length; i++) {
-    var cat_code = keys[i];
-    for (var j = 0; j < this.selected_courses[cat_code].length; j++) {
-      this.add_to_html(cat_code, this.selected_courses[cat_code][j]);
+  if (this.selected_courses != undefined) {
+    var keys = Object.keys(this.selected_courses)
+    for (var i = 0; i < keys.length; i++) {
+      var cat_code = keys[i];
+      for (var j = 0; j < this.selected_courses[cat_code].length; j++) {
+        this.add_to_html(cat_code, this.selected_courses[cat_code][j]);
+      }
     }
   }
 }
@@ -68,7 +70,7 @@ ScheduleHandler.prototype.is_class_selected = function(cat_code, id, type) {
   // 0 = none
   // -1 = type selected
   // -2 = type & ID selected
-  if (this.selected_courses[cat_code] != undefined) {
+  if (this.selected_courses != undefined && this.selected_courses[cat_code] != undefined) {
     var selected_code = 0;
     for (k = 0; k < this.selected_courses[cat_code].length; k++) { // must be variable k because i interfers with main.js somehow (variable scope is confusing me in this project)
         if (this.selected_courses[cat_code][k]['id'] == id.toString()) {
@@ -105,7 +107,6 @@ ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
   if (this.selected_courses[cat_code] == undefined) {
     this.course_colors[cat_code] = this.choose_rand_color()
     this.selected_courses[cat_code] = [s_class];
-    display_notification('Added <em>'+cat_code + " " + s_class['type']+"</em>", "pos");
   } else {
     var type_detected = false;
     for (i = 0; i < this.selected_courses[cat_code].length; i++) {
@@ -115,7 +116,6 @@ ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
     }
     if (!type_detected) {
       this.selected_courses[cat_code].push(s_class);
-      display_notification('Added <em>'+cat_code + " " + s_class['type']+"</em>", "pos");
       return 0;
     } else {
       display_notification('You already have a class of type: ' + s_class['type'], "neutral");
@@ -174,7 +174,6 @@ function add_class_to_day_html(day, cat_code, s_class, i) {
 ScheduleHandler.prototype.remove_class_with_id = function(cat_code, id) {
   for (i = 0; i < this.selected_courses[cat_code].length; i++) {
     if (this.selected_courses[cat_code][i]['id'].toString() == id) {
-      display_notification('Removed <em>'+cat_code + " " + this.selected_courses[cat_code][i]['type']+"</em>", "neg");
       this.selected_courses[cat_code].splice(i, 1);
       if (this.selected_courses[cat_code].length == 0) {
         this.colors.push(this.course_colors[cat_code]);
@@ -218,7 +217,6 @@ ScheduleHandler.prototype.place_classes = function() {
 
 function setup_schedule() {
   scheduleHandler.load_selected_courses_into_html();
-
   $(".courses-full > ul").on('click', '.class-m > #remove-class', function() {
     var cat_code = $(this).parent().attr('course');
     var id = $(this).parent().attr('class_id');
@@ -246,7 +244,17 @@ function display_notification(text, type) {
     $('.schedule-notif > img').attr("src","img/block.png");
   }
   $('.schedule-notif > span').html(text);
-  $('.schedule-notif').fadeIn(350).delay(1500).fadeOut(350);
+  $('.schedule-notif').fadeIn(350);
+
+  var timeOutId = null;
+  timeOutId = setTimeout(function() {
+    $('.schedule-notif').fadeOut(350);
+  }, 2500);
+
+  $('.schedule-notif').on("click", function() {
+    clearTimeout(timeOutId);
+    $(this).fadeOut(350);
+  })
 }
 
 function timestamp(time) {

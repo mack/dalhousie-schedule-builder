@@ -125,7 +125,7 @@ nav {
 
 /* schedule notification */
 .positive {
-  background-color: #57ce57;
+  background-color: #3cb33c;
 }
 .negative {
   background-color: #c13c3c;
@@ -149,7 +149,7 @@ nav {
   width: auto;
   padding: 0px 20px;
   height: 50px;
-  border-radius: 5px;
+  border-radius: 8px;
   opacity: 0.7;
   text-align: center;
   font-size: 13px;

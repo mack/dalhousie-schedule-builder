@@ -15,9 +15,11 @@ function load_selected_courses() {
   course_colors_temp = JSON.parse(course_colors_temp);
   colors_temp = JSON.parse(colors_temp);
 
-  scheduleHandler.selected_courses = selected_courses_temp;
-  scheduleHandler.course_colors = course_colors_temp;
-  scheduleHandler.colors = colors_temp;
+  if (selected_courses_temp != null && course_colors_temp != null && colors_temp != null) {
+    scheduleHandler.selected_courses = selected_courses_temp;
+    scheduleHandler.course_colors = course_colors_temp;
+    scheduleHandler.colors = colors_temp;
+  }
 }
 
 function save_selected_to_storage() {
@@ -194,6 +196,7 @@ function setup_ui() {
           $(this).attr('src', "img/add_outline.png");
         }
     });
+
     $("#course-table").on("click", '.course-data #course-add-btn', function() {
       // need to reload table to disable other classes of same type if success
       if ($(this).attr('src') == 'img/add_checked.png') {
