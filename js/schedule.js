@@ -227,6 +227,17 @@ function setup_schedule() {
     }
   });
 
+  $(".courses-full > ul").on("click", '.class-m', function(e) {
+    if($(e.target).is('img')){
+         e.preventDefault();
+         return;
+     }
+    var bg = $(this).css('background-color')
+    var id = $(this).attr("class_id")
+    // just need to write a function to retrieve the class title
+    display_notification("CLASS TITLE HERE", "", true, bg);
+  })
+
   $(".courses-full > ul").on("mouseenter", '.class-m', function() {
     $(this).find('#remove-class').css('display', "block");
   })
@@ -239,7 +250,12 @@ function check_for_conflicting_times() {
 
 }
 
-function display_notification(text, type) {
+function display_notification(text, type, noImage, bg) {
+  if (noImage == true) {
+    $('.schedule-notif > img').css("display","none");
+  } else {
+    $('.schedule-notif > img').css("display","block");
+  }
   if (type == 'neg') {
     $('.schedule-notif').removeClass().addClass('schedule-notif negative');
     $('.schedule-notif > img').attr("src","img/delete.png");
@@ -249,6 +265,11 @@ function display_notification(text, type) {
   } else if (type == 'neutral') {
     $('.schedule-notif').removeClass().addClass('schedule-notif neutral');
     $('.schedule-notif > img').attr("src","img/block.png");
+  } else {
+    if (bg != null) {
+      $('.schedule-notif').removeClass().addClass('schedule-notif')
+      $('.schedule-notif').css("background-color", bg)
+    }
   }
   $('.schedule-notif > span').html(text);
   $('.schedule-notif').fadeIn(350);
