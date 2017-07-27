@@ -38,10 +38,7 @@ def parseDoubleDate(time):
     else:
         return 0;
 
-
-
 def parseCourse(course_data):
-
     title = course_data[0].find('b').string # parse title into CSCI CODE and Course Name
     courses = []
 
@@ -101,7 +98,6 @@ def parseCourse(course_data):
     c = Course(title, courses)
     return c
 
-
 def parseUrl(url):
     pageCount = 1
     courses = []
@@ -113,11 +109,6 @@ def parseUrl(url):
         # use bs4
         # MARK: PAGECOUNT
         soup = BeautifulSoup(html_doc, 'lxml')
-
-        # subjects = soup.find('select', attrs={'name':'s_subj'}).find_all('option')[1:]
-        # print('[')
-        # for subj in subjects:
-        #     print("\"" + subj['value'] + "\"", end=", ")
 
         try:
             pageCount = len(soup.find_all('table', attrs={'class': 'plaintable'})[3].find('center').find_all('a')) + 1
@@ -138,7 +129,6 @@ def parseUrl(url):
             courses_raw.append(course_raw)
         course_raw = rows[headerIndexs[len(headerIndexs) - 1]:]
         courses_raw.append(course_raw)
-
 
         for course in courses_raw:
             courses.append(parseCourse(course))

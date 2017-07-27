@@ -1,15 +1,13 @@
 import pymysql as mysql
 
 class Database:
-
         host = '127.0.0.1'
         user = 'root'
-        password = 'chickensoup23' # remember to switch before git commit
+        password = 'chickensoup23'
         db = 'dal'
 
         def __init__(self):
             # create database connection
-
             self.connection = mysql.connect(host=self.host, unix_socket='/tmp/mysql.sock', user=self.user, passwd=self.password, db=self.db)
             self.cursor = self.connection.cursor()
 
