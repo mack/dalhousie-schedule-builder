@@ -144,7 +144,7 @@ nav {
   font-weight: 600;
   z-index: 100;
   position: fixed;
-  right: 15px;
+  right: 20px;
   top: 15px;
   width: auto;
   padding: 0px 20px;
@@ -306,6 +306,7 @@ nav {
 
 .class-m > img {
   position: absolute;
+  display: none;
   right: 3px;
   top: 3px;
   height: 20px;

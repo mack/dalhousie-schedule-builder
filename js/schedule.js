@@ -100,7 +100,7 @@ ScheduleHandler.prototype.is_class_selected = function(cat_code, id, type) {
 }
 // add's to storage object
 ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
-  if (Object.keys(this.selected_courses).length >= 6) {
+  if (Object.keys(this.selected_courses).length >= 6 && this.selected_courses[cat_code] == undefined) {
     display_notification('You\'ve reached the limit of courses (6)', "neutral");
     return -1;
   }
@@ -200,13 +200,13 @@ ScheduleHandler.prototype.place_classes = function() {
       // top = 13px is start
       start = start - schedule_start;
       end = end - schedule_start;
-      var duration = (end - start);
+      var duration = ((end - start) + 10) / 60;
 
       var course_color = this.course_colors[s_class.attr("course")]
       s_class.css(tile_colors[course_color])
 
       var top = 29 + ((start / 30) * 25);
-      var height = 44 + (((duration/30) - 2)* 26);
+      var height = (50 * duration) - 10;
       s_class.css({
       "top": top.toString() + "px",
       "height": height.toString() + "px"
@@ -226,6 +226,13 @@ function setup_schedule() {
       reload_table()
     }
   });
+
+  $(".courses-full > ul").on("mouseenter", '.class-m', function() {
+    $(this).find('#remove-class').css('display', "block");
+  })
+  $(".courses-full > ul").on("mouseleave", '.class-m', function() {
+    $(this).find('#remove-class').css('display', "none");
+  })
 }
 
 function check_for_conflicting_times() {
