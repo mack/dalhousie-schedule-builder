@@ -14,8 +14,14 @@ I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_Displ
 * Display multiple class capacity counts and add proper color (fill-low, fill-med, fill-high)
 * Update DB with winter information
 * Make winter/fall selection functional
-* Make classes persistent storage (incase of page reload)
 * Add clear all selected classes button
 * Handle conflicting time classes (and offer suggestions)
 * Make Email functional
-* View all classes page 
+* View all classes page
+
+## Last 5 things completed
+* Add notifications
+* Make classes persistent storage (incase of page reload)
+* Functional remove classes button
+* Change add-class-btn when class selected in course-table
+* Give same classes same color
