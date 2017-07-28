@@ -25,12 +25,14 @@ APIHandler.prototype.get_course = function(callback, err) {
 APIHandler.prototype.get_title_with_code = function(cat_code) {
   var keys = Object.keys(this.stored_courses);
   for (var i = 0; i < keys.length; i++) {
-    for (var j = 0; j < this.stored_courses[keys[i]].length; j++) {
-      var code = this.stored_courses[keys[i]][j]['code']
-      var cat = this.stored_courses[keys[i]][j]['category']
-      var c_cat_code = cat + " " + code
-      if (c_cat_code == cat_code) {
-        return this.stored_courses[keys[i]][j]['title'];
+    if (this.stored_courses[keys[i]] != null) {
+      for (var j = 0; j < this.stored_courses[keys[i]].length; j++) {
+        var code = this.stored_courses[keys[i]][j]['code']
+        var cat = this.stored_courses[keys[i]][j]['category']
+        var c_cat_code = cat + " " + code
+        if (c_cat_code == cat_code) {
+          return this.stored_courses[keys[i]][j]['title'];
+        }
       }
     }
   }

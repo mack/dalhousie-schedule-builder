@@ -277,7 +277,7 @@ function display_notification(text, type, bg) {
   $('.schedule-notif').on("click", function() {
     clearTimeout(last_timeout);
     last_timeout = null;
-    $(this).fadeOut(350);
+    $(this).fadeOut(200);
   })
 }
 
