@@ -1,6 +1,7 @@
 var handler = new APIHandler(); // global handler for API access
 var scheduleHandler = new ScheduleHandler() // global handler for schedule access
 var currentSelectedRow = null;
+var search_string = null;
 
 $(window).bind('beforeunload', function() {
    save_to_storage()
@@ -160,14 +161,24 @@ function update_courses(courses) {
 }
 
 function reload_table() {
-  handler.get_course(function(courses, err) {
-    if (err == -1) {
-      $('#course-table').empty();
-      $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");
-    } else {
-      update_courses(courses);
+  if (search_string != null && search_string != "") {
+    search_string = $('#search').val();
+    var category = $('#course-list').find(":selected").attr('value');
+    if (category != "") {
+      handler.search_stored_courses(search_string, function(courses) {
+        update_courses(courses);
+      });
     }
-  });
+  } else {
+    handler.get_course(function(courses, err) {
+      if (err == -1) {
+        $('#course-table').empty();
+        $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");
+      } else {
+        update_courses(courses);
+      }
+    });
+  }
 }
 
 function setup_ui() {
