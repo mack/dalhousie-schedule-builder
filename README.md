@@ -8,7 +8,6 @@ I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_Displ
 ![Web](http://i.imgur.com/0yBTvOn.png "Website Preview")
 
 ## TODO
-* Add CRNs to CRN element
 * Add refresh CRN's button
 * Figure out how to handle classes with C/D time (maybe make popup saying "We can't add classes with C/D at this time, however here is CLASS_NAME's CRN.")
 * Display multiple class capacity counts and add proper color (fill-low, fill-med, fill-high)
@@ -20,8 +19,8 @@ I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_Displ
 * View all classes page
 
 ## Last 5 things completed
+* Added CRNs into element
 * Add notifications
 * Make classes persistent storage (incase of page reload)
 * Functional remove classes button
 * Change add-class-btn when class selected in course-table
-* Give same classes same color
