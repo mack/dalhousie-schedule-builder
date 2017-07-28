@@ -5,7 +5,7 @@ Dal Schedule Builder is a web app built for Dalhousie students registering for c
 I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_DisplaySchedule) for the information. I'll have my web scrapper run aprox. once per day to check for changes.
 
 ## Preview
-![Web](http://i.imgur.com/0yBTvOn.png "Website Preview")
+![Web](https://s11.postimg.org/uhxi0n47l/Screen_Shot_2017-07-28_at_2.33.52_PM.png "Website Preview")
 
 ## TODO
 * Add refresh CRN's button
