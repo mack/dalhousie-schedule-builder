@@ -3,10 +3,11 @@ var scheduleHandler = new ScheduleHandler() // global handler for schedule acces
 var currentSelectedRow = null;
 
 $(window).bind('beforeunload', function() {
-   save_selected_to_storage()
+   save_to_storage()
 });
 
-function load_selected_courses() {
+function load_storage() {
+  // Schedule Handler
   var selected_courses_temp = localStorage.getItem("selected_courses");
   var course_colors_temp = localStorage.getItem("course_colors");
   var colors_temp = localStorage.getItem("colors");
@@ -20,25 +21,41 @@ function load_selected_courses() {
     scheduleHandler.course_colors = course_colors_temp;
     scheduleHandler.colors = colors_temp;
   }
+
+  // API Handler
+  var stored_courses_temp = localStorage.getItem("stored_courses");
+  stored_courses_temp = JSON.parse(stored_courses_temp);
+  if (stored_courses_temp != null) {
+    console.log('not null')
+    handler.stored_courses = stored_courses_temp;
+  }
 }
 
-function save_selected_to_storage() {
+function save_to_storage() {
   // add's to storage object
   var selected_courses_temp = scheduleHandler.selected_courses;
   var course_colors_temp = scheduleHandler.course_colors;
   var colors_temp = scheduleHandler.colors;
+  var stored_courses_temp = handler.stored_courses;
 
   selected_courses_temp = JSON.stringify(selected_courses_temp);
   course_colors_temp = JSON.stringify(course_colors_temp);
   colors_temp = JSON.stringify(colors_temp);
+  stored_courses_temp = JSON.stringify(stored_courses_temp)
 
   localStorage.setItem("selected_courses", selected_courses_temp);
   localStorage.setItem("course_colors", course_colors_temp);
   localStorage.setItem("colors", colors_temp);
+  localStorage.setItem("stored_courses", stored_courses_temp);
+
+  // var stored_courses_temp = handler.stored_courses;
+  // stored_courses_temp = JSON.stringify(stored_courses_temp);
+  // localStorage.setItem("stored_courses", stored_courses_temp);
 }
 
 function clear_storage() {
   localStorage.clear();
+  handler.stored_courses = {};
   scheduleHandler.selected_courses = {};
   scheduleHandler.course_colors = {};
   scheduleHandler.colors = ["blue", "red", "green", "purple", "yellow", "grey"];
@@ -47,7 +64,7 @@ function clear_storage() {
 $(document).ready(function(){
   setup_ui();
   // fill_random_crns(); // just for demo purposes
-  load_selected_courses();
+  load_storage();
   setup_schedule();
 
   $('#search').keyup(function() {
@@ -89,14 +106,14 @@ function update_courses(courses) {
       var cat_code = courses[i]['category'] + " " + courses[i]['code'];
       if ($(currentSelectedRow).find('.course-code').text() == cat_code) {
         // a little bit of a 'hack' to replace the currentselectedrow variable
-        var s = "<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/up.png\"> </div>"
+        var s = "<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/up.svg\"> </div>"
         var d = document.createElement('div');
         d.innerHTML = s;
         var header = d.firstChild;
         $('#course-table').append(header);
         currentSelectedRow = header;
       } else {
-        $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.png\"> </div>");
+        $('#course-table').append("<div class=\"course-header\"> <span class=\"course-code\">" + cat_code + "</span> <span class=\"course-title\">" + courses[i]['title'] + "</span> <img id=\"course-dropdown-icon\" src=\"img/down.svg\"> </div>");
       }
 
       if (courses[i]['classes'] != null) { // handle case where theres no classes
@@ -114,14 +131,14 @@ function update_courses(courses) {
           var selected_code = scheduleHandler.is_class_selected(cat_code, courses[i]['classes'][j]['id'], courses[i]['classes'][j]['type']);
           if (selected_code == -2) {
             // course element is already selected
-            course_element += " background-color: #E7E7E9;\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_checked.png\"><div class=\"time-info-container\">"
+            course_element += " background-color: #E7E7E9;\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_checked.svg\"><div class=\"time-info-container\">"
           } else if (selected_code == -1) {
             // course type is already selected
 
-            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_disabled.png\"><div class=\"time-info-container disable\">"
+            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_disabled.svg\"><div class=\"time-info-container disable\">"
           } else {
             // nothing
-            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.png\"><div class=\"time-info-container\">"
+            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\"fill-low\">" + courses[i]['classes'][j]["current"] + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.svg\"><div class=\"time-info-container\">"
           }
 
           // handle multiple dates
@@ -135,6 +152,9 @@ function update_courses(courses) {
         }
       }
     }
+  } else {
+    $('#course-table').empty();
+    $('#course-table').append("<span id=\"no-selected\">No subject selected</span>");
   }
   $('#course-table').css("display", "table")
 }
@@ -187,19 +207,19 @@ function setup_ui() {
 
     // table image hover
     $("#course-table").on("mouseenter", '.course-data #course-add-btn', function() {
-        if ($(this).attr('src') == 'img/add_outline.png') {
-          $(this).attr('src', "img/add_fill.png");
+        if ($(this).attr('src') == 'img/add_outline.svg') {
+          $(this).attr('src', "img/add_fill.svg");
         }
     });
     $("#course-table").on("mouseleave", '.course-data #course-add-btn', function() {
-        if ($(this).attr('src') == "img/add_fill.png") {
-          $(this).attr('src', "img/add_outline.png");
+        if ($(this).attr('src') == "img/add_fill.svg") {
+          $(this).attr('src', "img/add_outline.svg");
         }
     });
 
     $("#course-table").on("click", '.course-data #course-add-btn', function() {
       // need to reload table to disable other classes of same type if success
-      if ($(this).attr('src') == 'img/add_checked.png') {
+      if ($(this).attr('src') == 'img/add_checked.svg') {
         var cat_code = $(this).parent().attr('course');
         var id = $(this).parent().attr('class-id');
         var err = scheduleHandler.remove_class_with_id(cat_code, id);
@@ -207,7 +227,7 @@ function setup_ui() {
           $(".class-m[class_id=\"" + id + "\"]").remove();
           reload_table()
         }
-      } else if ($(this).attr('src') == 'img/add_disabled.png') {
+      } else if ($(this).attr('src') == 'img/add_disabled.svg') {
         $(this).effect("shake", { times:1, distance: 3 }, 100);
         $(this).css("opacity", "0.85");
         var selected_class = $(this).parent().attr('class-id');
@@ -227,18 +247,18 @@ function setup_ui() {
         // no row selected
         currentSelectedRow = this;
         $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
-        $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/up.png');
+        $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/up.svg');
       } else {
         if ($(currentSelectedRow).find('.course-code').text() === $(this).find('.course-code').text()) {
           $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
-          $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/down.png');
+          $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/down.svg');
           currentSelectedRow = null;
         } else {
           $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
-          $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/down.png');
+          $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/down.svg');
           currentSelectedRow = this;
           $(currentSelectedRow).nextUntil('.course-header').slideToggle(300);
-          $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/up.png');
+          $(currentSelectedRow).find('#course-dropdown-icon').attr('src', 'img/up.svg');
         }
       }
     });

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="21px" viewBox="0 0 22 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_highlight_off</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_highlight_off" transform="translate(0.000000, -2.000000)">
+            <g id="Icon-24px">
+                <polygon id="Shape" points="0 0 25 0 25 25 0 25"></polygon>
+                <path d="M13.53125,8.33333333 L10.8333333,11.03125 L8.13541667,8.33333333 L6.66666667,9.80208333 L9.36458333,12.5 L6.66666667,15.1979167 L8.13541667,16.6666667 L10.8333333,13.96875 L13.53125,16.6666667 L15,15.1979167 L12.3020833,12.5 L15,9.80208333 L13.53125,8.33333333 L13.53125,8.33333333 Z M10.8333333,2.08333333 C5.07291667,2.08333333 0.416666667,6.73958333 0.416666667,12.5 C0.416666667,18.2604167 5.07291667,22.9166667 10.8333333,22.9166667 C16.59375,22.9166667 21.25,18.2604167 21.25,12.5 C21.25,6.73958333 16.59375,2.08333333 10.8333333,2.08333333 L10.8333333,2.08333333 Z" id="Shape" fill="#191919" opacity="0.445199275"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -29,7 +29,9 @@ ScheduleHandler.prototype.reload_crns = function() {
   fall_crn = ""
   var keys = Object.keys(this.selected_courses)
   for (var i = 0; i < keys.length; i++) {
+    console.log(this.selected_courses[keys[i]])
     for (var j = 0; j < this.selected_courses[keys[i]].length; j++) {
+
       var c_crn = this.selected_courses[keys[i]][j]['crn'];
       if (fall_crn == "") {
         fall_crn = c_crn.toString();
@@ -63,7 +65,7 @@ ScheduleHandler.prototype.add_to_html = function(cat_code, s_class) {
 }
 
 ScheduleHandler.prototype.load_selected_courses_into_html = function() {
-  if (this.selected_courses != undefined) {
+  if (this.selected_courses != null) {
     var keys = Object.keys(this.selected_courses)
     for (var i = 0; i < keys.length; i++) {
       var cat_code = keys[i];
@@ -176,7 +178,7 @@ function add_class_to_day_html(day, cat_code, s_class, i) {
   var start = s_class['times'][i].split("-")[0];
   var end = s_class['times'][i].split("-")[1];
 
-  $(".courses-full > ul").find("ul").eq(day).append("<li class=\"class-m\" data-start=\"" + start + "\" data-end=\"" + end + "\" course=\"" + cat_code + "\" class_id=\"" + s_class['id'] + "\"><img src=\"img/close.png\" id=\"remove-class\" alt=\"Remove\"><div class=\"class-m-info\"><span class=\"class-name\">" + cat_code + ": " + s_class['type'] + "</span><span class=\"class-time\">" + s_class['times'][i] + "</span></div></li>");
+  $(".courses-full > ul").find("ul").eq(day).append("<li class=\"class-m\" data-start=\"" + start + "\" data-end=\"" + end + "\" course=\"" + cat_code + "\" class_id=\"" + s_class['id'] + "\"><img src=\"img/close.svg\" id=\"remove-class\" alt=\"Remove\"><div class=\"class-m-info\"><span class=\"class-name\">" + cat_code + ": " + s_class['type'] + "</span><span class=\"class-time\">" + s_class['times'][i] + "</span></div></li>");
 }
 
 ScheduleHandler.prototype.remove_class_with_id = function(cat_code, id) {
@@ -243,9 +245,10 @@ function setup_schedule() {
          return;
      }
     var bg = $(this).css('background-color')
-    var id = $(this).attr("class_id")
+    var cat_code = $(this).attr("course")
     // just need to write a function to retrieve the class title
-    display_notification("CLASS TITLE HERE", "", true, bg);
+    var title = handler.get_title_with_code(cat_code);
+    display_notification(title, "info", bg);
   })
 
   $(".courses-full > ul").on("mouseenter", '.class-m', function() {
@@ -260,12 +263,25 @@ function check_for_conflicting_times() {
 
 }
 
-function display_notification(text, type, noImage, bg) {
-  if (noImage == true) {
-    $('.schedule-notif > img').css("display","none");
+var last_timeout = null;
+function display_notification(text, type, bg) {
+  if (last_timeout != null) {
+    clearTimeout(last_timeout);
+    $('.schedule-notif').fadeOut(100, function() {
+      display_notification_in_html(text, type, bg)
+    });
   } else {
-    $('.schedule-notif > img').css("display","block");
+    display_notification_in_html(text, type, bg)
   }
+
+  $('.schedule-notif').on("click", function() {
+    clearTimeout(last_timeout);
+    last_timeout = null;
+    $(this).fadeOut(350);
+  })
+}
+
+function display_notification_in_html(text, type, bg) {
   if (type == 'neg') {
     $('.schedule-notif').removeClass().addClass('schedule-notif negative');
     $('.schedule-notif > img').attr("src","img/delete.png");
@@ -274,25 +290,21 @@ function display_notification(text, type, noImage, bg) {
     $('.schedule-notif > img').attr("src","img/add_notification.png");
   } else if (type == 'neutral') {
     $('.schedule-notif').removeClass().addClass('schedule-notif neutral');
-    $('.schedule-notif > img').attr("src","img/block.png");
-  } else {
+    $('.schedule-notif > img').attr("src","img/block.svg");
+  } else if (type == 'info') {
+    $('.schedule-notif').removeClass().addClass('schedule-notif')
+    $('.schedule-notif > img').attr("src","img/info.svg");
     if (bg != null) {
-      $('.schedule-notif').removeClass().addClass('schedule-notif')
       $('.schedule-notif').css("background-color", bg)
     }
   }
   $('.schedule-notif > span').html(text);
   $('.schedule-notif').fadeIn(350);
 
-  var timeOutId = null;
-  timeOutId = setTimeout(function() {
+  last_timeout = setTimeout(function() {
     $('.schedule-notif').fadeOut(350);
-  }, 2500);
-
-  $('.schedule-notif').on("click", function() {
-    clearTimeout(timeOutId);
-    $(this).fadeOut(350);
-  })
+    last_timeout = null;
+  }, 3000);
 }
 
 function timestamp(time) {

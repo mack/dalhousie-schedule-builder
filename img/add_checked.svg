@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop" transform="translate(-957.000000, -394.000000)" fill="#5DCD71">
+            <g id="COURSE-SELCT" transform="translate(712.000000, 107.000000)">
+                <g id="Group-2" transform="translate(14.000000, 122.000000)">
+                    <g id="Row-2" transform="translate(1.000000, -33.000000)">
+                        <path d="M237.37868,211.242641 L238.525126,212.389087 L244.889087,206.025126 L243.474874,204.610913 L238.5,209.585786 L236.646447,207.732233 L235.232233,209.146447 L237.353553,211.267767 L237.37868,211.242641 Z M240,218 C245.522847,218 250,213.522847 250,208 C250,202.477153 245.522847,198 240,198 C234.477153,198 230,202.477153 230,208 C230,213.522847 234.477153,218 240,218 Z" id="Combined-Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
