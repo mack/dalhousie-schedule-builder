@@ -17,7 +17,7 @@ ScheduleHandler.prototype.add_class_to_schedule = function(class_id) {
   var cat_code = Object.keys(new_class)[0];
   var err = this.add_to_selected(cat_code, new_class[cat_code]); // adds to this.object's variable selected_courses
   if (err != -1) {
-    this.add_crn_to_html(new_class[cat_code])
+    this.reload_crns();
     this.add_to_html(cat_code, new_class[cat_code]); // adds to html
     return 0;
   } else {
@@ -25,12 +25,20 @@ ScheduleHandler.prototype.add_class_to_schedule = function(class_id) {
   }
 }
 
-ScheduleHandler.prototype.add_crn_to_html = function(s_class) {
-  if ($('#fall').val() == "") {
-    $('#fall').val(s_class['crn'].toString());
-  } else {
-    $('#fall').val($('#fall').val() +  ", " + s_class['crn'].toString());
+ScheduleHandler.prototype.reload_crns = function() {
+  fall_crn = ""
+  var keys = Object.keys(this.selected_courses)
+  for (var i = 0; i < keys.length; i++) {
+    for (var j = 0; j < this.selected_courses[keys[i]].length; j++) {
+      var c_crn = this.selected_courses[keys[i]][j]['crn'];
+      if (fall_crn == "") {
+        fall_crn = c_crn.toString();
+      } else {
+        fall_crn += ", " + c_crn.toString();
+      }
+    }
   }
+  $('#fall').val(fall_crn);
 }
 
 ScheduleHandler.prototype.add_to_html = function(cat_code, s_class) {
@@ -217,6 +225,7 @@ ScheduleHandler.prototype.place_classes = function() {
 
 function setup_schedule() {
   scheduleHandler.load_selected_courses_into_html();
+  scheduleHandler.reload_crns();
   $(".courses-full > ul").on('click', '.class-m > #remove-class', function() {
     var cat_code = $(this).parent().attr('course');
     var id = $(this).parent().attr('class_id');
@@ -224,6 +233,7 @@ function setup_schedule() {
     if (err != -1) {
       $(".class-m[class_id=\"" + id + "\"]").remove();
       reload_table()
+      scheduleHandler.reload_crns();
     }
   });
 
