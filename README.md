@@ -9,18 +9,17 @@ I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_Displ
 
 ## TODO
 * Add refresh CRN's button
-* Figure out how to handle classes with C/D time (maybe make popup saying "We can't add classes with C/D at this time, however here is CLASS_NAME's CRN.")
-* Display multiple class capacity counts and add proper color (fill-low, fill-med, fill-high)
 * Update DB with winter information
 * Make winter/fall selection functional
 * Add clear all selected classes button
 * Handle conflicting time classes (and offer suggestions)
 * Make Email functional
 * View all classes page
+* Click on CRN to view course information 
 
 ## Last 5 things completed
+* Figure out how to handle classes with C/D time (maybe make popup saying "We can't add classes with C/D at this time, however here is CLASS_NAME's CRN.")
+* Display multiple class capacity counts and add proper color (fill-low, fill-med, fill-high)
 * Added CRNs into element
 * Add notifications
 * Make classes persistent storage (incase of page reload)
-* Functional remove classes button
-* Change add-class-btn when class selected in course-table

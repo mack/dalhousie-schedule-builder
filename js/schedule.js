@@ -114,6 +114,10 @@ ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
     display_notification('You\'ve reached the limit of courses (6)', "neutral");
     return -1;
   }
+  if (s_class['times'][0] == "C/D") {
+    display_notification('We can\'t add C/D courses at this time. The CRN is: ' + s_class['crn'], "neutral");
+    return -1;
+  }
   if (this.selected_courses[cat_code] == undefined) {
     this.course_colors[cat_code] = this.choose_rand_color()
     this.selected_courses[cat_code] = [s_class];
