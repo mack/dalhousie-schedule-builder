@@ -253,6 +253,8 @@ function setup_schedule() {
     // just need to write a function to retrieve the class title
     var title = handler.get_title_with_code(cat_code);
     display_notification(title, "info", bg);
+    $(this).effect( "bounce", {times:2, distance: 10}, 200 );
+
   })
 
   $(".courses-full > ul").on("mouseenter", '.class-m', function() {
