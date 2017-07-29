@@ -289,16 +289,15 @@ function display_notification(text, type, bg) {
 
 function display_notification_in_html(text, type, bg) {
   if (type == 'neg') {
-    $('.schedule-notif').removeClass().addClass('schedule-notif negative');
+    $('.schedule-notif').css("background-color", "#c13c3c")
     $('.schedule-notif > img').attr("src","img/delete.png");
   } else if (type == 'pos') {
-    $('.schedule-notif').removeClass().addClass('schedule-notif positive');
+    $('.schedule-notif').css("background-color", "#3cb33c")
     $('.schedule-notif > img').attr("src","img/add_notification.png");
   } else if (type == 'neutral') {
-    $('.schedule-notif').removeClass().addClass('schedule-notif neutral');
+    $('.schedule-notif').css("background-color", "#989898")
     $('.schedule-notif > img').attr("src","img/block.svg");
   } else if (type == 'info') {
-    $('.schedule-notif').removeClass().addClass('schedule-notif')
     $('.schedule-notif > img').attr("src","img/info.svg");
     if (bg != null) {
       $('.schedule-notif').css("background-color", bg)
