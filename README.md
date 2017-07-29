@@ -8,14 +8,13 @@ I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_Displ
 ![Web](https://s11.postimg.org/uhxi0n47l/Screen_Shot_2017-07-28_at_2.33.52_PM.png "Website Preview")
 
 ## TODO
-* Add refresh CRN's button
 * Update DB with winter information
 * Make winter/fall selection functional
 * Add clear all selected classes button
 * Handle conflicting time classes (and offer suggestions)
 * Make Email functional
 * View all classes page
-* Click on CRN to view course information 
+* Click on CRN to view course information
 
 ## Last 5 things completed
 * Figure out how to handle classes with C/D time (maybe make popup saying "We can't add classes with C/D at this time, however here is CLASS_NAME's CRN.")
