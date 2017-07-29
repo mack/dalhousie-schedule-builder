@@ -532,19 +532,56 @@ nav {
   overflow: hidden;
 }
 
-.course-crns .course-table-header > img:hover {
+.course-crns .course-table-header .tool-tip-container > img:hover {
   opacity: 0.8;
 }
 
 
-.course-crns .course-table-header > img {
+.course-crns .course-table-header .tool-tip-container > img {
   cursor: pointer;
-  float: right;
   margin-top: 8px;
   width: 18px;
   height: 13px;
   opacity: 0.4;
   margin-right: 12px;
+}
+
+.tool-tip-container {
+  position: relative;
+  float: right;
+  display: inline-block;
+}
+
+.tool-tip-container .tool-tip-text {
+    visibility: hidden;
+    font-size: 13px;
+    width: 150px;
+    height: 15px;
+    line-height: 15px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: center;
+    top: 2px;
+    right: 130%;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+}
+
+.tool-tip-container .tool-tip-text::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%; /* To the right of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+}
+
+.tool-tip-container:hover .tool-tip-text {
+    visibility: visible;
 }
 
 #CRN-fall-head {
