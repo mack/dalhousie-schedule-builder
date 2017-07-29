@@ -532,6 +532,21 @@ nav {
   overflow: hidden;
 }
 
+.course-crns .course-table-header > img:hover {
+  opacity: 0.8;
+}
+
+
+.course-crns .course-table-header > img {
+  cursor: pointer;
+  float: right;
+  margin-top: 8px;
+  width: 18px;
+  height: 13px;
+  opacity: 0.4;
+  margin-right: 12px;
+}
+
 #CRN-fall-head {
   color: #C3C3C3;
   font-size: 13px;

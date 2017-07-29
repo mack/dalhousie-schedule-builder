@@ -225,6 +225,11 @@ function setup_ui() {
       $("#nav-container").slideToggle(300);
     });
 
+    // course crn reload
+    $(".course-crns .course-table-header > img").click(function() {
+      scheduleHandler.reload_crns();
+    })
+
     // table image hover
     $("#course-table").on("mouseenter", '.course-data #course-add-btn', function() {
         if ($(this).attr('src') == 'img/add_outline.svg') {
