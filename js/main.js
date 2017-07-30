@@ -151,6 +151,7 @@ function update_courses(courses) {
           var selected_code = scheduleHandler.is_class_selected(cat_code, courses[i]['classes'][j]['id'], courses[i]['classes'][j]['type']);
           var fill_percentage = Math.round((parseInt(courses[i]['classes'][j]["current"]) / parseInt(courses[i]['classes'][j]["max"])) * 100)
           var fill_color = "fill-low"
+
           if (fill_percentage > 66) {
             fill_color = "fill-high"
           } else if (fill_percentage > 33 && fill_percentage < 66) {
@@ -158,16 +159,25 @@ function update_courses(courses) {
           } else {
             fill_color = "fill-low"
           }
+
+          var fill_percentage_str = ""
+          if (fill_percentage == 100) {
+            fill_percentage_str = "FULL"
+          } else {
+            console.log(fill_percentage)
+            fill_percentage_str = fill_percentage.toString() + "%"
+          }
+
           if (selected_code == -2) {
             // course element is already selected
-            course_element += " background-color: #E7E7E9;\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\""+ fill_color +"\">" + fill_percentage.toString() + "%" + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_checked.svg\"><div class=\"time-info-container\">"
+            course_element += " background-color: #E7E7E9;\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\""+ fill_color +"\">" + fill_percentage_str + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_checked.svg\"><div class=\"time-info-container\">"
           } else if (selected_code == -1) {
             // course type is already selected
 
-            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\""+ fill_color +"\">" + fill_percentage.toString() + "%" + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_disabled.svg\"><div class=\"time-info-container disable\">"
+            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\""+ fill_color +"\">" + fill_percentage_str + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_disabled.svg\"><div class=\"time-info-container disable\">"
           } else {
             // nothing
-            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\""+ fill_color +"\">" + fill_percentage.toString() + "%" + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.svg\"><div class=\"time-info-container\">"
+            course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\""+ fill_color +"\">" + fill_percentage_str + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_outline.svg\"><div class=\"time-info-container\">"
           }
 
           // handle multiple dates
