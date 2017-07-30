@@ -29,9 +29,7 @@ ScheduleHandler.prototype.reload_crns = function() {
   fall_crn = ""
   var keys = Object.keys(this.selected_courses)
   for (var i = 0; i < keys.length; i++) {
-    console.log(this.selected_courses[keys[i]])
     for (var j = 0; j < this.selected_courses[keys[i]].length; j++) {
-
       var c_crn = this.selected_courses[keys[i]][j]['crn'];
       if (fall_crn == "") {
         fall_crn = c_crn.toString();
@@ -80,6 +78,7 @@ ScheduleHandler.prototype.is_class_selected = function(cat_code, id, type) {
   // 0 = none
   // -1 = type selected
   // -2 = type & ID selected
+
   if (this.selected_courses != undefined && this.selected_courses[cat_code] != undefined) {
     var selected_code = 0;
     for (k = 0; k < this.selected_courses[cat_code].length; k++) { // must be variable k because i interfers with main.js somehow (variable scope is confusing me in this project)
@@ -102,6 +101,7 @@ ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
   }
   // Overlapping times
   if (this.check_for_conflicts(s_class)) {
+    display_notification('The time conflicts with CSCI 1000', "neutral");
     return -1;
   }
   // Course without a scheduled time
@@ -266,7 +266,7 @@ function setup_schedule() {
     }
 
     $(this).parent().find('.class-container-text').fadeIn(10);
-    $(this).parent().effect( "bounce", {times:2, distance: 5}, 300 );
+    $(this).parent().stop(true,true).effect( "bounce", {times:2, distance: 5}, 300 );
   })
 
   $(".courses-full > ul").on("mouseenter", '.class-m', function() {
@@ -279,11 +279,50 @@ function setup_schedule() {
 }
 
 ScheduleHandler.prototype.check_for_conflicts = function(s_class) {
-  console.log(s_class)
+  for (var i = 0; i < s_class['times'].length; i++) {
+    var days = s_class['days'][i];
+    var start = s_class['times'][i].split("-")[0];
+    var end = s_class['times'][i].split("-")[1];
+    days = days.split(", ")
 
-  // var start = s_class['times'][i].split("-")[0];
-  // var end = s_class['times'][i].split("-")[1];
-  // start =
+    var keys = Object.keys(this.selected_courses)
+    for (var j = 0; j < keys.length; j++) {
+      for (var k = 0; k < this.selected_courses[keys[j]].length; k++) {
+        var c_class = this.selected_courses[keys[j]][k];
+        for (var l = 0; l < c_class['times'].length; l++) {
+
+          var c_start = c_class['times'][l].split("-")[0];
+          var c_end = c_class['times'][l].split("-")[1];
+          var c_days = c_class['days'][l]
+          if (c_start != undefined && c_end != undefined) {
+            if (is_overlap(start, end, days, c_start, c_end, c_days)) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+  }
+  return false;
+}
+
+function is_overlap(s_start, s_end, s_days, c_start, c_end, c_days) {
+    for (var m = 0; m < s_days.length; m++) {
+      if (c_days.includes(s_days[m])) {
+        var s_start_time = timestamp(s_start),
+            s_end_time = timestamp(s_end),
+            c_start_time = timestamp(c_start),
+            c_end_time = timestamp(c_end)
+
+        if ( (s_start_time == c_start_time && s_end_time == c_end_time)  // equal
+        || (c_start_time >= s_start_time && c_start_time <= s_end_time) // c_class starts during
+        || (c_end_time >= s_start_time && c_end_time <= s_end_time) )  {// c_class ends during
+            return true;
+        }
+
+      }
+    }
+    return false;
 }
 
 var last_timeout = null;

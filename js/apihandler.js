@@ -47,7 +47,7 @@ APIHandler.prototype.get_class_with_id = function(id) {
         var n_classes = this.stored_courses[this.current_category][i]['classes'].length;
         for (j = 0; j < n_classes; j++) {
           if (this.stored_courses[this.current_category][i]['classes'][j] != undefined && this.stored_courses[this.current_category][i]['classes'][j]['id'] == id) {
-            var cat_code = this.current_category + " " + this.stored_courses[this.current_category][i]['code'];
+            var cat_code = this.current_category.toUpperCase() + " " + this.stored_courses[this.current_category][i]['code'];
             var return_obj = {}
             return_obj[cat_code] = this.stored_courses[this.current_category][i]['classes'][j];
             return return_obj;

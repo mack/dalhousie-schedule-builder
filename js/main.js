@@ -27,7 +27,6 @@ function load_storage() {
   var stored_courses_temp = localStorage.getItem("stored_courses");
   stored_courses_temp = JSON.parse(stored_courses_temp);
   if (stored_courses_temp != null) {
-    console.log('not null')
     handler.stored_courses = stored_courses_temp;
   }
 }
@@ -159,12 +158,10 @@ function update_courses(courses) {
           } else {
             fill_color = "fill-low"
           }
-
           var fill_percentage_str = ""
           if (fill_percentage == 100) {
             fill_percentage_str = "FULL"
           } else {
-            console.log(fill_percentage)
             fill_percentage_str = fill_percentage.toString() + "%"
           }
 
@@ -173,7 +170,6 @@ function update_courses(courses) {
             course_element += " background-color: #E7E7E9;\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\""+ fill_color +"\">" + fill_percentage_str + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_checked.svg\"><div class=\"time-info-container\">"
           } else if (selected_code == -1) {
             // course type is already selected
-
             course_element += "\" class=\"course-data\" class-id=\"" + courses[i]['classes'][j]['id'] +"\" course=\"" + cat_code + "\"><span class=\"course-type\">" + courses[i]['classes'][j]["type"] + " " + courses[i]['classes'][j]["section"] + " (<b class=\""+ fill_color +"\">" + fill_percentage_str + "</b>)</span><img id=\"course-add-btn\" src=\"img/add_disabled.svg\"><div class=\"time-info-container disable\">"
           } else {
             // nothing
