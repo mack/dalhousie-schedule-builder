@@ -239,6 +239,7 @@ function setup_schedule() {
       $(".class-m[class_id=\"" + id + "\"]").parent().remove();
       reload_table()
       scheduleHandler.reload_crns();
+
     }
   });
 
@@ -263,6 +264,7 @@ function setup_schedule() {
         }
       }
     }
+
     $(this).parent().find('.class-container-text').fadeIn(10);
     $(this).parent().effect( "bounce", {times:2, distance: 5}, 300 );
   })

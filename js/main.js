@@ -80,7 +80,7 @@ $(document).ready(function(){
         $('#course-table').empty();
         $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");
       } else {
-        $("#course-list").val(category);
+        $("#course-list").val(category.toUpperCase());
         update_courses(courses);
       }
     });
