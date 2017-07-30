@@ -91,23 +91,8 @@ ScheduleHandler.prototype.is_class_selected = function(cat_code, id, type) {
     }
     return selected_code;
   }
-  // if (this.selected_courses[cat_code] != undefined) {
-  //   var selected_code = 0;
-  //   for (i = 0; i < this.selected_courses[cat_code].length; i++) {
-  //   //  console.log(this.selected_courses[cat_code][i])
-  //     if (this.selected_courses[cat_code][i]['id'] == id.toString()) {
-  //       console.log(this.selected_courses[cat_code][i])
-  //     }
-  //       // if (this.selected_courses[cat_code][i]['type'] == s_class['type']) {
-  //       //   type_detected = true;
-  //       // }
-  //   }
-    // console.log(cat_code)
-    // console.log(id)
-    // console.log(type)
-
-  //}
 }
+
 // add's to storage object
 ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
   if (Object.keys(this.selected_courses).length >= 6 && this.selected_courses[cat_code] == undefined) {
@@ -184,7 +169,7 @@ function add_class_to_day_html(day, cat_code, s_class, i) {
 
   var title = handler.get_title_with_code(cat_code);
 
-  $(".courses-full > ul").find("ul").eq(day).append("<div class=\'class-container\'><span class=\'class-container-text\'> " + title + "</span><li class=\"class-m\" data-start=\"" + start + "\" data-end=\"" + end + "\" course=\"" + cat_code + "\" class_id=\"" + s_class['id'] + "\"><img src=\"img/close.svg\" id=\"remove-class\" alt=\"Remove\"><div class=\"class-m-info\"><span class=\"class-name\">" + cat_code + ": " + s_class['type'] + "</span><span class=\"class-time\">" + s_class['times'][i] + "</span></div></li></div>");
+  $(".courses-full > ul").find("ul").eq(day).append("<div class=\'class-container\'><span class=\'class-container-text\' alt=\'" + s_class['crn'] + "\'>" + title + "</span><li class=\"class-m\" data-start=\"" + start + "\" data-end=\"" + end + "\" course=\"" + cat_code + "\" class_id=\"" + s_class['id'] + "\"><img src=\"img/close.svg\" id=\"remove-class\" alt=\"Remove\"><div class=\"class-m-info\"><span class=\"class-name\">" + cat_code + ": " + s_class['type'] + "</span><span class=\"class-time\">" + s_class['times'][i] + "</span></div></li></div>");
 }
 
 ScheduleHandler.prototype.remove_class_with_id = function(cat_code, id) {
@@ -243,7 +228,7 @@ function setup_schedule() {
     var id = $(this).parent().attr('class_id');
     var err = scheduleHandler.remove_class_with_id(cat_code, id);
     if (err != -1) {
-      $(".class-m[class_id=\"" + id + "\"]").remove();
+      $(".class-m[class_id=\"" + id + "\"]").parent().remove();
       reload_table()
       scheduleHandler.reload_crns();
     }
@@ -258,9 +243,17 @@ function setup_schedule() {
     var cat_code = $(this).attr("course")
     // just need to write a function to retrieve the class title
     var title = handler.get_title_with_code(cat_code);
-    if ($(this).parent().find('.class-container-text').is(":visible")) {
-      $(this).parent().find('.class-container-text').css("line-height", $(this).parent().find('.class-container-text').height() + "px")
-      $(this).parent().find('.class-container-text').html("23421")
+    var container_text = $(this).parent().find('.class-container-text')
+    if (container_text.is(":visible")) {
+      if (container_text.attr('alt') != "") {
+        if (container_text.html().includes(container_text.attr('alt'))) {
+          container_text.css("line-height", "normal")
+          container_text.html(title)
+        } else {
+          container_text.css("line-height", container_text.height() + "px")
+          container_text.html("CRN: " + container_text.attr('alt'))
+        }
+      }
     }
     $(this).parent().find('.class-container-text').fadeIn(10);
     $(this).parent().effect( "bounce", {times:2, distance: 10}, 200 );
