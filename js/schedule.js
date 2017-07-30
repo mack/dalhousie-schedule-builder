@@ -95,10 +95,16 @@ ScheduleHandler.prototype.is_class_selected = function(cat_code, id, type) {
 
 // add's to storage object
 ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
+  // Has 6 courses selected
   if (Object.keys(this.selected_courses).length >= 6 && this.selected_courses[cat_code] == undefined) {
     display_notification('You\'ve reached the limit of courses (6)', "neutral");
     return -1;
   }
+  // Overlapping times
+  if (this.check_for_conflicts(s_class)) {
+    return -1;
+  }
+  // Course without a scheduled time
   if (s_class['times'][0] == "C/D") {
     display_notification('We can\'t add C/D courses at this time. The CRN is: ' + s_class['crn'], "neutral");
     return -1;
@@ -207,10 +213,12 @@ ScheduleHandler.prototype.place_classes = function() {
       s_class.css(tile_colors[course_color])
 
       var top = 29 + ((start / 30) * 25);
+
       var height = (50 * duration) - 10;
 
       var class_tip = s_class.parent().find('.class-container-text')
-      class_tip.css("top", (top - class_tip.height() - 20).toString() + "px")
+
+      class_tip.css({"top": (top - class_tip.height() - 20).toString() + "px"})
 
       s_class.css({
       "top": top.toString() + "px",
@@ -256,7 +264,7 @@ function setup_schedule() {
       }
     }
     $(this).parent().find('.class-container-text').fadeIn(10);
-    $(this).parent().effect( "bounce", {times:2, distance: 10}, 200 );
+    $(this).parent().effect( "bounce", {times:2, distance: 5}, 300 );
   })
 
   $(".courses-full > ul").on("mouseenter", '.class-m', function() {
@@ -268,8 +276,12 @@ function setup_schedule() {
   })
 }
 
-function check_for_conflicting_times() {
+ScheduleHandler.prototype.check_for_conflicts = function(s_class) {
+  console.log(s_class)
 
+  // var start = s_class['times'][i].split("-")[0];
+  // var end = s_class['times'][i].split("-")[1];
+  // start =
 }
 
 var last_timeout = null;

@@ -304,6 +304,7 @@ nav {
 
 .class-container-text {
   display: none;
+  vertical-align: middle;
   background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 20px;
@@ -313,6 +314,7 @@ nav {
   width: 100%;
   color: white;
   padding: 3px 2px;
+
 }
 
 .class-container-text::after {

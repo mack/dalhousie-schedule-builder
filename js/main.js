@@ -68,6 +68,24 @@ $(document).ready(function(){
   load_storage();
   setup_schedule();
 
+
+  var category = decodeURIComponent(window.location.search.substring(1));
+  handler.update_category(category);
+  if (category == "") {
+    $('#course-table').empty();
+    $('#course-table').append("<span id=\"no-selected\">No subject selected</span>");
+  } else {
+    handler.get_course(function(courses, err) {
+      if (err == -1) {
+        $('#course-table').empty();
+        $('#course-table').append("<span id=\"no-selected\">Oops! The server doesn't seem to be online. Try again in a few minutes.</span>");
+      } else {
+        $("#course-list").val(category);
+        update_courses(courses);
+      }
+    });
+  }
+
   $('#search').keyup(function() {
     search_string = $('#search').val();
     var category = $('#course-list').find(":selected").attr('value');
@@ -81,6 +99,7 @@ $(document).ready(function(){
   $( "#course-list" ).change(function() {
     currentSelectedRow = null;
     var category = $('#course-list').find(":selected").attr('value');
+    history.pushState(null, null, "?" + category.toLowerCase());
     handler.update_category(category);
     if (category == "") {
       $('#course-table').empty();
