@@ -226,7 +226,7 @@ function setup_ui() {
     });
 
     // course crn reload
-    $(".course-crns .course-table-header > img").click(function() {
+    $(".course-crns .course-table-header .tool-tip-container > img").click(function() {
       scheduleHandler.reload_crns();
     })
 

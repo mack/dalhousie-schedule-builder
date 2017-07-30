@@ -182,7 +182,9 @@ function add_class_to_day_html(day, cat_code, s_class, i) {
   var start = s_class['times'][i].split("-")[0];
   var end = s_class['times'][i].split("-")[1];
 
-  $(".courses-full > ul").find("ul").eq(day).append("<li class=\"class-m\" data-start=\"" + start + "\" data-end=\"" + end + "\" course=\"" + cat_code + "\" class_id=\"" + s_class['id'] + "\"><img src=\"img/close.svg\" id=\"remove-class\" alt=\"Remove\"><div class=\"class-m-info\"><span class=\"class-name\">" + cat_code + ": " + s_class['type'] + "</span><span class=\"class-time\">" + s_class['times'][i] + "</span></div></li>");
+  var title = handler.get_title_with_code(cat_code);
+
+  $(".courses-full > ul").find("ul").eq(day).append("<div class=\'class-container\'><span class=\'class-container-text\'> " + title + "</span><li class=\"class-m\" data-start=\"" + start + "\" data-end=\"" + end + "\" course=\"" + cat_code + "\" class_id=\"" + s_class['id'] + "\"><img src=\"img/close.svg\" id=\"remove-class\" alt=\"Remove\"><div class=\"class-m-info\"><span class=\"class-name\">" + cat_code + ": " + s_class['type'] + "</span><span class=\"class-time\">" + s_class['times'][i] + "</span></div></li></div>");
 }
 
 ScheduleHandler.prototype.remove_class_with_id = function(cat_code, id) {
@@ -221,6 +223,10 @@ ScheduleHandler.prototype.place_classes = function() {
 
       var top = 29 + ((start / 30) * 25);
       var height = (50 * duration) - 10;
+
+      var class_tip = s_class.parent().find('.class-container-text')
+      class_tip.css("top", (top - class_tip.height() - 20).toString() + "px")
+
       s_class.css({
       "top": top.toString() + "px",
       "height": height.toString() + "px"
@@ -252,9 +258,12 @@ function setup_schedule() {
     var cat_code = $(this).attr("course")
     // just need to write a function to retrieve the class title
     var title = handler.get_title_with_code(cat_code);
-    display_notification(title, "info", bg);
-    $(this).effect( "bounce", {times:2, distance: 10}, 200 );
-
+    if ($(this).parent().find('.class-container-text').is(":visible")) {
+      $(this).parent().find('.class-container-text').css("line-height", $(this).parent().find('.class-container-text').height() + "px")
+      $(this).parent().find('.class-container-text').html("23421")
+    }
+    $(this).parent().find('.class-container-text').fadeIn(10);
+    $(this).parent().effect( "bounce", {times:2, distance: 10}, 200 );
   })
 
   $(".courses-full > ul").on("mouseenter", '.class-m', function() {
@@ -262,6 +271,7 @@ function setup_schedule() {
   })
   $(".courses-full > ul").on("mouseleave", '.class-m', function() {
     $(this).find('#remove-class').css('display', "none");
+    $(this).parent().find('.class-container-text').fadeOut(50);
   })
 }
 

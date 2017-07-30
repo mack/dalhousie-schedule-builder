@@ -298,6 +298,34 @@ nav {
   text-shadow: 0px 2px rgba(60, 60, 60, 0.55);
 }
 
+.class-container {
+  position: relative;
+}
+
+.class-container-text {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 20px;
+  z-index: 20;
+  border-radius: 5px;
+  text-align: center;
+  width: 100%;
+  color: white;
+  padding: 3px 0;
+}
+
+.class-container-text::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
+}
+
 .class-m > img {
   opacity: 0.85;
   position: absolute;
@@ -569,7 +597,7 @@ nav {
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent transparent black;
+  border-color: transparent transparent transparent rgba(0, 0, 0, 0.8);
 }
 
 .tool-tip-container:hover .tool-tip-text {
