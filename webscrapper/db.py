@@ -3,7 +3,7 @@ import pymysql as mysql
 class Database:
         host = '127.0.0.1'
         user = 'root'
-        password = 'chickensoup23'
+        password = 'lalaland123'
         db = 'dal'
 
         def __init__(self):
@@ -17,7 +17,7 @@ class Database:
         def saveCourses(self, courses):
             try:
                 for i in range(0, len(courses)):
-                    self.cursor.execute("INSERT INTO courses(title) VALUES (\"{0}\");".format(courses[i].title))
+                    self.cursor.execute("INSERT INTO courses(title, category, code, term) VALUES (\"{0}\", \"{1}\", \"{2}\", 2);".format(courses[i].title, courses[i].category, courses[i].code))
                     self.connection.commit()
                     courseId = self.cursor.lastrowid
                     self.saveClass(courses[i].classes, courseId)

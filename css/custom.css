@@ -43,8 +43,8 @@ header {
 
 nav a {
   color: #828282;
-  font-weight: 400;
-  font-size: 0.9em;
+  font-weight: 600;
+  font-size: 0.88em;
   text-decoration: none;
   padding: 19px 40px;
   display: inline-block;
@@ -52,7 +52,6 @@ nav a {
 
 nav a:hover {
   color: #9b59b6;
-  font-weight: 600;
   border-bottom: 4px solid #9b59b6;
 }
 
