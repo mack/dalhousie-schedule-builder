@@ -273,11 +273,35 @@ function setup_schedule() {
   })
 
   $(".courses-full > ul").on("mouseenter", '.class-m', function() {
+    var current_rgb = $(this).css("background-color").replace("rgb(", "").replace(")","").split(",");
+    var new_rgb = "rgb("
+    for (var j = 0; j < 3; j++) {
+      var int_rgb = Math.round(parseInt(current_rgb[j]) * 0.85);
+      if (j == 2) {
+        new_rgb += int_rgb.toString() + ")";
+      } else {
+        new_rgb += int_rgb.toString() + ",";
+      }
+    }
+    var id = $(this).attr("class_id");
+    $(".class-m[class_id=\"" + id + "\"]").css("background-color", new_rgb);
     $(this).find('#remove-class').css('display', "block");
   })
   $(".courses-full > ul").on("mouseleave", '.class-m', function() {
-    $(this).find('#remove-class').css('display', "none");
+    var current_rgb = $(this).css("background-color").replace("rgb(", "").replace(")","").split(",");
+    var new_rgb = "rgb("
+    for (var j = 0; j < 3; j++) {
+      var int_rgb = Math.round(parseInt(current_rgb[j]) / 0.85);
+      if (j == 2) {
+        new_rgb += int_rgb.toString() + ")";
+      } else {
+        new_rgb += int_rgb.toString() + ",";
+      }
+    }
+    var id = $(this).attr("class_id");
+    $(".class-m[class_id=\"" + id + "\"]").css("background-color", new_rgb);
     $(this).parent().find('.class-container-text').fadeOut(50);
+    $(this).find('#remove-class').css('display', "none");
   })
 }
 
