@@ -100,8 +100,11 @@ ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
     return -1;
   }
   // Overlapping times
-  if (this.check_for_conflicts(s_class)) {
-    display_notification('The time conflicts with CSCI 1000', "neutral");
+  var conf = this.check_for_conflicts(s_class);
+  if (conf != undefined) {
+    var cat_code_conf = Object.keys(conf)[0];
+    var times_conf = conf[cat_code_conf]
+    display_notification('Course conflicts with ' + cat_code_conf + " " + times_conf, "neutral");
     return -1;
   }
   // Course without a scheduled time
@@ -295,15 +298,18 @@ ScheduleHandler.prototype.check_for_conflicts = function(s_class) {
           var c_end = c_class['times'][l].split("-")[1];
           var c_days = c_class['days'][l]
           if (c_start != undefined && c_end != undefined) {
-            if (is_overlap(start, end, days, c_start, c_end, c_days)) {
-              return true;
+            var conf_str = is_overlap(start, end, days, c_start, c_end, c_days);
+            if (conf_str != undefined) {
+              var obj = {};
+              obj[keys[j]] = conf_str;
+              return obj;
             }
           }
         }
       }
     }
   }
-  return false;
+  return undefined;
 }
 
 function is_overlap(s_start, s_end, s_days, c_start, c_end, c_days) {
@@ -317,12 +323,12 @@ function is_overlap(s_start, s_end, s_days, c_start, c_end, c_days) {
         if ( (s_start_time == c_start_time && s_end_time == c_end_time)  // equal
         || (c_start_time >= s_start_time && c_start_time <= s_end_time) // c_class starts during
         || (c_end_time >= s_start_time && c_end_time <= s_end_time) )  {// c_class ends during
-            return true;
+            return "on " + s_days[m] + " at " + c_start + " to " + c_end + ".";
         }
 
       }
     }
-    return false;
+    return undefined;
 }
 
 var last_timeout = null;

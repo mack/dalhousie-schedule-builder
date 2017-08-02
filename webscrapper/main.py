@@ -165,7 +165,7 @@ def main():
     "fall/winter":"201810%\2C201820"
     }
     district = "100"
-
+    
     database = db.Database()
 
     for subject in subjects:
