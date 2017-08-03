@@ -139,6 +139,19 @@ ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
     display_notification('You\'ve reached the limit of courses (6)', "neutral");
     return -1;
   }
+  // Already selected type
+  if (this.selected_courses[cat_code] != undefined) {
+    var type_detected = false;
+    for (i = 0; i < this.selected_courses[cat_code].length; i++) {
+        if (this.selected_courses[cat_code][i]['type'] == s_class['type']) {
+          type_detected = true;
+        }
+    }
+    if (type_detected) {
+      display_notification('You already have a class of type: ' + s_class['type'], "neutral");
+      return -1;
+    }
+  }
   // Overlapping times
   var conf = this.check_for_conflicts(s_class);
   if (conf != undefined) {
@@ -155,21 +168,12 @@ ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
   if (this.selected_courses[cat_code] == undefined) {
     this.course_colors[cat_code] = this.choose_rand_color()
     this.selected_courses[cat_code] = [s_class];
+    return 0;
   } else {
-    var type_detected = false;
-    for (i = 0; i < this.selected_courses[cat_code].length; i++) {
-        if (this.selected_courses[cat_code][i]['type'] == s_class['type']) {
-          type_detected = true;
-        }
-    }
-    if (!type_detected) {
-      this.selected_courses[cat_code].push(s_class);
-      return 0;
-    } else {
-      display_notification('You already have a class of type: ' + s_class['type'], "neutral");
-      return -1;
-    }
+    this.selected_courses[cat_code].push(s_class);
+    return 0;
   }
+
 }
 
 var tile_colors = {
