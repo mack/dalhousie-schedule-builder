@@ -15,12 +15,21 @@ body {
 }
 
 .logo {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
   float: left;
   margin-left: 30px;
   margin-top: 10px;
 }
 
 .logo-text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
+  cursor: default;
   font-weight: 600;
   margin-top: 12.5px;
   margin-left: 8px;
@@ -39,6 +48,13 @@ header {
   height: 60px;
   background-color: #fff;
   box-shadow: 0 2px rgba(0, 0, 0, .08);
+}
+
+#nav-container {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
 }
 
 nav a {
@@ -100,6 +116,10 @@ nav {
 .semester-selector {
   width: 100%;
   height: 50px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
 }
 
 .semester-selector a {
@@ -169,6 +189,10 @@ nav {
 }
 
 .timeline {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
   display: block;
   position: absolute;
   top: 0;
@@ -339,6 +363,10 @@ nav {
 }
 
 .day-header {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
   display: table;
   width: 100%;
 
@@ -351,6 +379,10 @@ nav {
 
 /* MARK: - COURSE TABLE CONTAINER */
 .course-container #course-list {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
   margin: auto;
   margin-top: 13px;
   height: 30px;
@@ -405,6 +437,10 @@ nav {
 }
 
 .course-table-header {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
   text-align:left;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -606,6 +642,10 @@ nav {
 }
 
 #CRN-fall-head {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
   color: #C3C3C3;
   font-size: 13px;
   margin-left: 10px;
@@ -614,6 +654,10 @@ nav {
   margin-bottom: 3px;
 }
 #CRN-winter-head {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
   margin-bottom: 3px;
   color: #C3C3C3;
   font-size: 13px;
