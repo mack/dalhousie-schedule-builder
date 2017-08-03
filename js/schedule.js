@@ -17,7 +17,7 @@ ScheduleHandler.prototype.add_class_to_schedule = function(class_id) {
   var cat_code = Object.keys(new_class)[0];
   var err = this.add_to_selected(cat_code, new_class[cat_code]); // adds to this.object's variable selected_courses
   if (err != -1) {
-    this.reload_crns();
+    this.add_to_crns(new_class[cat_code]['crn']);
     this.add_to_html(cat_code, new_class[cat_code]); // adds to html
     return 0;
   } else {
@@ -25,20 +25,60 @@ ScheduleHandler.prototype.add_class_to_schedule = function(class_id) {
   }
 }
 
+ScheduleHandler.prototype.remove_crn = function(crn) {
+  var crns = localStorage.getItem("crns_" + selected_semester_id);
+  crns = JSON.parse(crns);
+  var idx = crns.indexOf(crn)
+  crns.splice(idx, 1);
+  var crns_json = JSON.stringify(crns);
+  localStorage.setItem("crns_" + selected_semester_id, crns_json);
+  this.reload_crns();
+}
+
+ScheduleHandler.prototype.add_to_crns = function(crn) {
+  var crns = localStorage.getItem("crns_" + selected_semester_id);
+  crns = JSON.parse(crns);
+  if (crns == null) {
+    crns = [crn];
+  } else {
+    crns.push(crn);
+  }
+
+  var crns_json = JSON.stringify(crns);
+  localStorage.setItem("crns_" + selected_semester_id, crns_json);
+  this.reload_crns();
+}
+
 ScheduleHandler.prototype.reload_crns = function() {
-  fall_crn = ""
-  var keys = Object.keys(this.selected_courses)
-  for (var i = 0; i < keys.length; i++) {
-    for (var j = 0; j < this.selected_courses[keys[i]].length; j++) {
-      var c_crn = this.selected_courses[keys[i]][j]['crn'];
-      if (fall_crn == "") {
-        fall_crn = c_crn.toString();
+  // fall
+  var fall_crns = localStorage.getItem("crns_1");
+  fall_crns = JSON.parse(fall_crns);
+  fall_crns_txt = ""
+  if (fall_crns != null) {
+    for (var i = 0; i < fall_crns.length; i++) {
+      if (i == 0) {
+        fall_crns_txt = fall_crns[i];
       } else {
-        fall_crn += ", " + c_crn.toString();
+        fall_crns_txt += ", " + fall_crns[i]
       }
     }
+    $('#fall').val(fall_crns_txt);
   }
-  $('#fall').val(fall_crn);
+
+  // winter
+  var winter_crns = localStorage.getItem("crns_2");
+  winter_crns = JSON.parse(winter_crns);
+  winter_crns_txt = ""
+  if (winter_crns != null) {
+    for (var i = 0; i < winter_crns.length; i++) {
+      if (i == 0) {
+        winter_crns_txt = winter_crns[i];
+      } else {
+        winter_crns_txt += ", " + winter_crns[i]
+      }
+    }
+    $('#winter').val(winter_crns_txt);
+  }
 }
 
 ScheduleHandler.prototype.add_to_html = function(cat_code, s_class) {
@@ -184,6 +224,8 @@ function add_class_to_day_html(day, cat_code, s_class, i) {
 ScheduleHandler.prototype.remove_class_with_id = function(cat_code, id) {
   for (i = 0; i < this.selected_courses[cat_code].length; i++) {
     if (this.selected_courses[cat_code][i]['id'].toString() == id) {
+      var crn = this.selected_courses[cat_code][i]['crn'];
+      this.remove_crn(crn)
       this.selected_courses[cat_code].splice(i, 1);
       if (this.selected_courses[cat_code].length == 0) {
         this.colors.push(this.course_colors[cat_code]);
