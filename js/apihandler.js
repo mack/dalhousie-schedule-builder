@@ -10,7 +10,7 @@ APIHandler.prototype.update_category = function(category) {
 APIHandler.prototype.get_course = function(callback, err) {
   var self = this;
   if (self.stored_courses[self.current_category] == null) {
-      $.get( "http://localhost:8080/api/courses?s=" + self.current_category, function( res ) {
+      $.get( "http://localhost:8080/api/courses?s=" + self.current_category + "&t=" + selected_semester_id, function( res ) {
         var courses = res['data'];
         format_classes(courses);
         add_to_handler(self, courses, self.current_category);
