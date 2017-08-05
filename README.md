@@ -5,7 +5,12 @@ Dal Schedule Builder is a web app built for Dalhousie students registering for c
 I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_DisplaySchedule) for the information. I'll have my web scrapper run aprox. once per day to check for changes.
 
 ## Preview
-![Web](https://s11.postimg.org/uhxi0n47l/Screen_Shot_2017-07-28_at_2.33.52_PM.png "Website Preview")
+<p align="center">
+  <img src="http://i.imgur.com/rBXzpbV.png" alt="Web Preview"/>
+</p>
+<p align="center">
+  <img src="http://i.imgur.com/OoO65i7.png" alt="Mobile Preview"/>
+</p>
 
 ## TODO
 * Add clear all selected classes button
@@ -13,7 +18,7 @@ I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_Displ
 * View all classes page
 * Click on CRN to view course information
 
-# IN PROGRESS
+## IN PROGRESS
 
 ## Last 5 things completed
 * Make winter/fall selection functional
