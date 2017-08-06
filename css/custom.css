@@ -142,6 +142,10 @@ nav {
 
 /* MARK: - SCHEDULE CONTAINER */
 
+.sched_menu {
+  background-color: blue;
+}
+
 /* schedule notification */
 .schedule-notif > img {
   vertical-align: middle;
