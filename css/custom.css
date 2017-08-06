@@ -148,7 +148,7 @@ nav {
   height: 50px;
   line-height: 50px;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.4;
 }
 .sched_menu:hover {
   opacity: 0.9;

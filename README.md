@@ -13,7 +13,6 @@ I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_Displ
 </p>
 
 ## TODO
-* Add clear all selected classes button
 * Make Email functional
 * View all classes page
 * Click on CRN to view course information
@@ -21,8 +20,8 @@ I'm web scrapping [Dal TimeTable](https://dalonline.dal.ca/PROD/fysktime.P_Displ
 ## IN PROGRESS
 
 ## Last 5 things completed
+* Add clear all selected classes button
 * Make winter/fall selection functional
 * Handle conflicting time classes (and offer suggestions)
 * Update DB with winter information
 * Figure out how to handle classes with C/D time (maybe make popup saying "We can't add classes with C/D at this time, however here is CLASS_NAME's CRN.")
-* Display multiple class capacity counts and add proper color (fill-low, fill-med, fill-high)
