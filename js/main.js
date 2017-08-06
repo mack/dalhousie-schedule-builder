@@ -75,7 +75,6 @@ $(document).ready(function(){
   load_storage();
   setup_schedule();
 
-
   var category = decodeURIComponent(window.location.search.substring(1));
   handler.update_category(category);
   if (category == "") {
@@ -250,6 +249,13 @@ function setup_ui() {
     $(this).addClass('focus');
   }, function() {
     $(this).removeClass('focus');
+  })
+
+  $('.sched_menu .tool-tip-container > img').click(function() {
+    clear_storage();
+    reload_table();
+    $('.class-container').remove();
+    scheduleHandler.reload_crns();
   })
 
   var selected_navigation = $(".nav-item.selected")

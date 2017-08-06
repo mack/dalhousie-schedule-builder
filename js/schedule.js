@@ -51,6 +51,7 @@ ScheduleHandler.prototype.add_to_crns = function(crn) {
 
 ScheduleHandler.prototype.reload_crns = function() {
   // fall
+
   var fall_crns = localStorage.getItem("crns_1");
   fall_crns = JSON.parse(fall_crns);
   fall_crns_txt = ""
@@ -62,8 +63,8 @@ ScheduleHandler.prototype.reload_crns = function() {
         fall_crns_txt += ", " + fall_crns[i]
       }
     }
-    $('#fall').val(fall_crns_txt);
   }
+  $('#fall').val(fall_crns_txt);
 
   // winter
   var winter_crns = localStorage.getItem("crns_2");
@@ -77,8 +78,8 @@ ScheduleHandler.prototype.reload_crns = function() {
         winter_crns_txt += ", " + winter_crns[i]
       }
     }
-    $('#winter').val(winter_crns_txt);
   }
+  $('#winter').val(winter_crns_txt);
 }
 
 ScheduleHandler.prototype.add_to_html = function(cat_code, s_class) {
@@ -134,6 +135,11 @@ ScheduleHandler.prototype.is_class_selected = function(cat_code, id, type) {
 
 // add's to storage object
 ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
+  // Course without a scheduled time
+  if (s_class['times'][0] == "C/D") {
+    display_notification('We can\'t add C/D courses at this time. The CRN is: ' + s_class['crn'], "neutral");
+    return -1;
+  }
   // Has 6 courses selected
   if (Object.keys(this.selected_courses).length >= 6 && this.selected_courses[cat_code] == undefined) {
     display_notification('You\'ve reached the limit of courses (6)', "neutral");
@@ -158,11 +164,6 @@ ScheduleHandler.prototype.add_to_selected = function(cat_code, s_class) {
     var cat_code_conf = Object.keys(conf)[0];
     var times_conf = conf[cat_code_conf]
     display_notification('Course conflicts with ' + cat_code_conf + " " + times_conf, "neutral");
-    return -1;
-  }
-  // Course without a scheduled time
-  if (s_class['times'][0] == "C/D") {
-    display_notification('We can\'t add C/D courses at this time. The CRN is: ' + s_class['crn'], "neutral");
     return -1;
   }
   if (this.selected_courses[cat_code] == undefined) {
@@ -446,8 +447,10 @@ function display_notification_in_html(text, type, bg) {
 
 function timestamp(time) {
   // turns time into minutes
-  time = time.replace(/ /g,'');
-  var time_arr = time.split(':');
-  var time_stamp = parseInt(time_arr[0])*60 + parseInt(time_arr[1]);
-  return time_stamp;
+  if (time != null) {
+    time = time.replace(/ /g,'');
+    var time_arr = time.split(':');
+    var time_stamp = parseInt(time_arr[0])*60 + parseInt(time_arr[1]);
+    return time_stamp;
+  }
 }
