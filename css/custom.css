@@ -143,7 +143,20 @@ nav {
 /* MARK: - SCHEDULE CONTAINER */
 
 .sched_menu {
-  background-color: blue;
+  margin-right: 10px;
+  float: right;
+  height: 50px;
+  line-height: 50px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+.sched_menu:hover {
+  opacity: 0.9;
+}
+.sched_menu .tool-tip-container .tool-tip-text {
+  top: 9px;
+  right: 140%;
+  width: 170px;
 }
 
 /* schedule notification */
