@@ -1,3 +1,5 @@
+Will be releasing this on dalschedule.ca
+
 # DalhousieScheduleBuilder
 Dal Schedule Builder is a web app built for Dalhousie students registering for classes. As a student myself, registering for classes was a pain, I'd hand draw a table and fill in classes. When I came upon a conflict, I would need to erase the classes from my table. This, as well as  having to record all current CRN's, left me with a messy page. Hopefully this helps some people.
 
