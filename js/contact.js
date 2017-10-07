@@ -8,7 +8,7 @@ function setup_ui() {
   $(".menu").click(function() {
     $("#nav-container").slideToggle(300);
   });
-  
+
   var selected_navigation = $(".nav-item.selected")
   $(".nav-item").hover(
     function() {
@@ -30,5 +30,15 @@ function setup_ui() {
     });
     $(".send").click(function(){
       // send email here
+      var name = $('.name').val();
+      var email = $('.email').val();
+      var body = $('.mail-body').val();
+      $.get( "http://localhost:8080/api/message?n=" + name + "&e=" + email + "&b=" + body, function( res ) {
+        // trigger success popup
+        console.log('success')
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+        // trigger error
+        console.log('error')
+      });
     });
 }
