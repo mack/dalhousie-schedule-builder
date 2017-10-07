@@ -35,10 +35,13 @@ function setup_ui() {
       var body = $('.mail-body').val();
       $.get( "http://localhost:8080/api/message?n=" + name + "&e=" + email + "&b=" + body, function( res ) {
         // trigger success popup
-        console.log('success')
+        $('.response-message').html("Success! The message sent");
+        $('.response-message').css("display", "block");
+        $('.response-message').removeClass("error");
       }).fail(function(jqXHR, textStatus, errorThrown) {
-        // trigger error
-        console.log('error')
+        $('.response-message').html("Error! Email me at mack.boudreau2@gmail.com");
+        $('.response-message').css("display", "block");
+        $('.response-message').addClass("error");
       });
     });
 }

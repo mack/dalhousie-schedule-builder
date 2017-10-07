@@ -95,6 +95,17 @@ h1 {
   margin-bottom: 5px;
 }
 
+.response-message {
+  display: none;
+  font-size: 15px;
+  color: black;
+  margin-top: 2px;
+}
+
+.error {
+  color: #c44e4e;
+}
+
 @media screen and (max-width: 570px) {
   .footer {
     width: 90%;
