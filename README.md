@@ -1,4 +1,4 @@
-**Site is currently down. I'm switching to AWS servers...**
+**Site isn't functional anymore. I was switching over to AWS, then other life priorities came up. 1 year later (and after some requests) I'm redoing this project :)**
 ~Check out the live website, we have mobile support (well... kinda), at [dalschedulebuilder.com](http://dalschedulebuilder.com)~ 
 
 # DalhousieScheduleBuilder [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
